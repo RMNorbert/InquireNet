@@ -1,5 +1,6 @@
 # InquireNet
 InquireNet is an interactive question and answer platform that leverages the power of AI for automated answers. It is built using Java, Spring, JDBC, and other technologies to provide a robust and user-friendly web application.
+
 Features
 
     User Registration and Authentication: Users can create accounts and securely log in to the platform to ask and answer questions.

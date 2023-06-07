@@ -28,6 +28,8 @@ Installation
 Contributing
 
 Contributions are welcome! If you would like to contribute to InquireNet, please follow the guidelines outlined in the CONTRIBUTING.md file.
+
+
 License
 
 This project is licensed under the MIT License - see the LICENSE.md file for details.

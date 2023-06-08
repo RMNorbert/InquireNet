@@ -1,11 +1,13 @@
 package com.rmnnorbert.InquireNet.dto.user;
 
+import com.rmnnorbert.InquireNet.dao.model.user.User;
+
 import java.time.LocalDateTime;
 
 public class UserDTO {
     private final int id;
-    private String status;
-    private String name;
+    private final String status;
+    private final String name;
     private final LocalDateTime registration_date;
     private int number_of_questions;
     private int number_of_answers;

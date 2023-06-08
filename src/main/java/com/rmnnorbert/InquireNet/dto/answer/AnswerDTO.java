@@ -1,12 +1,14 @@
 package com.rmnnorbert.InquireNet.dto.answer;
 
+import com.rmnnorbert.InquireNet.dao.model.answer.Answer;
+
 import java.time.LocalDateTime;
 
 public class AnswerDTO {
     private final int answer_id;
     private final int question_id;
-    private String description;
-    private LocalDateTime created;
+    private final String description;
+    private final LocalDateTime created;
 
     private AnswerDTO(int answer_id,
                       int question_id,

@@ -1,9 +1,14 @@
 package com.rmnnorbert.InquireNet.controller;
 
+import com.rmnnorbert.InquireNet.dao.model.user.User;
+import com.rmnnorbert.InquireNet.dto.user.NewUserDTO;
+import com.rmnnorbert.InquireNet.dto.user.UserDTO;
+import com.rmnnorbert.InquireNet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController

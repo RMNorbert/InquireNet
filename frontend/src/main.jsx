@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Register } from "./components/user/Register";
 import { Login } from "./components/user/Login";
 import { SelectedQuestion } from "./components/questions/SelectedQuestion";
-import { CreateQuestion } from "./components/questions/CreateQuestion";
+import { CreateQuestion } from "./components/questions/CreateQuestion.jsx";
 import { Header } from "./components/Header";
 import { User } from "./components/user/User";
 

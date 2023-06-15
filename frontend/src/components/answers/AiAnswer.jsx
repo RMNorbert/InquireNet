@@ -12,12 +12,19 @@ export const aiAnswerQuestion = async(title,question_id)=>{
          body: JSON.stringify({
              model : "gpt-3.5-turbo",
              messages: [{ role: "user", content: title}],
-            // max_tokens : 100,
+             max_tokens : 100,
          })
      }
+     try{
      const res = await fetch(url, options);
      const data = await res.json();
      const answer = await data.data.choices[0].message.content.replace(/As an AI language model/g,'');
-     await submitAnswer(await answer, question_id);
+     if(question_id > 0) {
+         await submitAnswer(await answer, question_id);
+     }
+     return answer;
+     } catch (error) {
+         console.error(error);
+     }
 }
 

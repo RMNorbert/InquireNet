@@ -62,7 +62,7 @@ export const SelectedQuestion = ({}) => {
                     </button>
                 </form>
                 <div className="flex justify-center">
-                    <div className="h-64 bg-white my-5 rounded-xl w-2/3 text-black  ">
+                    <div className="h-64 bg-slate-200 my-5 rounded-xl w-2/3 text-black  ">
                         <p className="text-5xl flex justify-center">
                             {currentQuestion.title}
                         </p>

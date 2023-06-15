@@ -7,3 +7,84 @@ body,html {
   @apply font-sans text-slate-50;
   @apply bg-slate-500
 }
+.chat{
+  color: white;
+  border: solid 0.5px rgb(255, 255, 255, 0.5);
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+.side-bar{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #202123;
+  height: 100vh;
+  width: 244px;
+
+}
+
+.main{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+nav {
+  border-top: solid 0.5px rgb(255, 255, 255, 0.5);
+  padding: 10px;
+  margin: 10px;
+}
+.history{
+
+  padding: 10px;
+  margin: 10px;
+  height: 100%;
+}
+.history li {
+  list-style-type: none;
+  padding: 15px 0;
+  cursor: pointer;
+  border-top: solid 0.5px rgb(255, 255, 255, 0.5);
+  border-bottom: solid 0.5px rgb(255, 255, 255, 0.5);
+}
+#submit{
+  cursor: pointer;
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  font-size: 28px;
+}
+.app{
+  display: flex;
+}
+.bottom-section{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.input-container{
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+}
+input {
+  width: 100%;
+  border: none;
+  padding: 12px 15px;
+  background-color: rgb(255,255,255, 0.05);
+  border-radius: 5px;
+  box-shadow: rgba(0,0,0,0.05) 0 54px 55px,
+              rgba(0,0,0,0.05) 0 -12px 30px,
+              rgba(0,0,0,0.05) 0 4px 6px,
+              rgba(0,0,0,0.05) 0 12px 3px,
+              rgba(0,0,0,0.05) 0 -3px 15px;
+}
+input:focus {
+  outline: none;
+}

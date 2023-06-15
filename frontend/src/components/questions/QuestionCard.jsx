@@ -13,7 +13,7 @@ export const QuestionCard = ({ id, title, description, created, numberOfAnswers 
     };
     return (
         <div
-            className="text-black w-1/2 m-4 bg-white rounded flex justify-between p-4 rounded-xl"
+            className="text-black w-1/2 m-4 bg-slate-200 rounded flex justify-between p-4 rounded-xl"
             key={id}
             onClick={handleAnswer}
         >

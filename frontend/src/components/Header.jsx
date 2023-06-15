@@ -23,9 +23,9 @@ export const Header = () => {
     });
 
     return (<>
-        <div className="flex justify-between bg-white text-4xl text-black h-24 rounded-xl h-44">
+        <div className="flex justify-between bg-slate-200 text-4xl text-black h-24 rounded-xl h-36 pl-10 ">
             <a href="/" className="flex"><img className="t-0 left-230px " src={'/log.png'} alt={"logo"}/></a>
-            <div className="pr-36 pt-16 text-center">
+            <div className="pr-36 pt-10 text-center">
                 {currentUrlPath !== "forum" ? <a href="/forum">
                 <button className=" h-16 w-64 rounded-xl h-12  border-sky-600 hover:bg-sky-900 border-solid border-2 ">
                      Forum

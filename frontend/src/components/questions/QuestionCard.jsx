@@ -13,18 +13,18 @@ export const QuestionCard = ({ id, title, description, created, numberOfAnswers 
     };
     return (
         <div
-            className="text-black w-1/2 m-4 bg-white rounded flex justify-between p-4"
+            className="text-black w-1/2 m-4 bg-white rounded flex justify-between p-4 rounded-xl"
             key={id}
             onClick={handleAnswer}
         >
-            <div>
+            <div >
                 <p>Title: {title}</p>
                 <p>Description: {description}</p>
                 <p>Created: {`${createdTime} `}</p>
             </div>
-            <div>
+            <div >
                 <button>
-                    <MdQuestionAnswer className="text-3xl" /> {numberOfAnswers}
+                    <MdQuestionAnswer className="text-3xl " /> {numberOfAnswers}
                 </button>
             </div>
         </div>

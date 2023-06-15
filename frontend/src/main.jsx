@@ -10,10 +10,20 @@ import { SelectedQuestion } from "./components/questions/SelectedQuestion";
 import { CreateQuestion } from "./components/questions/CreateQuestion.jsx";
 import { Header } from "./components/Header";
 import { User } from "./components/user/User";
+import {Home} from "./components/Home.jsx";
+import {Chat} from "./components/questions/Chat.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
+        element: <Home />,
+    },
+    {
+        path: "/chat",
+        element: <Chat />,
+    },
+    {
+        path: "/forum",
         element: <App />,
     },
     {

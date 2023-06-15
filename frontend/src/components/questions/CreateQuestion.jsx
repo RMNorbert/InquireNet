@@ -12,8 +12,8 @@ export const CreateQuestion = () => {
         setUserID(parseInt(Cookies.get("id")));
         let title = e.target[0].value;
         let description = e.target[1].value;
-        let aiAnswer = await fetchData(title);
         uploadQuestion(title, description, Cookies.get("id"));
+        let aiAnswer = await fetchData(title);
         navigate("/")
 
     };

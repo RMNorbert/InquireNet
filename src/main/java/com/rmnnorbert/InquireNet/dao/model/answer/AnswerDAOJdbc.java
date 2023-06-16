@@ -20,23 +20,33 @@ public class AnswerDAOJdbc implements AnswerDAO{
 
     @Override
     public List<Answer> getAllAnswers() {
-        String sql = "SELECT answer_id, question_id, description, created from answer";
+        String sql = "SELECT answer.answer_id, question_id, description, created," +
+                " COUNT(reply_id) as numberOfReply" +
+                " from answer  " +
+                "LEFT JOIN reply r on answer.answer_id = r.answer_id" +
+                " GROUP BY answer.answer_id";
         return jdbcTemplate.query(sql, new AnswerRowMapper());
     }
 
     @Override
     public Optional<Answer> findAnswerById(int id) {
-        String sql = "SELECT * FROM answer WHERE answer_id = ?";
-        return jdbcTemplate.query(sql, new AnswerRowMapper())
+        String sql = "SELECT answer.answer_id,answer.question_id, answer.description, answer.created, COUNT(reply_id) as numberOfReply " +
+                " FROM answer " +
+                "    LEFT JOIN reply r on answer.answer_id = r.answer_id " +
+                " WHERE answer.answer_id = ? " +
+                " GROUP BY answer.answer_id ";
+        return jdbcTemplate.query(sql, new AnswerRowMapper(),id)
                 .stream()
                 .findFirst();
     }
 
     @Override
     public List<Answer> getAllAnswersByQuestionId(int id) {
-        String sql = "SELECT answer_id,question_id, answer.description, answer.created " +
+        String sql = "SELECT answer.answer_id,answer.question_id, answer.description, answer.created, COUNT(reply_id) as numberOfReply " +
                 " FROM answer " +
-                "WHERE answer.question_id = ?";
+                "LEFT JOIN reply r on answer.answer_id = r.answer_id " +
+                "WHERE answer.question_id = ? " +
+                " GROUP BY answer.answer_id ";
         return jdbcTemplate.query(sql, new AnswerRowMapper(),id);
     }
 

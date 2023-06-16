@@ -5,7 +5,7 @@ import { HiComputerDesktop } from "react-icons/hi2";
 
 export const Chat = ()=>{
     const [message, setMessage] = useState(null);
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState('');
     const [previousChats, setPreviousChats] = useState([]);
     const [currentTitle, setCurrentTitle] = useState(null);
     const getMessage = async () => {

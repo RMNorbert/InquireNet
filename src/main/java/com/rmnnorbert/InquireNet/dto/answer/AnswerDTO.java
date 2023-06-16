@@ -9,23 +9,26 @@ public class AnswerDTO {
     private final int question_id;
     private final String description;
     private final LocalDateTime created;
+    private final int numberOfReply;
 
     private AnswerDTO(int answer_id,
                       int question_id,
                       String description,
-                      LocalDateTime created) {
+                      LocalDateTime created,
+                      int numberOfReply) {
         this.answer_id = answer_id;
         this.question_id = question_id;
         this.description = description;
         this.created = created;
+        this.numberOfReply = numberOfReply;
     }
     public static AnswerDTO of(Answer answer){
         return new AnswerDTO(
                 answer.getAnswer_id(),
                 answer.getQuestion_id(),
                 answer.getDescription(),
-                answer.getCreated()
-        );
+                answer.getCreated(),
+                answer.getNumberOfReply());
     }
 
     public int getAnswer_id() {
@@ -42,5 +45,9 @@ public class AnswerDTO {
 
     public LocalDateTime getCreated() {
         return created;
+    }
+
+    public int getNumberOfReply() {
+        return numberOfReply;
     }
 }

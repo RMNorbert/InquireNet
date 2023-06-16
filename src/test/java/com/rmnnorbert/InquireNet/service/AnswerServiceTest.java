@@ -31,8 +31,8 @@ class AnswerServiceTest {
     @Test
     void getAllAnswersWhenAnswersExist() {
         List<Answer> answers = List.of(
-                new Answer(1,1,"desc",LocalDateTime.now()),
-                new Answer(2,1,"title", LocalDateTime.now())
+                new Answer(1,1,"desc",LocalDateTime.now(),0),
+                new Answer(2,1,"title", LocalDateTime.now(),0)
         );
         when(answerDAOJdbc.getAllAnswers()).thenReturn(answers);
 
@@ -51,7 +51,7 @@ class AnswerServiceTest {
     @Test
     void getAnswerById() {
         int id = 1;
-        Answer answer = new Answer(1,1,"desc",LocalDateTime.now());
+        Answer answer = new Answer(1,1,"desc",LocalDateTime.now(),0);
         when(answerDAOJdbc.findAnswerById(id)).thenReturn(Optional.of(answer));
 
         Optional<AnswerDTO> foundAnswer = answerService.getAnswerById(id);
@@ -65,8 +65,8 @@ class AnswerServiceTest {
     void getAllAnswersByQuestionId() {
         int id = 2;
         List<Answer> answers = List.of(
-                new Answer(1,1,"desc",LocalDateTime.now()),
-                new Answer(2,1,"title", LocalDateTime.now())
+                new Answer(1,1,"desc",LocalDateTime.now(),0),
+                new Answer(2,1,"title", LocalDateTime.now(),0)
         );
         when(answerDAOJdbc.getAllAnswersByQuestionId(id)).thenReturn(List.of(answers.get(1)));
 
@@ -78,7 +78,7 @@ class AnswerServiceTest {
     @Test
     void deleteAnswerById() {
         int id = 1;
-        Answer answer = new Answer(1,1,"desc",LocalDateTime.now());
+        Answer answer = new Answer(1,1,"desc",LocalDateTime.now(),0);
         when(answerDAOJdbc.deleteAnswerById(id)).thenReturn(true);
 
         boolean response = answerService.deleteAnswerById(id);

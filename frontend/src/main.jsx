@@ -12,6 +12,7 @@ import { Header } from "./components/Header";
 import { User } from "./components/user/User";
 import {Home} from "./components/Home.jsx";
 import {Chat} from "./components/questions/Chat.jsx";
+import {SelectedAnswer} from "./components/questions/SelectedAnswer.jsx";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
     {
         path: "/question/:id",
         element: <SelectedQuestion />,
+    },
+    {
+        path: "/answer/:id",
+        element: <SelectedAnswer />,
     },
     {
         path: "/createquestion",

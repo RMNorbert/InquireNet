@@ -7,14 +7,15 @@ public class Answer {
     private Integer question_id;
     private String description;
     private LocalDateTime created;
-
+    private int numberOfReply;
     public Answer() {}
 
-    public Answer(Integer answer_id, Integer question_id, String description, LocalDateTime created) {
+    public Answer(Integer answer_id, Integer question_id, String description, LocalDateTime created, int numberOfReply) {
         this.answer_id = answer_id;
         this.question_id = question_id;
         this.description = description;
         this.created = created;
+        this.numberOfReply = numberOfReply;
     }
 
     public Integer getAnswer_id() {
@@ -47,5 +48,13 @@ public class Answer {
 
     public void setCreated(LocalDateTime created) {
         this.created = created;
+    }
+
+    public int getNumberOfReply() {
+        return numberOfReply;
+    }
+
+    public void setNumberOfReply(int numberOfReply) {
+        this.numberOfReply = numberOfReply;
     }
 }

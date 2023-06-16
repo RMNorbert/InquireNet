@@ -14,6 +14,7 @@ export const CreateQuestion = () => {
         let description = e.target[1].value;
         uploadQuestion(title, description, Cookies.get("id"));
         let aiAnswer = await fetchData(title);
+
         navigate("/")
 
     };

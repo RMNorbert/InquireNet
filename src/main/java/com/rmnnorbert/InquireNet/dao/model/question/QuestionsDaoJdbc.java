@@ -20,7 +20,11 @@ public class QuestionsDaoJdbc implements QuestionDAO{
     }
     @Override
     public List<Question> getAllQuestion() {
-        String sql = "SELECT question.question_id, user_id, title, question.description, question.created, COUNT(answer_id) as numberOfAnswers" + " FROM question" + " LEFT JOIN answer a on question.question_id = a.question_id " + "GROUP BY question.question_id";
+        String sql = "SELECT question.question_id, user_id, title, question.description, question.created," +
+                " COUNT(answer_id) as numberOfAnswers" +
+                " FROM question" +
+                " LEFT JOIN answer a on question.question_id = a.question_id " +
+                "GROUP BY question.question_id";
 
         return jdbcTemplate.query(sql, new QuestionRowMapper());
     }

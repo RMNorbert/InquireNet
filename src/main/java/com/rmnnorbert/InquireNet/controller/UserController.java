@@ -32,6 +32,7 @@ public class UserController {
         @CrossOrigin
         @PostMapping("/create")
         public int addNewUser(@RequestBody NewUserDTO userDTO) {
+            System.out.println(userDTO);
             return userService.addUser(userDTO);
         }
         @CrossOrigin

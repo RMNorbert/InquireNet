@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import React from "react";
 import { useEffect, useState } from "react";
-import { RiUser3Fill } from "react-icons/ri";
+import { FaUserCircle } from "react-icons/fa";
 export const Header = () => {
     const [open, setOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,7 +40,7 @@ export const Header = () => {
             </div>
                 <div className="flex justify-evenly gap-y-12">
                 <div>
-                    <RiUser3Fill className="text-blue-600" onClick={() => handleOpen()} />
+                    <FaUserCircle className="text-blue-600" onClick={() => handleOpen()} />
                 </div>
                 {open ? (
                     isLoggedIn ? (

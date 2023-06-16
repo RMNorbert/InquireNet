@@ -8,7 +8,6 @@ export const QuestionCard = ({ id, title, description, created, numberOfAnswers 
         .replace("T", " ");
     const navigate = useNavigate();
     const handleAnswer = () => {
-        //Post request, if user exist
         navigate(`/question/${id}`);
     };
     return (

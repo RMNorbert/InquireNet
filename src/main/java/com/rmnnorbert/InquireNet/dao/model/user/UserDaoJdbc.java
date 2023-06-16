@@ -24,7 +24,7 @@ public class UserDaoJdbc implements UserDAO{
     }
 
     @Override
-    public Optional<User> findUserByName(int id) {
+    public Optional<User> findUserById(int id) {
         String sql = "SELECT id,password, status,name, registration_date, number_of_questions, number_of_answers " +
                 " FROM \"user\" WHERE id = ?";
         return jdbcTemplate.query(sql, new UserRowMapper(),id)

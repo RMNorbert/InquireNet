@@ -27,7 +27,7 @@ public class UserService {
     }
 
     public Optional<User> findUserById(int id) {
-        return userDAO.findUserByName(id);
+        return userDAO.findUserById(id);
     }
 
     public Optional<User> logInUser(NewUserDTO userDTO) {

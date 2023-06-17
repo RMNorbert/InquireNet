@@ -38,11 +38,11 @@ InquireNet is an interactive question and answer platform that leverages the pow
 
    Chat with AI: Users have the ability to directly engage in chat conversations with the AI. This interactive chat feature allows users to have dynamic and real-time exchanges with the AI, enabling them to explore their questions in more depth and receive personalized responses.
 
+   User Interaction: InquireNet allows users to upvote or downvote answers, comment on questions and answers, and engage in meaningful discussions.
+
 ## In progress Features
 
    Search Functionality: Users can search for specific questions or topics of interest to quickly find relevant information.
-
-   User Interaction: InquireNet allows users to upvote or downvote answers, comment on questions and answers, and engage in meaningful discussions.
 
 ## Getting Started
 

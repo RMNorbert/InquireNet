@@ -2,8 +2,10 @@ package com.rmnnorbert.InquireNet.service;
 
 import com.rmnnorbert.InquireNet.dao.model.answer.Answer;
 import com.rmnnorbert.InquireNet.dao.model.answer.AnswerDAOJdbc;
+import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.answer.NewAnswerDTO;
+import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -22,17 +24,18 @@ class AnswerServiceTest {
     @Mock
     private AnswerDAOJdbc answerDAOJdbc;
     private AnswerService answerService;
+    private ReplyDAOJdbc replyDAOJdbc;
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
-        answerService = new AnswerService(answerDAOJdbc);
+        answerService = new AnswerService(answerDAOJdbc, replyDAOJdbc);
     }
 
     @Test
     void getAllAnswersWhenAnswersExist() {
         List<Answer> answers = List.of(
-                new Answer(1,1,"desc",LocalDateTime.now(),0),
-                new Answer(2,1,"title", LocalDateTime.now(),0)
+                new Answer(1,1,"desc",LocalDateTime.now(),0,"un voted"),
+                new Answer(2,1,"title", LocalDateTime.now(),0,"un voted")
         );
         when(answerDAOJdbc.getAllAnswers()).thenReturn(answers);
 
@@ -51,7 +54,7 @@ class AnswerServiceTest {
     @Test
     void getAnswerById() {
         int id = 1;
-        Answer answer = new Answer(1,1,"desc",LocalDateTime.now(),0);
+        Answer answer = new Answer(1,1,"desc",LocalDateTime.now(),0,"un voted");
         when(answerDAOJdbc.findAnswerById(id)).thenReturn(Optional.of(answer));
 
         Optional<AnswerDTO> foundAnswer = answerService.getAnswerById(id);
@@ -65,8 +68,8 @@ class AnswerServiceTest {
     void getAllAnswersByQuestionId() {
         int id = 2;
         List<Answer> answers = List.of(
-                new Answer(1,1,"desc",LocalDateTime.now(),0),
-                new Answer(2,1,"title", LocalDateTime.now(),0)
+                new Answer(1,1,"desc",LocalDateTime.now(),0,"un voted"),
+                new Answer(2,1,"title", LocalDateTime.now(),0,"un voted")
         );
         when(answerDAOJdbc.getAllAnswersByQuestionId(id)).thenReturn(List.of(answers.get(1)));
 
@@ -78,10 +81,10 @@ class AnswerServiceTest {
     @Test
     void deleteAnswerById() {
         int id = 1;
-        Answer answer = new Answer(1,1,"desc",LocalDateTime.now(),0);
+        Answer answer = new Answer(1,1,"desc",LocalDateTime.now(),0,"un voted");
         when(answerDAOJdbc.deleteAnswerById(id)).thenReturn(true);
 
-        boolean response = answerService.deleteAnswerById(id);
+        boolean response = answerService.deleteAnswerById(new DeleteRequestDTO(1,1));
 
         assertTrue(response);
         verify(answerDAOJdbc, times(1)).deleteAnswerById(answer.getQuestion_id());

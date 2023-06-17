@@ -1,7 +1,10 @@
 package com.rmnnorbert.InquireNet.service;
 
+import com.rmnnorbert.InquireNet.dao.model.answer.AnswerDAOJdbc;
 import com.rmnnorbert.InquireNet.dao.model.question.Question;
 import com.rmnnorbert.InquireNet.dao.model.question.QuestionsDaoJdbc;
+import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
+import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,10 +25,12 @@ class QuestionServiceTest {
     @Mock
     private QuestionsDaoJdbc questionsDaoJdbc;
     private QuestionService questionService;
+    private AnswerDAOJdbc answerDAOJdbc;
+    private ReplyDAOJdbc replyDAOJdbc;
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
-        questionService = new QuestionService(questionsDaoJdbc);
+        questionService = new QuestionService(questionsDaoJdbc, answerDAOJdbc, replyDAOJdbc);
     }
 
     @Test
@@ -82,7 +87,7 @@ class QuestionServiceTest {
         Question question = new Question(1,1,"title","desc", LocalDateTime.now(),1);
         when(questionsDaoJdbc.deleteQuestionById(id)).thenReturn(true);
 
-        boolean response = questionService.deleteQuestionById(id);
+        boolean response = questionService.deleteQuestionById(new DeleteRequestDTO(id,id));
 
         assertTrue(response);
         verify(questionsDaoJdbc, times(1)).deleteQuestionById(question.getQuestion_id());

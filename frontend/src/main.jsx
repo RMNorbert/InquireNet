@@ -8,7 +8,7 @@ import { Register } from "./components/user/Register";
 import { Login } from "./components/user/Login";
 import { SelectedQuestion } from "./components/questions/SelectedQuestion";
 import { CreateQuestion } from "./components/questions/CreateQuestion.jsx";
-import { Header } from "./components/Header";
+import { Navbar } from "./components/Navbar.jsx";
 import { User } from "./components/user/User";
 import {Home} from "./components/Home.jsx";
 import {Chat} from "./components/questions/Chat.jsx";
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <div>
-            <Header />
+            <Navbar />
             <RouterProvider router={router} />
         </div>
     </React.StrictMode>

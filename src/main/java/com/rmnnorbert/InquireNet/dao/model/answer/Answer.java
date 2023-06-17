@@ -8,14 +8,16 @@ public class Answer {
     private String description;
     private LocalDateTime created;
     private int numberOfReply;
+    private String vote;
     public Answer() {}
 
-    public Answer(Integer answer_id, Integer question_id, String description, LocalDateTime created, int numberOfReply) {
+    public Answer(Integer answer_id, Integer question_id, String description, LocalDateTime created, int numberOfReply, String vote) {
         this.answer_id = answer_id;
         this.question_id = question_id;
         this.description = description;
         this.created = created;
         this.numberOfReply = numberOfReply;
+        this.vote = vote;
     }
 
     public Integer getAnswer_id() {
@@ -50,11 +52,11 @@ public class Answer {
         this.created = created;
     }
 
-    public int getNumberOfReply() {
-        return numberOfReply;
-    }
+    public int getNumberOfReply() {return numberOfReply;}
 
-    public void setNumberOfReply(int numberOfReply) {
-        this.numberOfReply = numberOfReply;
-    }
+    public void setNumberOfReply(int numberOfReply) {this.numberOfReply = numberOfReply;}
+
+    public String getVote() {return vote;}
+
+    public void setVote(String vote) {this.vote = vote;}
 }

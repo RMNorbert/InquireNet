@@ -2,6 +2,8 @@ package com.rmnnorbert.InquireNet.controller;
 
 import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.answer.NewAnswerDTO;
+import com.rmnnorbert.InquireNet.dto.answer.VoteDTO;
+import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,9 +42,14 @@ public class AnswerController {
             return answerService.addNewAnswer(answerDTO);
         }
 
-        @DeleteMapping("/{id}")
-        public boolean deleteAnswerById(@PathVariable int id) {
-            return answerService.deleteAnswerById(id);
+        @DeleteMapping("/")
+        public boolean deleteAnswerById(@RequestBody DeleteRequestDTO dto) {
+            return answerService.deleteAnswerById(dto);
         }
+        @PutMapping("/vote")
+        public VoteDTO voteOnAnswerById(@RequestBody VoteDTO voteDTO) {
+        answerService.updateVote(voteDTO);
+        return voteDTO;
+    }
 
 }

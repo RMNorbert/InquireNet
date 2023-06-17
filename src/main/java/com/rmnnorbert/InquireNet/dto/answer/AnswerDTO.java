@@ -10,17 +10,20 @@ public class AnswerDTO {
     private final String description;
     private final LocalDateTime created;
     private final int numberOfReply;
+    private final String vote;
 
     private AnswerDTO(int answer_id,
                       int question_id,
                       String description,
                       LocalDateTime created,
-                      int numberOfReply) {
+                      int numberOfReply,
+                      String vote) {
         this.answer_id = answer_id;
         this.question_id = question_id;
         this.description = description;
         this.created = created;
         this.numberOfReply = numberOfReply;
+        this.vote = vote;
     }
     public static AnswerDTO of(Answer answer){
         return new AnswerDTO(
@@ -28,7 +31,8 @@ public class AnswerDTO {
                 answer.getQuestion_id(),
                 answer.getDescription(),
                 answer.getCreated(),
-                answer.getNumberOfReply());
+                answer.getNumberOfReply(),
+                answer.getVote());
     }
 
     public int getAnswer_id() {
@@ -50,4 +54,6 @@ public class AnswerDTO {
     public int getNumberOfReply() {
         return numberOfReply;
     }
+
+    public String getVote() {return vote;}
 }

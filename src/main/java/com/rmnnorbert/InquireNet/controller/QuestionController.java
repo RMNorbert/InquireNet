@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.controller;
 
+import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
 import com.rmnnorbert.InquireNet.service.QuestionService;
@@ -42,8 +43,8 @@ public class QuestionController {
         return questionService.addNewQuestion(question);
     }
 
-    @DeleteMapping("/{id}")
-    public boolean deleteQuestionById(@PathVariable int id) {
-        return questionService.deleteQuestionById(id);
+    @DeleteMapping("/")
+    public boolean deleteQuestionById(@RequestBody DeleteRequestDTO dto) {
+        return questionService.deleteQuestionById(dto);
     }
 }

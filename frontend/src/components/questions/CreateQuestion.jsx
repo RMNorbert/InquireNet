@@ -15,7 +15,7 @@ export const CreateQuestion = () => {
         uploadQuestion(title, description, Cookies.get("id"));
         let aiAnswer = await fetchData(title);
 
-        navigate("/")
+        navigate("/forum")
 
     };
 

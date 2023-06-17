@@ -1,0 +1,9 @@
+#unvoted{
+    background-color: rgb(226 232 240);
+}
+#upVoted{
+    background-color: #22543d;
+}
+#downVoted{
+    background-color: #742a2a;
+}

@@ -77,6 +77,7 @@ export const SelectedQuestion = ({}) => {
                             description={currentAnswer.description}
                             created={currentAnswer.created}
                             numberOfReply={currentAnswer.numberOfReply}
+                            vote={currentAnswer.vote}
                         />
                     ))}
                 </div>

@@ -76,11 +76,13 @@ public class UserDaoJdbc implements UserDAO{
 
     @Override
     public void updateNumberOfQuestion(User user, int id) {
-        String sql = "UPDATE \"user\" set number_of_questions = ? ,  WHERE id =" + id;
-        jdbcTemplate.update(sql, user.getNumber_of_questions()+1);
+        String sql = "UPDATE \"user\" SET number_of_questions = ? WHERE id = ?";
+        jdbcTemplate.update(sql, user.getNumber_of_questions() + 1, id);
     }
+
+    @Override
     public void updateNumberOfAnswers(User user, int id) {
-        String sql = "UPDATE \"user\" set number_of_answers = ? ,  WHERE id =" + id;
-        jdbcTemplate.update(sql, user.getNumber_of_answers()+1);
+        String sql = "UPDATE \"user\" SET number_of_answers = ? WHERE id = ?";
+        jdbcTemplate.update(sql, user.getNumber_of_answers() + 1, id);
     }
 }

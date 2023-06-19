@@ -12,7 +12,7 @@ export const aiAnswerQuestion = async(title,question_id)=>{
          body: JSON.stringify({
              model : "gpt-3.5-turbo",
              messages: [{ role: "user", content: title}],
-             max_tokens : 100,
+             max_tokens : 200,
          })
      }
      try{

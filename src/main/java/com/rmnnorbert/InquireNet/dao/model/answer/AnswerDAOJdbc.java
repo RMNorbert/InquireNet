@@ -1,7 +1,6 @@
 package com.rmnnorbert.InquireNet.dao.model.answer;
 
 import com.rmnnorbert.InquireNet.dao.AnswerRowMapper;
-import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.answer.NewAnswerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -71,14 +70,14 @@ public class AnswerDAOJdbc implements AnswerDAO{
     }
 
     @Override
-    public void update(AnswerDTO answerDTO, int id) {
-        String sql = "UPDATE answer set description = ? WHERE question_id =" + id;
-        jdbcTemplate.update(sql, answerDTO.getDescription());
+    public void update(String vote, int id) {
+        String sql = "UPDATE answer SET vote = ? WHERE question_id = ?";
+        jdbcTemplate.update(sql, vote, id);
     }
 
     @Override
     public void changeVote(String vote, int id) {
-        String sql = "UPDATE answer set vote = ? WHERE question_id =" + id;
-        jdbcTemplate.update(sql, vote);
+        String sql = "UPDATE answer set vote = ? WHERE question_id = ?";
+        jdbcTemplate.update(sql, vote, id);
     }
 }

@@ -1,6 +1,5 @@
 package com.rmnnorbert.InquireNet.dao.model.answer;
 
-import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.answer.NewAnswerDTO;
 
 import java.util.List;
@@ -17,6 +16,6 @@ public interface AnswerDAO {
     boolean deleteAnswerById(int theId);
     boolean deleteAnswerByQuestionId(int theId);
 
-    void update(AnswerDTO answerDTO, int id);
+    void update(String vote, int id);
     void changeVote(String vote, int id);
 }

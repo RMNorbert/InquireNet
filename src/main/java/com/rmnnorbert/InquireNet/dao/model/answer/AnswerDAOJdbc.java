@@ -22,10 +22,11 @@ public class AnswerDAOJdbc implements AnswerDAO{
     public List<Answer> getAllAnswers() {
         String sql = "SELECT answer.answer_id, question_id, description, created, vote," +
                 " COUNT(reply_id) as numberOfReply" +
-                " from answer  " +
-                "LEFT JOIN reply r on answer.answer_id = r.answer_id" +
+                " FROM answer  " +
+                " LEFT JOIN reply r ON answer.answer_id = r.answer_id" +
                 " GROUP BY answer.answer_id";
         return jdbcTemplate.query(sql, new AnswerRowMapper());
+
     }
 
     @Override

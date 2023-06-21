@@ -4,15 +4,14 @@ import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface QuestionDAO {
     List<Question> getAllQuestion();
-    Optional<Question> findQuestionById(int id);
-    Optional<Question> findLastQuestion();
+    Question findQuestionById(long id);
+    long findLastQuestionId();
     int addQuestion(NewQuestionDTO question);
-    List<Question> getAllQuestionByUserID(int userID);
-    boolean deleteQuestionById(int theId);
-    void update(QuestionDTO questionDTO, int id);
+    List<Question> getAllQuestionByUserID(long userID);
+    boolean deleteQuestionById(long theId);
+    void update(QuestionDTO questionDTO, long id);
 
 }

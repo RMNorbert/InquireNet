@@ -11,7 +11,7 @@ function App() {
         navigate('/createquestion')
     };
     const fetchData = async () => {
-        const data = await fetch("http://127.0.0.1:8080/questions/all");
+        const data = await fetch("/api/questions/all");
         const dataJSON = await data.json();
         setQuestions(dataJSON);
     };

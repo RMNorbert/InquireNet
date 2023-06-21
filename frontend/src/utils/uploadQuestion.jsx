@@ -1,6 +1,6 @@
 export const uploadQuestion = async(title, description, userID)=>{
 
-    const response = await fetch("http://127.0.0.1:8080/questions/", {
+    const response = await fetch("/api/questions/", {
         method: "POST",
         body: JSON.stringify({
             title,

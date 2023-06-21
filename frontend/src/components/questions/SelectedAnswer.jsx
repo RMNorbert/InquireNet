@@ -12,10 +12,10 @@ export const SelectedAnswer = ({}) => {
     const getData = async () => {
         setIsLoading(true);
         const answerResponse = await fetch(
-            "http://127.0.0.1:8080/answers/" + params.id
+            "/api/answers/" + params.id
         );
         const replyResponse = await fetch(
-            "http://127.0.0.1:8080/reply/a/" + params.id
+            "/api/reply/a/" + params.id
         );
         const answerData = await answerResponse.json();
         const replyData = await replyResponse.json();
@@ -26,7 +26,7 @@ export const SelectedAnswer = ({}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let description = e.target[0].value;
-        let a = await submitReply(description, params.id);
+        let answer = await submitReply(description, params.id);
         setShouldFetchData(true);
     };
 

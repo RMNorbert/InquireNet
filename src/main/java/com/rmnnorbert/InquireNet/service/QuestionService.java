@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 @Service
 public class QuestionService {
     private final QuestionsDaoJdbc questionsDAO;
@@ -27,39 +26,46 @@ public class QuestionService {
     }
 
     public List<QuestionDTO> getAllQuestions() {
-        return questionsDAO.getAllQuestion().stream().map(QuestionDTO::of).toList();
+        return questionsDAO.getAllQuestion()
+                .stream()
+                .map(QuestionDTO::of)
+                .toList();
     }
-    public Optional<QuestionDTO> getLastQuestion() {
-        return questionsDAO.findLastQuestion().map(QuestionDTO::of);
+    public List<QuestionDTO> getAllQuestionOfUser(long userId){
+        return questionsDAO.getAllQuestionByUserID(userId)
+                .stream()
+                .map(QuestionDTO::of)
+                .toList();
+    }
+    public long getLastQuestion() {
+        return questionsDAO.findLastQuestionId();
     }
 
-    public Optional<QuestionDTO> getQuestionById(int id) {
-        Optional<Question> question = questionsDAO.findQuestionById(id);
-        return question.map(QuestionDTO::of);
+    public QuestionDTO getQuestionById(long id) {
+        Question question = questionsDAO.findQuestionById(id);
+        return QuestionDTO.of(question);
     }
 
     public boolean deleteQuestionById(DeleteRequestDTO dto) {
-        Optional<Question> question = questionsDAO.findQuestionById(dto.targetId());
-        if(question.isPresent()) {
-            if (question.get().getUserID() == dto.userId()) {
+        Question question = questionsDAO.findQuestionById(dto.targetId());
+            if (question.getQuestion_id() == dto.userId()) {
                 deleteAnswers(dto.targetId());
                 return questionsDAO.deleteQuestionById(dto.targetId());
             }
-        }
         return false;
     }
 
     public int addNewQuestion(NewQuestionDTO question) {
         return questionsDAO.addQuestion(question);
     }
-    private boolean deleteAnswers(int id){
+    private boolean deleteAnswers(long id){
         List<Answer> answersOfQuestion = answerDAOJdbc.getAllAnswersByQuestionId(id);
         for (Answer answer: answersOfQuestion) {
             deleteAllReply(answer.getAnswer_id());
         }
         return answerDAOJdbc.deleteAnswerByQuestionId(id);
     }
-    private boolean deleteAllReply(int id){
+    private boolean deleteAllReply(long id){
         return replyDAOJdbc.deleteReplyByAnswerId(id);
     }
 }

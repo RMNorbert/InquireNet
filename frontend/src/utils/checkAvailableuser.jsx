@@ -1,5 +1,5 @@
 export const checkAvailableUser = async (username, password) => {
-    const response = await fetch("http://127.0.0.1:8080/user/login", {
+    const response = await fetch("/api/user/login", {
         method: "PUT",
         body: JSON.stringify({username, password}),
         mode: "cors",

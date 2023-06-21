@@ -7,10 +7,10 @@ import java.util.Optional;
 
 public interface UserDAO {
     List<User> getAllUser();
-    Optional<User> findUserById(int id);
+    Optional<User> findUserById(long id);
     Optional<User> findUser(NewUserDTO userDTO);
     int addUser(NewUserDTO userDTO);
-    boolean deleteUserById(int theId);
-    void updateNumberOfQuestion(User user, int id);
-    void updateNumberOfAnswers(User user, int id);
+    boolean deleteUserById(long theId);
+    void updateNumberOfQuestion(User user, long id);
+    void updateNumberOfAnswers(User user, long id);
 }

@@ -1,14 +1,14 @@
-export const submitAnswer = async(description, questionID  )=>{
-    const response = await fetch("http://127.0.0.1:8080/answers/", {
+export const submitAnswer = async(description, id  )=>{
+    const response = await fetch("/api/answers/", {
         method: "POST",
-        body: JSON.stringify({description, questionID}),
+        body: JSON.stringify({description, id}),
         mode: "cors",
         headers: {"Content-Type": "application/json"},
     });
     return await response.json();
 }
 export const submitReply = async(description, answerId  ) =>{
-    const response = await fetch("http://127.0.0.1:8080/reply/", {
+    const response = await fetch("/api/reply/", {
         method: "POST",
         body: JSON.stringify({description, answerId}),
         mode: "cors",
@@ -18,7 +18,7 @@ export const submitReply = async(description, answerId  ) =>{
 }
 
 export const submitVote = async(vote, id  ) =>{
-    const response = await fetch("http://127.0.0.1:8080/answers/vote", {
+    const response = await fetch("/api/answers/vote", {
         method: "PUT",
         body: JSON.stringify({vote, id}),
         mode: "cors",

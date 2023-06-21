@@ -1,5 +1,5 @@
 export const createUser =async(username, password)=>{
-    const response = await fetch("http://127.0.0.1:8080/user/create ", {
+    const response = await fetch("/api/user/create ", {
         method: "POST",
         body: JSON.stringify({username, password}),
         mode: "cors",

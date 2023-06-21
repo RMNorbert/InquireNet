@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 @Repository
 public class UserDaoJdbc implements UserDAO{
@@ -29,7 +30,7 @@ public class UserDaoJdbc implements UserDAO{
     }
 
     @Override
-    public Optional<User> findUserById(int id) {
+    public Optional<User> findUserById(long id) {
         String sql = "SELECT id,password, status,name, registration_date, number_of_questions, number_of_answers " +
                 " FROM \"user\" WHERE id = ?";
         return jdbcTemplate.query(sql, new UserRowMapper(),id)
@@ -47,8 +48,6 @@ public class UserDaoJdbc implements UserDAO{
     }
     @Override
     public int addUser(NewUserDTO newUserDTO) {
-       // String sql = "INSERT INTO \"user\"(name,password,registration_date,number_of_questions,number_of_answers) values (?,?,?,?,?)";
-       // return jdbcTemplate.update(sql,newUserDTO.username() ,newUserDTO.password(), LocalDateTime.now(),0,0);
         String sql = "INSERT INTO \"user\" (name, password, registration_date, number_of_questions, number_of_answers , status) " +
                 "VALUES (?, ?, ?, ?, ?, ?) RETURNING id";
 
@@ -65,23 +64,23 @@ public class UserDaoJdbc implements UserDAO{
             return ps;
         }, keyHolder);
 
-        return keyHolder.getKey().intValue() + 1;
+        return Objects.requireNonNull(keyHolder.getKey()).intValue() + 1;
     }
 
     @Override
-    public boolean deleteUserById(int theId) {
+    public boolean deleteUserById(long theId) {
         int delete = jdbcTemplate.update("delete from \"user\" where id = ?",theId);
         return delete == 1;
     }
 
     @Override
-    public void updateNumberOfQuestion(User user, int id) {
+    public void updateNumberOfQuestion(User user, long id) {
         String sql = "UPDATE \"user\" SET number_of_questions = ? WHERE id = ?";
         jdbcTemplate.update(sql, user.getNumber_of_questions() + 1, id);
     }
 
     @Override
-    public void updateNumberOfAnswers(User user, int id) {
+    public void updateNumberOfAnswers(User user, long id) {
         String sql = "UPDATE \"user\" SET number_of_answers = ? WHERE id = ?";
         jdbcTemplate.update(sql, user.getNumber_of_answers() + 1, id);
     }

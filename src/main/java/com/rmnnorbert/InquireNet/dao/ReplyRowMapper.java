@@ -11,8 +11,8 @@ public class ReplyRowMapper implements RowMapper<Reply> {
     @Override
     public Reply mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Reply(
-                rs.getInt("reply_id"),
-                rs.getInt("answer_id"),
+                rs.getLong("reply_id"),
+                rs.getLong("answer_id"),
                 rs.getString("description"),
                 rs.getTimestamp("created").toLocalDateTime()
         );

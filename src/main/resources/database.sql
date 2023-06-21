@@ -1,7 +1,7 @@
-CREATE TABLE question(question_id serial PRIMARY KEY ,user_id INT,  title VARCHAR(200) NOT NULL, description TEXT, created TIMESTAMP NOT NULL);
-CREATE TABLE answer(answer_id serial PRIMARY KEY ,question_id INT NOT NULL , description TEXT NOT NULL, created TIMESTAMP NOT NULL, vote VARCHAR NOT NULL);
+CREATE TABLE question(question_id serial PRIMARY KEY ,user_id BIGINT,  title VARCHAR(200) NOT NULL, description TEXT, created TIMESTAMP NOT NULL);
+CREATE TABLE answer(answer_id serial PRIMARY KEY ,question_id BIGINT NOT NULL , description TEXT NOT NULL, created TIMESTAMP NOT NULL, vote VARCHAR NOT NULL);
 CREATE TABLE "user"(id serial PRIMARY KEY , status VARCHAR(50), name VARCHAR(50) NOT NULL , password VARCHAR NOT NULL, registration_date TIMESTAMP, number_of_questions INT NOT NUll, number_of_answers INT NOT NULL);
-CREATE TABLE reply(reply_id serial PRIMARY KEY ,answer_id INT NOT NULL , description TEXT NOT NULL, created TIMESTAMP NOT NULL);
+CREATE TABLE reply(reply_id serial PRIMARY KEY ,answer_id BIGINT NOT NULL , description TEXT NOT NULL, created TIMESTAMP NOT NULL);
 
 INSERT INTO question(question_id,user_id,title,description,created) VALUES (1,1,'Why dont scientists trust atoms?','Im curious', NOW());
 INSERT INTO question(question_id,user_id,title,description,created) VALUES (2,2,'Why did the scarecrow win an award?','', NOW());

@@ -12,13 +12,10 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserDaoJdbc userDAO;
-
     @Autowired
     public UserService(UserDaoJdbc userDAO) {
         this.userDAO = userDAO;
     }
-
-
     public List<UserDTO> getAllUser() {
         return userDAO.getAllUser()
                 .stream()
@@ -26,17 +23,15 @@ public class UserService {
                 .toList();
     }
 
-    public Optional<User> findUserById(int id) {
+    public Optional<User> findUserById(long id) {
         return userDAO.findUserById(id);
     }
-
     public Optional<User> logInUser(NewUserDTO userDTO) {
         return userDAO.findUser(userDTO);
     }
-    public boolean deleteUserById(int id) {
+    public boolean deleteUserById(long id) {
         return userDAO.deleteUserById(id);
     }
-
     public int addUser(NewUserDTO userDTO) {
         return userDAO.addUser(userDTO);
     }

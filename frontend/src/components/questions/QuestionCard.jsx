@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import { MdQuestionAnswer } from "react-icons/md";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import {RiDeleteBin2Fill} from "react-icons/ri";
 import {submitDelete} from "../../utils/submitAnswer.jsx";
 export const QuestionCard = ({ id, title, description, created, numberOfAnswers }) => {
@@ -11,7 +11,7 @@ export const QuestionCard = ({ id, title, description, created, numberOfAnswers 
         .substring(0, 19)
         .replace("T", " ");
     const navigate = useNavigate();
-    const url = "http://127.0.0.1:8080/questions/";
+    const url = "/api/questions/";
     const handleAnswer = () => {
         navigate(`/question/${id}`);
     };

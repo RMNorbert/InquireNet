@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import {MdQuestionAnswer} from "react-icons/md";
 import {ImArrowDown, ImArrowUp} from "react-icons/im";
 import {RiDeleteBin2Fill} from "react-icons/ri";
-
 import {submitVote, submitDelete} from "../../utils/submitAnswer.jsx";
 import "./Answer.css";
 export const Answer = ({id, description, created , numberOfReply , vote}) => {
@@ -11,7 +10,7 @@ export const Answer = ({id, description, created , numberOfReply , vote}) => {
     const [voting, setVoting] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [currentVote, setCurrentVote] = useState(vote);
-    const url = "http://127.0.0.1:8080/answers/";
+    const answersUrl = "/answers/";
     const voteTo = async (up, answerId) => {
         const res = up ? await submitVote("upVoted",answerId) :  await submitVote("downVoted",answerId) ;
         const data = await res;
@@ -23,13 +22,14 @@ export const Answer = ({id, description, created , numberOfReply , vote}) => {
         navigate(`/answer/${id}`);
     };
     const handleDelete = async (currentId) => {
-        const data = await submitDelete(0,currentId,url);
+        await submitDelete(0,currentId,answersUrl);
         setDeleting(!deleting);
     };
 
     useEffect(() => {
 
     },[voting,currentVote]);
+
     if(deleting){
         return (<></>)
     }else {

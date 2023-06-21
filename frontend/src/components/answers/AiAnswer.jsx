@@ -1,6 +1,6 @@
 import { API_KEY } from "../../Config";
 import {submitAnswer} from "../../utils/submitAnswer.jsx";
-const url = 'https://api.openai.com/v1/chat/completions';
+const aiUrl = 'https://api.openai.com/v1/chat/completions';
 
 export const aiAnswerQuestion = async(title,question_id)=>{
      const options = {
@@ -16,7 +16,7 @@ export const aiAnswerQuestion = async(title,question_id)=>{
          })
      }
      try{
-     const res = await fetch(url, options);
+     const res = await fetch(aiUrl, options);
      const data = await res.json();
      const answer = await data.choices[0].message.content.replace(/As an AI language model,/g,'');
      if(question_id > 0) {

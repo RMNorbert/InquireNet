@@ -1,14 +1,15 @@
 package com.rmnnorbert.InquireNet.dao.model.answer;
 
 import com.rmnnorbert.InquireNet.dao.AnswerRowMapper;
-import com.rmnnorbert.InquireNet.dto.answer.NewAnswerDTO;
+import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
+import com.rmnnorbert.InquireNet.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 @Repository
 public class AnswerDAOJdbc implements AnswerDAO{
     private final JdbcTemplate jdbcTemplate;
@@ -20,64 +21,65 @@ public class AnswerDAOJdbc implements AnswerDAO{
 
     @Override
     public List<Answer> getAllAnswers() {
-        String sql = "SELECT answer.answer_id, question_id, description, created, vote," +
-                " COUNT(reply_id) as numberOfReply" +
-                " FROM answer  " +
-                " LEFT JOIN reply r ON answer.answer_id = r.answer_id" +
+        String sql = "SELECT answer.answer_id, question_id, answer.description, answer.created, vote," +
+                " COUNT(reply_id) AS numberOfReply" +
+                " FROM answer" +
+                " LEFT JOIN reply r ON answer.answer_id = r.answer_id"+
                 " GROUP BY answer.answer_id";
         return jdbcTemplate.query(sql, new AnswerRowMapper());
-
     }
 
     @Override
-    public Optional<Answer> findAnswerById(int id) {
-        String sql = "SELECT answer.answer_id,answer.question_id, answer.description, answer.created, answer.vote, COUNT(reply_id) as numberOfReply " +
-                " FROM answer " +
-                "    LEFT JOIN reply r on answer.answer_id = r.answer_id " +
-                " WHERE answer.answer_id = ? " +
-                " GROUP BY answer.answer_id ";
+    public Answer findAnswerById(long id) {
+        String sql = "SELECT answer.answer_id,answer.question_id, answer.description, answer.created, answer.vote, COUNT(reply_id) AS numberOfReply" +
+                " FROM answer" +
+                " LEFT JOIN reply r ON answer.answer_id = r.answer_id" +
+                " WHERE answer.answer_id = ?" +
+                " GROUP BY answer.answer_id";
+
         return jdbcTemplate.query(sql, new AnswerRowMapper(),id)
                 .stream()
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("Answer"));
     }
 
     @Override
-    public List<Answer> getAllAnswersByQuestionId(int id) {
-        String sql = "SELECT answer.answer_id,answer.question_id, answer.description, answer.created, answer.vote, COUNT(reply_id) as numberOfReply " +
-                " FROM answer " +
-                "LEFT JOIN reply r on answer.answer_id = r.answer_id " +
-                "WHERE answer.question_id = ? " +
-                " GROUP BY answer.answer_id ";
+    public List<Answer> getAllAnswersByQuestionId(long id) {
+        String sql = "SELECT answer.answer_id,answer.question_id, answer.description, answer.created, answer.vote, COUNT(reply_id) AS numberOfReply" +
+                " FROM answer" +
+                " LEFT JOIN reply r ON answer.answer_id = r.answer_id" +
+                " WHERE answer.question_id = ?" +
+                " GROUP BY answer.answer_id";
         return jdbcTemplate.query(sql, new AnswerRowMapper(),id);
     }
 
 
     @Override
-    public int addAnswer(NewAnswerDTO newAnswerDTO) {
-        String sql = "INSERT INTO answer(description,created, question_id, vote) values (?,?, ?, ?)";
-        return jdbcTemplate.update(sql, newAnswerDTO.description(), LocalDateTime.now(), newAnswerDTO.questionID(), DEFAULT_VOTE);
+    public int addAnswer(AnswerRequestDTO answerRequestDTO) {
+        String sql = "INSERT INTO answer(description,created, question_id, vote) VALUES (?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, answerRequestDTO.description(), LocalDateTime.now(), answerRequestDTO.id(), DEFAULT_VOTE);
     }
 
     @Override
-    public boolean deleteAnswerById(int theId) {
-        int delete = jdbcTemplate.update("delete from answer where answer_id = ?", theId);
+    public boolean deleteAnswerById(long theId) {
+        int delete = jdbcTemplate.update("DELETE FROM answer WHERE answer_id = ?", theId);
         return delete == 1;
     }
 
     @Override
-    public boolean deleteAnswerByQuestionId(int theId) {
-        int delete = jdbcTemplate.update("delete from answer where question_id = ?", theId);
+    public boolean deleteAnswerByQuestionId(long theId) {
+        int delete = jdbcTemplate.update("DELETE FROM answer WHERE question_id = ?", theId);
         return delete >= 1;
     }
 
     @Override
-    public void update(String vote, int id) {
-        String sql = "UPDATE answer SET vote = ? WHERE question_id = ?";
-        jdbcTemplate.update(sql, vote, id);
+    public boolean update(String description, long id) {
+        String sql = "UPDATE answer SET description = ? WHERE answer_id = ?";
+        return jdbcTemplate.update(sql, description, id) == 1;
     }
 
     @Override
-    public void changeVote(String vote, int id) {
+    public void changeVote(String vote, long id) {
         String sql = "UPDATE answer set vote = ? WHERE question_id = ?";
         jdbcTemplate.update(sql, vote, id);
     }

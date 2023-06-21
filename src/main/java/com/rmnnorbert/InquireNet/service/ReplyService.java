@@ -22,19 +22,16 @@ public class ReplyService {
                 .map(ReplyDTO::of)
                 .toList();
     }
-
-    public Optional<ReplyDTO> getReplyById(int id) {
+    public Optional<ReplyDTO> getReplyById(long id) {
         return replyDAOJdbc.findReplyById(id).map(ReplyDTO::of);
     }
-    public List<ReplyDTO> getAllReplyByAnswerId(int id){
+    public List<ReplyDTO> getAllReplyByAnswerId(long id){
         return replyDAOJdbc.getAllReplyByAnswerId(id)
                 .stream()
                 .map(ReplyDTO::of)
                 .toList();
     }
-
-
-    public boolean deleteReplyById(int id) {
+    public boolean deleteReplyById(long id) {
         return replyDAOJdbc.deleteReplyById(id);
     }
 

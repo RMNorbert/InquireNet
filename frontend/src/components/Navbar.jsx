@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import React from "react";
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
+import { TfiLayoutLineSolid } from "react-icons/tfi";
 export const Navbar = () => {
     const [open, setOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,7 +47,8 @@ export const Navbar = () => {
                             <a href="/user">
                                 <div>{username}</div>
                             </a>
-                            <button onClick={handleLogout}>Logout</button>
+                            <TfiLayoutLineSolid className="w-full"></TfiLayoutLineSolid>
+                            <div onClick={handleLogout}>Logout</div>
                         </button>
                     ) : (
                         <ul className="border-sky-600 hover:bg-sky-900 border-solid border-2">

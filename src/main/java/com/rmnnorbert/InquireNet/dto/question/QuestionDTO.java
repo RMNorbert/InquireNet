@@ -13,12 +13,12 @@ public record QuestionDTO(long question_id,
 {
     public static QuestionDTO of(Question question) {
         return new QuestionDTO(
-                question.getQuestion_id(),
-                question.getUser_id(),
-                question.getTitle(),
-                question.getDescription(),
-                question.getCreated(),
-                question.getNumberOfAnswers()
+                question.question_id(),
+                question.user_id(),
+                question.title(),
+                question.description(),
+                question.created(),
+                question.numberOfAnswers()
                 );
     }
 

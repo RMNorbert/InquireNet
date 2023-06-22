@@ -23,8 +23,8 @@ public class UserService {
                 .toList();
     }
 
-    public Optional<User> findUserById(long id) {
-        return userDAO.findUserById(id);
+    public Optional<UserDTO> findUserById(long id) {
+        return userDAO.findUserById(id).map(UserDTO::of);
     }
     public Optional<User> logInUser(NewUserDTO userDTO) {
         return userDAO.findUser(userDTO);

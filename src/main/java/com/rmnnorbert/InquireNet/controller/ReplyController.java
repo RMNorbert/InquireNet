@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.controller;
 
+import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;
 import com.rmnnorbert.InquireNet.dto.reply.ReplyDTO;
 import com.rmnnorbert.InquireNet.service.ReplyService;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 @RestController
 @RequestMapping("reply")
 public class ReplyController {
@@ -21,7 +21,7 @@ public class ReplyController {
         return replyService.getAllReply();
     }
     @GetMapping("/{id}")
-    public Optional<ReplyDTO> getReplyById(@PathVariable long id) {
+    public ReplyDTO getReplyById(@PathVariable long id) {
         return replyService.getReplyById(id);
     }
     @GetMapping("/a/{id}")
@@ -32,8 +32,12 @@ public class ReplyController {
     public int addNewReply(@RequestBody NewReplyDTO replyDTO) {
         return replyService.addNewReply(replyDTO);
     }
-    @DeleteMapping("/{id}")
-    public boolean deleteReplyById(@PathVariable long id) {
-        return replyService.deleteReplyById(id);
+    @PutMapping("/")
+    public boolean updateReply(@RequestBody ReplyDTO replyDTO) {
+        return replyService.updateReply(replyDTO);
+    }
+    @DeleteMapping("/")
+    public boolean deleteReplyById(@RequestBody DeleteRequestDTO dto) {
+        return replyService.deleteReplyById(dto);
     }
 }

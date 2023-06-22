@@ -1,16 +1,16 @@
-export const submitAnswer = async(description, id  )=>{
+export const submitAnswer = async(userId,description, id  )=>{
     const response = await fetch("/api/answers/", {
         method: "POST",
-        body: JSON.stringify({description, id}),
+        body: JSON.stringify({userId,description, id}),
         mode: "cors",
         headers: {"Content-Type": "application/json"},
     });
     return await response.json();
 }
-export const submitReply = async(description, answerId  ) =>{
+export const submitReply = async(description, answerId , userId ) =>{
     const response = await fetch("/api/reply/", {
         method: "POST",
-        body: JSON.stringify({description, answerId}),
+        body: JSON.stringify({description, answerId,  userId}),
         mode: "cors",
         headers: {"Content-Type": "application/json"},
     });

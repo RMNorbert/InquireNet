@@ -21,8 +21,9 @@ export const aiAnswerQuestion = async(title,question_id)=>{
      const answer = await data.choices[0].message.content.replace(/As an AI language model,/g,'');
      if(question_id > 0) {
          await submitAnswer(await answer, question_id);
+     } else {
+         return answer;
      }
-     return answer;
      } catch (error) {
          console.error(error);
      }

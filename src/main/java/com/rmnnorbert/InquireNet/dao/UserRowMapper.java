@@ -14,9 +14,7 @@ public class UserRowMapper implements RowMapper<User> {
                 rs.getString("status"),
                 rs.getString("name"),
                 rs.getString("password"),
-                rs.getTimestamp("registration_date").toLocalDateTime(),
-                rs.getInt("number_of_questions"),
-                rs.getInt("number_of_answers")
+                rs.getTimestamp("registration_date").toLocalDateTime()
         );
     }
 }

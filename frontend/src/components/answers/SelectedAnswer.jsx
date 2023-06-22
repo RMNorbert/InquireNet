@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Reply } from "../reply/Reply";
+import { Reply } from "../reply/Reply.jsx";
 import {submitReply} from "../../utils/submitAnswer.jsx";
+import Cookies from "js-cookie";
 
 export const SelectedAnswer = ({}) => {
     const [currentAnswer, setCurrentAnswer] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [replys, setReplys] = useState([]);
+    const [replies, setReplies] = useState([]);
     const [params] = useState(useParams());
     const [shouldFetchData, setShouldFetchData] = useState(true);
     const getData = async () => {
@@ -20,13 +21,14 @@ export const SelectedAnswer = ({}) => {
         const answerData = await answerResponse.json();
         const replyData = await replyResponse.json();
         setCurrentAnswer(answerData);
-        setReplys(replyData);
+        setReplies(replyData);
         setIsLoading(false);
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const userId = Cookies.get("id");
         let description = e.target[0].value;
-        let answer = await submitReply(description, params.id);
+        let answer = await submitReply(description, params.id, userId);
         setShouldFetchData(true);
     };
 
@@ -46,7 +48,7 @@ export const SelectedAnswer = ({}) => {
         return (
             <div onSubmit={()=>setShouldFetchData(true)}>
                 <form
-                    action=""
+                    action="../questions"
                     onSubmit={(e) => {
                         handleSubmit(e);
                     }}
@@ -70,12 +72,12 @@ export const SelectedAnswer = ({}) => {
                     </div>
                 </div>
                 <div className="flex justify-center items-center flex-col">
-                    {replys.map((currentReply, i) => (
+                    {replies.map((currentReply, i) => (
                         <Reply
                             key={i}
+                            id={currentReply.reply_id}
                             description={currentReply.description}
                             created={currentReply.created}
-
                         />
                     ))}
                 </div>

@@ -21,7 +21,7 @@ public class AnswerDAOJdbc implements AnswerDAO{
 
     @Override
     public List<Answer> getAllAnswers() {
-        String sql = "SELECT answer.answer_id, question_id, answer.description, answer.created, vote," +
+        String sql = "SELECT answer.answer_id, answer.user_id, question_id, answer.description, answer.created, vote," +
                 " COUNT(reply_id) AS numberOfReply" +
                 " FROM answer" +
                 " LEFT JOIN reply r ON answer.answer_id = r.answer_id"+
@@ -31,7 +31,8 @@ public class AnswerDAOJdbc implements AnswerDAO{
 
     @Override
     public Answer findAnswerById(long id) {
-        String sql = "SELECT answer.answer_id,answer.question_id, answer.description, answer.created, answer.vote, COUNT(reply_id) AS numberOfReply" +
+        String sql = "SELECT answer.answer_id, answer.user_id, answer.question_id, answer.description, answer.created," +
+                " answer.vote, COUNT(reply_id) AS numberOfReply" +
                 " FROM answer" +
                 " LEFT JOIN reply r ON answer.answer_id = r.answer_id" +
                 " WHERE answer.answer_id = ?" +
@@ -45,7 +46,8 @@ public class AnswerDAOJdbc implements AnswerDAO{
 
     @Override
     public List<Answer> getAllAnswersByQuestionId(long id) {
-        String sql = "SELECT answer.answer_id,answer.question_id, answer.description, answer.created, answer.vote, COUNT(reply_id) AS numberOfReply" +
+        String sql = "SELECT answer.answer_id, answer.user_id, answer.question_id, answer.description, answer.created," +
+                " answer.vote, COUNT(reply_id) AS numberOfReply" +
                 " FROM answer" +
                 " LEFT JOIN reply r ON answer.answer_id = r.answer_id" +
                 " WHERE answer.question_id = ?" +
@@ -56,20 +58,19 @@ public class AnswerDAOJdbc implements AnswerDAO{
 
     @Override
     public int addAnswer(AnswerRequestDTO answerRequestDTO) {
-        String sql = "INSERT INTO answer(description,created, question_id, vote) VALUES (?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, answerRequestDTO.description(), LocalDateTime.now(), answerRequestDTO.id(), DEFAULT_VOTE);
+        String sql = "INSERT INTO answer(user_id ,description,created, question_id, vote) VALUES (?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql,
+                                   answerRequestDTO.userId(),
+                                   answerRequestDTO.description(),
+                                   LocalDateTime.now(),
+                                   answerRequestDTO.id(),
+                                   DEFAULT_VOTE);
     }
 
     @Override
     public boolean deleteAnswerById(long theId) {
-        int delete = jdbcTemplate.update("DELETE FROM answer WHERE answer_id = ?", theId);
-        return delete == 1;
-    }
-
-    @Override
-    public boolean deleteAnswerByQuestionId(long theId) {
-        int delete = jdbcTemplate.update("DELETE FROM answer WHERE question_id = ?", theId);
-        return delete >= 1;
+        String sql = "DELETE FROM answer WHERE answer_id = ?";
+        return jdbcTemplate.update(sql, theId) == 1;
     }
 
     @Override
@@ -80,7 +81,7 @@ public class AnswerDAOJdbc implements AnswerDAO{
 
     @Override
     public void changeVote(String vote, long id) {
-        String sql = "UPDATE answer set vote = ? WHERE question_id = ?";
+        String sql = "UPDATE answer set vote = ? WHERE answer_id = ?";
         jdbcTemplate.update(sql, vote, id);
     }
 }

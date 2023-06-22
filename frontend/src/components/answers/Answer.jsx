@@ -4,13 +4,15 @@ import {MdQuestionAnswer} from "react-icons/md";
 import {ImArrowDown, ImArrowUp} from "react-icons/im";
 import {RiDeleteBin2Fill} from "react-icons/ri";
 import {submitVote, submitDelete} from "../../utils/submitAnswer.jsx";
+import { createdTime } from "../../utils/TimeFormatter";
+import Cookies from "js-cookie";
 import "./Answer.css";
 export const Answer = ({id, description, created , numberOfReply , vote}) => {
     const navigate = useNavigate();
     const [voting, setVoting] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [currentVote, setCurrentVote] = useState(vote);
-    const answersUrl = "/answers/";
+    const answersUrl = "/api/answers/";
     const voteTo = async (up, answerId) => {
         const res = up ? await submitVote("upVoted",answerId) :  await submitVote("downVoted",answerId) ;
         const data = await res;
@@ -22,8 +24,11 @@ export const Answer = ({id, description, created , numberOfReply , vote}) => {
         navigate(`/answer/${id}`);
     };
     const handleDelete = async (currentId) => {
-        await submitDelete(0,currentId,answersUrl);
-        setDeleting(!deleting);
+        const userId = Cookies.get("id");
+        const response = await submitDelete(userId,currentId,answersUrl);
+        if(response) {
+            setDeleting(!deleting);
+        }
     };
 
     useEffect(() => {
@@ -40,7 +45,7 @@ export const Answer = ({id, description, created , numberOfReply , vote}) => {
                     onClick={handleAnswer}
                     id={currentVote}
                 >
-                    <div className="gap-4">{created}</div>
+                    <div className="gap-4">{createdTime(created)}</div>
                     <div className="text-4xl">{description}</div>
                 </div>
                 <div>

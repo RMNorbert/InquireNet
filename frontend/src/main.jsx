@@ -11,8 +11,8 @@ import { CreateQuestion } from "./components/questions/CreateQuestion.jsx";
 import { Navbar } from "./components/Navbar.jsx";
 import { User } from "./components/user/User";
 import {Home} from "./components/Home.jsx";
-import {Chat} from "./components/questions/Chat.jsx";
-import {SelectedAnswer} from "./components/questions/SelectedAnswer.jsx";
+import {Chat} from "./components/chat/Chat.jsx";
+import {SelectedAnswer} from "./components/answers/SelectedAnswer.jsx";
 
 const router = createBrowserRouter([
     {

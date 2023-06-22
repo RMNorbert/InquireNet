@@ -11,6 +11,4 @@ public interface UserDAO {
     Optional<User> findUser(NewUserDTO userDTO);
     int addUser(NewUserDTO userDTO);
     boolean deleteUserById(long theId);
-    void updateNumberOfQuestion(User user, long id);
-    void updateNumberOfAnswers(User user, long id);
 }

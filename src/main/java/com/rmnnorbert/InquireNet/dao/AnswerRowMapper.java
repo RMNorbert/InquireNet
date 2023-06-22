@@ -12,6 +12,7 @@ public class AnswerRowMapper implements RowMapper<Answer> {
     public Answer mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Answer(
                 rs.getLong("answer_id"),
+                rs.getLong("user_id"),
                 rs.getLong("question_id"),
                 rs.getString("description"),
                 rs.getTimestamp("created").toLocalDateTime(),

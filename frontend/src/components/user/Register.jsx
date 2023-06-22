@@ -9,11 +9,10 @@ export const Register = () => {
         let username = e.target[0].value;
         let password = e.target[1].value;
         let user = await checkAvailableUser(username, password);
-        if (user) console.log("This exists");
-        else if(user == null){
-            createUser(username, password);
+        if(user == null){
+            await createUser(username, password);
         }
-        navigate("/");
+        navigate("/login");
     };
     return (
         <div>

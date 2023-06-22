@@ -23,8 +23,7 @@ public class UserController {
         }
         @GetMapping("/{id}")
         public Optional<UserDTO> getUserById(@PathVariable long id) {
-            return userService.findUserById(id)
-                    .map(UserDTO::of);
+            return userService.findUserById(id);
         }
         @PostMapping("/create")
         public int addNewUser(@RequestBody NewUserDTO userDTO) {

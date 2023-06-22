@@ -1,4 +1,4 @@
-import { aiAnswerQuestion } from "../answers/AiAnswer";
+import { aiAnswerQuestion } from "../answers/AiAnswer.jsx";
 import {useState, useEffect} from "react";
 import { FaUserSecret } from "react-icons/fa";
 import { HiComputerDesktop } from "react-icons/hi2";
@@ -11,7 +11,7 @@ export const Chat = ()=>{
     const chatId = 0;
     const getMessage = async () => {
         const res = await aiAnswerQuestion(input,chatId);
-        setMessage(res);
+        setMessage(await res);
     }
 
     const createNewChat = () => {
@@ -35,13 +35,14 @@ export const Chat = ()=>{
                 [...prevChats, {
                     title: currentTitle,
                     role: <FaUserSecret/>,
-                    content: value
+                    content: input
                 }, {
                     title: currentTitle,
                     role: <HiComputerDesktop/>,
                     content: message
                 }]
             ))
+            setInput("");
         }
     },[message,currentTitle]);
 

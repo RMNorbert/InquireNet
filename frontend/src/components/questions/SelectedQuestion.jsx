@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Answer } from "../answers/Answer";
 import {submitAnswer} from "../../utils/submitAnswer.jsx";
-
+import Cookies from "js-cookie";
 export const SelectedQuestion = ({}) => {
     const [currentQuestion, setCurrentQuestion] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [answers, setAnswers] = useState([]);
-    const [params] = useState(useParams());
+    const { id } = useParams();
     const [shouldFetchData, setShouldFetchData] = useState(true);
     const getData = async () => {
         setIsLoading(true);
         const questionResponse = await fetch(
-            "/api/questions/" + params.id
+            "/api/questions/" + id
         );
         const answersResponse = await fetch(
-            "/api/answers/q/" + params.id
+            "/api/answers/q/" + id
         );
         const questionData = await questionResponse.json();
         const answerData = await answersResponse.json();
@@ -26,7 +26,8 @@ export const SelectedQuestion = ({}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let description = e.target[0].value;
-        let answer = await submitAnswer(description, params.id);
+        const userId = Cookies.get("id");
+        let answer = await submitAnswer(userId,description, id);
         setShouldFetchData(true);
     };
 
@@ -35,7 +36,7 @@ export const SelectedQuestion = ({}) => {
             getData();
             setShouldFetchData(false);
         }
-    }, [params.id, shouldFetchData]);
+    }, [id, shouldFetchData]);
     if (isLoading)
         return (
             <div>

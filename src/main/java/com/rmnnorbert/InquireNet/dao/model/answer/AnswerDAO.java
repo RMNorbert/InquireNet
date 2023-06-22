@@ -10,7 +10,6 @@ public interface AnswerDAO {
     List<Answer> getAllAnswersByQuestionId(long id);
     int addAnswer(AnswerRequestDTO answer);
     boolean deleteAnswerById(long theId);
-    boolean deleteAnswerByQuestionId(long theId);
     boolean update(String description, long id);
     void changeVote(String vote, long id);
 }

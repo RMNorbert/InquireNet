@@ -5,6 +5,7 @@ import com.rmnnorbert.InquireNet.dao.model.answer.Answer;
 import java.time.LocalDateTime;
 
 public record AnswerDTO (long answer_id,
+                         long user_id,
                          long question_id,
                          String description,
                          LocalDateTime created,
@@ -13,12 +14,13 @@ public record AnswerDTO (long answer_id,
 {
     public static AnswerDTO of(Answer answer){
         return new AnswerDTO(
-                answer.getAnswer_id(),
-                answer.getQuestion_id(),
-                answer.getDescription(),
-                answer.getCreated(),
-                answer.getNumberOfReply(),
-                answer.getVote());
+                answer.answer_id(),
+                answer.user_id(),
+                answer.question_id(),
+                answer.description(),
+                answer.created(),
+                answer.numberOfReply(),
+                answer.vote());
     }
 
 }

@@ -15,6 +15,7 @@ export const Login = () => {
         if (user) {
             Cookies.set('user', username)
             Cookies.set('id', user.id)
+            console.log(user)
             navigate("/");
         } else setInvalid(true);
     };

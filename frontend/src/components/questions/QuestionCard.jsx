@@ -4,12 +4,9 @@ import { MdQuestionAnswer } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import {RiDeleteBin2Fill} from "react-icons/ri";
 import {submitDelete} from "../../utils/submitAnswer.jsx";
+import { createdTime } from "../../utils/TimeFormatter";
 export const QuestionCard = ({ id, title, description, created, numberOfAnswers }) => {
     const [deleting, setDeleting] = useState(false);
-    const createdTime = new Date(created)
-        .toISOString()
-        .substring(0, 19)
-        .replace("T", " ");
     const navigate = useNavigate();
     const url = "/api/questions/";
     const handleAnswer = () => {
@@ -36,7 +33,7 @@ export const QuestionCard = ({ id, title, description, created, numberOfAnswers 
                     <div>
                         <p>Title: {title}</p>
                         <p>Description: {description}</p>
-                        <p>Created: {`${createdTime} `}</p>
+                        <p>Created: {`${createdTime(created)} `}</p>
                     </div>
                     <div>
                         <button>

@@ -1,7 +1,6 @@
 package com.rmnnorbert.InquireNet.service;
 
 import com.rmnnorbert.InquireNet.dao.model.answer.AnswerDAOJdbc;
-import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
 import com.rmnnorbert.InquireNet.dto.answer.VoteDTO;
@@ -13,11 +12,11 @@ import java.util.List;
 @Service
 public class AnswerService {
     private final AnswerDAOJdbc answerDAO;
-    private final ReplyDAOJdbc replyDAOJdbc;
+    private final ReplyService replyService;
     @Autowired
-    public AnswerService(AnswerDAOJdbc answerDAO, ReplyDAOJdbc replyDAOJdbc) {
+    public AnswerService(AnswerDAOJdbc answerDAO, ReplyService replyService) {
         this.answerDAO = answerDAO;
-        this.replyDAOJdbc = replyDAOJdbc;
+        this.replyService = replyService;
     }
     public List<AnswerDTO> getAllAnswers() {
         return answerDAO.getAllAnswers()
@@ -35,15 +34,25 @@ public class AnswerService {
                 .toList();
     }
     public boolean deleteAnswerById(DeleteRequestDTO dto) {
-        deleteRepliesOfAnswer(dto.targetId());
-        return answerDAO.deleteAnswerById(dto.targetId());
+        AnswerDTO answer = getAnswerById(dto.targetId());
+        if(answer.user_id() == dto.userId()) {
+            deleteRepliesOfAnswer(dto.targetId());
+            return answerDAO.deleteAnswerById(dto.targetId());
+        }
+        return false;
+    }
+    public void deleteAnswers(List<AnswerDTO> answerDTOS) {
+        for (AnswerDTO answer: answerDTOS) {
+        deleteRepliesOfAnswer(answer.answer_id());
+        answerDAO.deleteAnswerById(answer.answer_id());
+        }
     }
     public int addNewAnswer(AnswerRequestDTO answer) {
         return answerDAO.addAnswer(answer);
     }
     public boolean update(AnswerRequestDTO answerRequestDTO){ return answerDAO.update(answerRequestDTO.description(),answerRequestDTO.id());}
     public void updateVote(VoteDTO voteDTO) { answerDAO.changeVote(voteDTO.vote(), voteDTO.id());}
-    private boolean deleteRepliesOfAnswer(long id){
-        return replyDAOJdbc.deleteReplyByAnswerId(id);
+    private void deleteRepliesOfAnswer(long id){
+        replyService.deleteAllReplyOfAnswer(id);
     }
 }

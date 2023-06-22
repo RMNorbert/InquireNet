@@ -10,15 +10,15 @@ export const CreateQuestion = () => {
         const userId = Cookies.get("id");
         const title = e.target[0].value;
         const description = e.target[1].value;
-        uploadQuestion(title, description, userId);
-        let aiAnswer = await fetchData(title);
+        await uploadQuestion(title, description, userId);
+        await fetchData(title);
         navigate("/forum")
     };
 
     const fetchData = async (title) => {
         const data = await fetch("/api/questions/last");
         const lastQuestionId = await data.json();
-        await aiAnswerQuestion(title,lastQuestionId);
+        await aiAnswerQuestion(title, lastQuestionId);
     };
     return (
         <div className="text-black">

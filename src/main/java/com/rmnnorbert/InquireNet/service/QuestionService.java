@@ -59,7 +59,7 @@ public class QuestionService {
         }
         return false;
     }
-    public int addNewQuestion(NewQuestionDTO question) {
+    public boolean addNewQuestion(NewQuestionDTO question) {
         return questionsDAO.addQuestion(question);
     }
     private void deleteAnswers(long id){

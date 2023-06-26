@@ -1,43 +1,41 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { Reply } from "../reply/Reply.jsx";
-import {submitReply} from "../../utils/submitAnswer.jsx";
-import Cookies from "js-cookie";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { multiFetch } from "../../utils/MultiFetch.jsx";
+import { loggedInUserId } from "../../utils/TokenDecoder.jsx";
 
 export const SelectedAnswer = ({}) => {
-    const [currentAnswer, setCurrentAnswer] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const { id } = useParams();
     const [replies, setReplies] = useState([]);
-    const [params] = useState(useParams());
-    const [shouldFetchData, setShouldFetchData] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
+    const [reFetchData, setReFetchData] = useState(true);
+    const [currentAnswer, setCurrentAnswer] = useState(null);
+    const answersUrl = "/api/answers/" + id;
+    const responsesUrl = "/api/reply/a/" + id;
     const getData = async () => {
         setIsLoading(true);
-        const answerResponse = await fetch(
-            "/api/answers/" + params.id
-        );
-        const replyResponse = await fetch(
-            "/api/reply/a/" + params.id
-        );
-        const answerData = await answerResponse.json();
-        const replyData = await replyResponse.json();
+        const answerResponse = await multiFetch(answersUrl,"GET");
+        const replyResponse = await multiFetch(responsesUrl,"GET");
+        const answerData = await answerResponse;
+        const replyData = await replyResponse;
         setCurrentAnswer(answerData);
         setReplies(replyData);
         setIsLoading(false);
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const userId = Cookies.get("id");
         let description = e.target[0].value;
-        let answer = await submitReply(description, params.id, userId);
-        setShouldFetchData(true);
+        let data = {description: description, answerId: id, userId: loggedInUserId()}
+        await multiFetch("/api/reply/", "POST",data);
+        setReFetchData(true);
     };
 
     useEffect(() => {
-        if (shouldFetchData) {
+        if (reFetchData) {
             getData();
-            setShouldFetchData(false);
+            setReFetchData(false);
         }
-    }, [params.id, shouldFetchData]);
+    }, [id, reFetchData]);
     if (isLoading)
         return (
             <div>
@@ -46,7 +44,7 @@ export const SelectedAnswer = ({}) => {
         );
     else
         return (
-            <div onSubmit={()=>setShouldFetchData(true)}>
+            <div onSubmit={()=>setReFetchData(true)}>
                 <form
                     action="../questions"
                     onSubmit={(e) => {
@@ -64,7 +62,7 @@ export const SelectedAnswer = ({}) => {
                     </button>
                 </form>
                 <div className="flex justify-center">
-                    <div className="h-64 bg-slate-200 my-5 rounded-xl w-2/3 text-black  ">
+                    <div className="object-cover bg-slate-200 my-5 rounded-xl w-2/3 text-black  ">
                         <p className="text-5xl flex justify-center">
                             {currentAnswer.title}
                         </p>

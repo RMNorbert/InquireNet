@@ -9,7 +9,7 @@ public interface QuestionDAO {
     List<Question> getAllQuestion();
     Question findQuestionById(long id);
     long findLastQuestionId();
-    int addQuestion(NewQuestionDTO question);
+    boolean addQuestion(NewQuestionDTO question);
     List<Question> getAllQuestionByUserID(long userID);
     boolean deleteQuestionById(long theId);
     boolean update(UpdateQuestionDTO questionDTO);

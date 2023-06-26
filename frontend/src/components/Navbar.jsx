@@ -1,25 +1,39 @@
-import Cookies from "js-cookie";
-import React from "react";
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
+import { username, time } from "../utils/TokenDecoder.jsx";
 export const Navbar = () => {
     const [open, setOpen] = useState(false);
+    const [user, setUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [username, setUsername] = useState(null);
-
     const handleLogout = () => {
-        setUsername(null);
+        setUser(null);
         setIsLoggedIn(false);
-        Cookies.remove("user");
+        localStorage.clear();
+        window.location.href = "/login";
     };
-
     const handleOpen = () => setOpen(!open);
 
     useEffect(() => {
-        setUsername(Cookies.get("user"));
-        if (username) setIsLoggedIn(true);
-    });
+        if(username()) {
+            setUser(username());
+            setIsLoggedIn(true);
+
+            setTimeout(() => {
+                handleLogout();
+            }, 2 * 60 * 60 * 1000);
+
+            const targetDate = new Date(time());
+            const currentDate = new Date();
+            if (currentDate > targetDate) {
+                handleLogout();
+            }
+        }else{
+            setUser(null);
+            setIsLoggedIn(false);
+        }
+
+    },[username()]);
 
     return (<>
         <div className="flex justify-between bg-slate-200 text-4xl text-black h-24 rounded-xl h-36 pl-10 ">
@@ -35,7 +49,6 @@ export const Navbar = () => {
                             Chat with AI
                         </button>
                     </a>
-
             </div>
                 <div className="flex justify-evenly gap-y-12">
                 <div>
@@ -45,7 +58,7 @@ export const Navbar = () => {
                     isLoggedIn ? (
                         <button className="bg-cyan-800 rounded-xl border-sky-600 hover:bg-sky-900 border-solid border-2">
                             <a href="/user">
-                                <div>{username}</div>
+                                <div>{user}</div>
                             </a>
                             <TfiLayoutLineSolid className="w-full"></TfiLayoutLineSolid>
                             <div onClick={handleLogout}>Logout</div>

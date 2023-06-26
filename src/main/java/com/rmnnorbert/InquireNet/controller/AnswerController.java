@@ -5,6 +5,7 @@ import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
 import com.rmnnorbert.InquireNet.dto.answer.VoteDTO;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.service.AnswerService;
+import com.rmnnorbert.InquireNet.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +15,11 @@ import java.util.List;
 @RequestMapping("answers")
 public class AnswerController {
         private final AnswerService answerService;
+        private final VoteService voteService;
         @Autowired
-        public AnswerController(AnswerService answerService) {
+        public AnswerController(AnswerService answerService, VoteService voteService) {
             this.answerService = answerService;
+            this.voteService = voteService;
         }
         @GetMapping("/all")
         public List<AnswerDTO> getAllAnswers() {
@@ -26,12 +29,16 @@ public class AnswerController {
         public AnswerDTO getAnswerById(@PathVariable long id) {
             return answerService.getAnswerById(id);
         }
+        @GetMapping("/user/{id}")
+        public int getNumberOfAnswersByUserId(@PathVariable long id) {
+            return answerService.getNumberOfAnswersByUserId(id);
+        }
         @GetMapping("/q/{id}")
         public List<AnswerDTO> getAllAnswersByQuestionId(@PathVariable long id){
             return answerService.getAllAnswersByQuestionId(id);
         }
         @PostMapping("/")
-        public int addNewAnswer(@RequestBody AnswerRequestDTO answerDTO) {
+        public boolean addNewAnswer(@RequestBody AnswerRequestDTO answerDTO) {
             return answerService.addNewAnswer(answerDTO);
         }
         @DeleteMapping("/")
@@ -40,7 +47,7 @@ public class AnswerController {
         }
         @PutMapping("/vote")
         public VoteDTO voteOnAnswerById(@RequestBody VoteDTO voteDTO) {
-        answerService.updateVote(voteDTO);
+        voteService.vote(voteDTO);
         return voteDTO;
        }
        @PutMapping("/")

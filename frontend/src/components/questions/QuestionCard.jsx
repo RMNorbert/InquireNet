@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
-import Cookies from "js-cookie";
-import { MdQuestionAnswer } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import {RiDeleteBin2Fill} from "react-icons/ri";
-import {submitDelete} from "../../utils/submitAnswer.jsx";
+import { MdQuestionAnswer } from "react-icons/md";
+import { RiDeleteBin2Fill } from "react-icons/ri";
+import { useEffect, useState } from "react";
+import { multiFetch } from "../../utils/MultiFetch.jsx";
 import { createdTime } from "../../utils/TimeFormatter";
+import { loggedInUserId } from "../../utils/TokenDecoder.jsx";
 export const QuestionCard = ({ id, title, description, created, numberOfAnswers }) => {
     const [deleting, setDeleting] = useState(false);
     const navigate = useNavigate();
@@ -12,18 +12,20 @@ export const QuestionCard = ({ id, title, description, created, numberOfAnswers 
     const handleAnswer = () => {
         navigate(`/question/${id}`);
     };
+
     useEffect(() => {
 
     },[]);
     const handleDelete = async (currentId) => {
-        const data = await submitDelete(parseInt(Cookies.get("id")),currentId,url);
+        const data = await multiFetch(url,"DELETE",{userId: loggedInUserId(), targetId: currentId})
         if(data) {
             setDeleting(!deleting);
         }
     };
+
     if(deleting){
         return (<></>)
-    }else {
+    } else {
         return (
             <>
                 <div

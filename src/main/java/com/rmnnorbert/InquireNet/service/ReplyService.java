@@ -4,7 +4,7 @@ import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;
 import com.rmnnorbert.InquireNet.dto.reply.ReplyDTO;
-import com.rmnnorbert.InquireNet.exception.NotFoundException;
+import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +43,7 @@ public class ReplyService {
     public boolean updateReply(ReplyDTO replyDTO) {
         return replyDAOJdbc.update(replyDTO);
     }
-    public int addNewReply(NewReplyDTO replyDTO) {
+    public boolean addNewReply(NewReplyDTO replyDTO) {
         return replyDAOJdbc.addReply(replyDTO);
     }
     public boolean deleteAllReplyOfAnswer(long id){

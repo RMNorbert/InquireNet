@@ -22,9 +22,9 @@ public class QuestionController {
     public List<QuestionDTO> getAllQuestions() {
         return questionService.getAllQuestions();
     }
-    @GetMapping("/all/{userId}")
-    public List<QuestionDTO> getAllQuestionsOfUser(@PathVariable long userId) {
-        return questionService.getAllQuestionOfUser(userId);
+    @GetMapping("/all/{id}")
+    public List<QuestionDTO> getAllQuestionsOfUser(@PathVariable long id) {
+        return questionService.getAllQuestionOfUser(id);
     }
     @GetMapping("/last")
     public long getLastQuestions() {
@@ -35,7 +35,7 @@ public class QuestionController {
         return questionService.getQuestionById(id);
     }
     @PostMapping("/")
-    public int addNewQuestion(@RequestBody NewQuestionDTO question) {
+    public boolean addNewQuestion(@RequestBody NewQuestionDTO question) {
         return questionService.addNewQuestion(question);
     }
     @PutMapping("/")

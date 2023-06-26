@@ -1,14 +1,13 @@
 package com.rmnnorbert.InquireNet.service;
 
-import com.rmnnorbert.InquireNet.dao.model.user.User;
 import com.rmnnorbert.InquireNet.dao.model.user.UserDaoJdbc;
-import com.rmnnorbert.InquireNet.dto.user.NewUserDTO;
+import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.user.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 @Service
 public class UserService {
     private final UserDaoJdbc userDAO;
@@ -23,16 +22,16 @@ public class UserService {
                 .toList();
     }
 
-    public Optional<UserDTO> findUserById(long id) {
-        return userDAO.findUserById(id).map(UserDTO::of);
+    public UserDTO findUserById(long id) {
+        return UserDTO.of(userDAO.findUserById(id));
     }
-    public Optional<User> logInUser(NewUserDTO userDTO) {
-        return userDAO.findUser(userDTO);
+    public boolean deleteUserById(DeleteRequestDTO dto) {
+        UserDTO requestingUser = findUserById(dto.userId());
+        UserDTO targetUser = findUserById(dto.targetId());
+        if(requestingUser.equals(targetUser)) {
+            return userDAO.deleteUserById(dto.targetId());
+        }
+        return false;
     }
-    public boolean deleteUserById(long id) {
-        return userDAO.deleteUserById(id);
-    }
-    public int addUser(NewUserDTO userDTO) {
-        return userDAO.addUser(userDTO);
-    }
+
 }

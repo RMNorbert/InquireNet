@@ -1,14 +1,13 @@
 package com.rmnnorbert.InquireNet.dao.model.user;
 
-import com.rmnnorbert.InquireNet.dto.user.NewUserDTO;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserDAO {
     List<User> getAllUser();
-    Optional<User> findUserById(long id);
-    Optional<User> findUser(NewUserDTO userDTO);
-    int addUser(NewUserDTO userDTO);
-    boolean deleteUserById(long theId);
+    User findUserById(long id);
+    User findUser(String username);
+    ResponseEntity<String> addUser(String username, String password);
+    boolean deleteUserById(long id);
 }

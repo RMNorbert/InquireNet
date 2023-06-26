@@ -2,13 +2,14 @@ package com.rmnnorbert.InquireNet.dao.model.answer;
 
 import com.rmnnorbert.InquireNet.dao.AnswerRowMapper;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
-import com.rmnnorbert.InquireNet.exception.NotFoundException;
+import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class AnswerDAOJdbc implements AnswerDAO{
@@ -57,14 +58,14 @@ public class AnswerDAOJdbc implements AnswerDAO{
 
 
     @Override
-    public int addAnswer(AnswerRequestDTO answerRequestDTO) {
+    public boolean addAnswer(AnswerRequestDTO answerRequestDTO) {
         String sql = "INSERT INTO answer(user_id ,description,created, question_id, vote) VALUES (?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql,
                                    answerRequestDTO.userId(),
                                    answerRequestDTO.description(),
                                    LocalDateTime.now(),
                                    answerRequestDTO.id(),
-                                   DEFAULT_VOTE);
+                                   DEFAULT_VOTE) == 1;
     }
 
     @Override
@@ -83,5 +84,11 @@ public class AnswerDAOJdbc implements AnswerDAO{
     public void changeVote(String vote, long id) {
         String sql = "UPDATE answer set vote = ? WHERE answer_id = ?";
         jdbcTemplate.update(sql, vote, id);
+    }
+    @Override
+    public int getNumberOfUserAnswers(long id) {
+        String sql = "SELECT COUNT(answer_id) FROM answer WHERE user_id = ?";
+        Integer result = jdbcTemplate.queryForObject(sql, Integer.class, id);
+        return Optional.ofNullable(result).orElse(0);
     }
 }

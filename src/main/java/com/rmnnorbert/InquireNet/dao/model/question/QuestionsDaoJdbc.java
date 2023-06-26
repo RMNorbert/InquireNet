@@ -3,7 +3,7 @@ package com.rmnnorbert.InquireNet.dao.model.question;
 import com.rmnnorbert.InquireNet.dao.QuestionRowMapper;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.question.UpdateQuestionDTO;
-import com.rmnnorbert.InquireNet.exception.NotFoundException;
+import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -44,20 +44,25 @@ public class QuestionsDaoJdbc implements QuestionDAO{
     }
     @Override
     public List<Question> getAllQuestionByUserID(long userID) {
-        String sql = "SELECT question_id, user_id, title, description, created FROM question WHERE user_id = ?";
+        String sql = "SELECT question.question_id, question.user_id, title, question.description, question.created," +
+                " COUNT(answer_id) AS numberOfAnswers" +
+                " FROM question" +
+                " LEFT JOIN answer a ON question.question_id = a.question_id " +
+                " WHERE question.user_id = ?" +
+                " GROUP BY question.question_id";
         return jdbcTemplate.query(sql, new QuestionRowMapper(),userID);
     }
     @Override
-    public int addQuestion(NewQuestionDTO newQuestionDTO) {
+    public boolean addQuestion(NewQuestionDTO newQuestionDTO) {
         if(newQuestionDTO.userID() != 0) {
             String sql = "INSERT INTO question(user_id,title,description,created) VALUES (?, ?, ?, ?)";
             return jdbcTemplate.update(sql,
                                        newQuestionDTO.userID(),
                                        newQuestionDTO.title(),
                                        newQuestionDTO.description(),
-                                       LocalDateTime.now());
+                                       LocalDateTime.now()) == 1;
         }
-        return -1;
+        return false;
     }
 
     @Override

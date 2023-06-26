@@ -1,13 +1,13 @@
-import React, {useState} from "react";
+import { useState } from "react";
+import { loggedInUserId } from "../../utils/TokenDecoder"
+import { RiDeleteBin2Fill } from "react-icons/ri";
 import { createdTime } from "../../utils/TimeFormatter";
-import {RiDeleteBin2Fill} from "react-icons/ri";
-import {submitDelete} from "../../utils/submitAnswer.jsx";
-import Cookies from "js-cookie";
+import { multiFetch } from "../../utils/MultiFetch.jsx";
 export const Reply = ({id, description, created }) => {
     const [deleting, setDeleting] = useState(false);
     const url = "/api/reply/";
     const handleDelete = async (currentId) => {
-        const response = await submitDelete(parseInt(Cookies.get("id")),currentId,url);
+        const response = await multiFetch(url,"DELETE",{userId: loggedInUserId(), targetId: currentId});
         if(response) {
             setDeleting(!deleting);
         }
@@ -16,7 +16,7 @@ export const Reply = ({id, description, created }) => {
         return (<></>)
     }
     return (
-        <div className="flex gap-3 bg-slate-200 text-black rounded-lg my-5 w-2/3 p-6 flex-col">
+        <div className="object-cover flex gap-3 bg-slate-200 text-black rounded-lg my-5 w-2/3 p-6 flex-col">
             <div className="gap-4">{createdTime(created)}</div>
             <div className="text-4xl">{description}</div>
             <button onClick={() => handleDelete(id)}>

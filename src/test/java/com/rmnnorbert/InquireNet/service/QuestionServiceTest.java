@@ -1,9 +1,7 @@
 package com.rmnnorbert.InquireNet.service;
 
-import com.rmnnorbert.InquireNet.dao.model.answer.AnswerDAOJdbc;
 import com.rmnnorbert.InquireNet.dao.model.question.Question;
 import com.rmnnorbert.InquireNet.dao.model.question.QuestionsDaoJdbc;
-import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
@@ -15,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,12 +22,12 @@ class QuestionServiceTest {
     @Mock
     private QuestionsDaoJdbc questionsDaoJdbc;
     private QuestionService questionService;
-    private AnswerDAOJdbc answerDAOJdbc;
-    private ReplyDAOJdbc replyDAOJdbc;
+    private AnswerService answerService;
+
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
-        questionService = new QuestionService(questionsDaoJdbc, answerDAOJdbc, replyDAOJdbc);
+        questionService = new QuestionService(questionsDaoJdbc, answerService);
     }
 
     @Test
@@ -59,25 +56,24 @@ class QuestionServiceTest {
                 new Question(1,1,"title","desc", LocalDateTime.now(),1),
                 new Question(2,1,"title","desc", LocalDateTime.now(),1)
         );
-        when(questionsDaoJdbc.findLastQuestion()).thenReturn(Optional.of(questions.get(1)));
+        when(questionsDaoJdbc.findLastQuestionId()).thenReturn(1L);
 
-        Optional<QuestionDTO> questionDTOS = questionService.getLastQuestion();
-        assertTrue(questionDTOS.isPresent());
+        long lastQuestionId = questionService.getLastQuestion();
+        long expectedId = 1;
+        assertEquals(expectedId,lastQuestionId);
 
-        assertQuestionEquals(questions.get(1), questionDTOS.get());
-        verify(questionsDaoJdbc, times(1)).findLastQuestion();
+        verify(questionsDaoJdbc, times(1)).findLastQuestionId();
     }
 
     @Test
     void getQuestionById() {
         int id = 1;
         Question question = new Question(1,1,"title","desc", LocalDateTime.now(),1);
-        when(questionsDaoJdbc.findQuestionById(id)).thenReturn(Optional.of(question));
+        when(questionsDaoJdbc.findQuestionById(id)).thenReturn(question);
 
-        Optional<QuestionDTO> foundQuestion = questionService.getQuestionById(id);
+        QuestionDTO foundQuestion = questionService.getQuestionById(id);
 
-        assertTrue(foundQuestion.isPresent());
-        assertQuestionEquals(question, foundQuestion.get());
+        assertQuestionEquals(question, foundQuestion);
         verify(questionsDaoJdbc, times(1)).findQuestionById(id);
     }
 
@@ -90,23 +86,23 @@ class QuestionServiceTest {
         boolean response = questionService.deleteQuestionById(new DeleteRequestDTO(id,id));
 
         assertTrue(response);
-        verify(questionsDaoJdbc, times(1)).deleteQuestionById(question.getQuestion_id());
+        verify(questionsDaoJdbc, times(1)).deleteQuestionById(question.question_id());
     }
 
     @Test
     void addNewQuestion() {
         NewQuestionDTO questionDTO = new NewQuestionDTO("User","aka",1);
-        int modifiedRows = 1;
-        when(questionsDaoJdbc.addQuestion(questionDTO)).thenReturn(modifiedRows);
+        boolean modifiedRows = true;
+        when(questionsDaoJdbc.addQuestion(questionDTO)).thenReturn(true);
 
-        int response = questionService.addNewQuestion(questionDTO);
+        boolean response = questionService.addNewQuestion(questionDTO);
 
         assertEquals(modifiedRows,response);
         verify(questionsDaoJdbc, times(1)).addQuestion(questionDTO);
     }
     private void assertQuestionEquals(Question question, QuestionDTO questionDTO) {
-        assertEquals(question.getQuestion_id(), questionDTO.getQuestion_id());
-        assertEquals(question.getUserID(), questionDTO.getUser_id());
-        assertEquals(question.getTitle(), questionDTO.getTitle());
+        assertEquals(question.question_id(), questionDTO.question_id());
+        assertEquals(question.user_id(), questionDTO.user_id());
+        assertEquals(question.title(), questionDTO.title());
     }
 }

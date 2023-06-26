@@ -29,7 +29,7 @@ public class ReplyController {
         return replyService.getAllReplyByAnswerId(id);
     }
     @PostMapping("/")
-    public int addNewReply(@RequestBody NewReplyDTO replyDTO) {
+    public boolean addNewReply(@RequestBody NewReplyDTO replyDTO) {
         return replyService.addNewReply(replyDTO);
     }
     @PutMapping("/")

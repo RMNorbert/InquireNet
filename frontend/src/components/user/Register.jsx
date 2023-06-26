@@ -1,22 +1,32 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { checkAvailableUser } from "../../utils/checkAvailableuser";
-import { createUser } from "../../utils/createUser";
-
+import { authFetch } from "../../utils/MultiFetch.jsx";
 export const Register = () => {
     const navigate = useNavigate();
+    const [message, setMessage] = useState("");
+    const [hidden, setHidden] = useState(true);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let username = e.target[0].value;
-        let password = e.target[1].value;
-        let user = await checkAvailableUser(username, password);
-        if(user == null){
-            await createUser(username, password);
+        const registrationUrl = "/api/register";
+        const data = {username: e.target[0].value, password:  e.target[1].value};
+        const response = await authFetch(registrationUrl,data,false);
+        if(response) {
+            setHidden(false);
+            setMessage(response.split(";").join("\n"));
+        } else{
+            navigate("/login");
         }
-        navigate("/login");
     };
+
     return (
         <div>
-            <div>Register!</div>
+            <div className="text-yellow-300 text-2xl font-extrabold drop-shadow-lg shadow-black">Register</div>
+            <br/>
+            <div className="text-rose-800 text-2xl font-extrabold drop-shadow-lg shadow-black whitespace-pre-wrap"
+                 hidden={hidden}>
+                    {message}
+            </div>
             <div className="flex justify-center flex-col items-center text-2xl ">
                 <form
                     action=""

@@ -47,12 +47,17 @@ public class AnswerService {
         answerDAO.deleteAnswerById(answer.answer_id());
         }
     }
-    public int addNewAnswer(AnswerRequestDTO answer) {
+    public boolean addNewAnswer(AnswerRequestDTO answer) {
         return answerDAO.addAnswer(answer);
     }
     public boolean update(AnswerRequestDTO answerRequestDTO){ return answerDAO.update(answerRequestDTO.description(),answerRequestDTO.id());}
-    public void updateVote(VoteDTO voteDTO) { answerDAO.changeVote(voteDTO.vote(), voteDTO.id());}
     private void deleteRepliesOfAnswer(long id){
         replyService.deleteAllReplyOfAnswer(id);
+    }
+    public void updateVote(VoteDTO voteDTO) {
+            answerDAO.changeVote(voteDTO.vote(), voteDTO.id());
+    }
+    public int getNumberOfAnswersByUserId(long id) {
+        return answerDAO.getNumberOfUserAnswers(id);
     }
 }

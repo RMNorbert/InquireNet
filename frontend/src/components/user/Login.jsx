@@ -1,31 +1,33 @@
-import Cookies from "js-cookie";
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import { checkAvailableUser } from "../../utils/checkAvailableuser";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { authFetch } from "../../utils/MultiFetch.jsx";
 
 export const Login = () => {
     const navigate = useNavigate();
-    const [invalid, setInvalid] = useState(false);
+    const [message, setMessage] = useState("");
+    const [hidden, setHidden] = useState(true);
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let username = e.target[0].value;
-        let password = e.target[1].value;
-        let user = await checkAvailableUser(username, password);
-
-        if (user) {
-            Cookies.set('user', username)
-            Cookies.set('id', user.id)
-            console.log(user)
-            navigate("/");
-        } else setInvalid(true);
+        const loginUrl = "/api/authenticate";
+        const data = {username: e.target[0].value, password: e.target[1].value};
+        const response = await authFetch(loginUrl,data,true);
+        if(response) {
+            setHidden(false);
+            setMessage(response.split(";").join("\n"));
+        } else{
+            navigate("/forum");
+        }
     };
-
 
     return (
         <div>
             <div className="flex justify-center flex-col items-center text-2xl ">
-                <div>Log in!</div>
-                <div className="text-red-400">{invalid ? "This username/password combo doesn't work" : ""}</div>
+                <div className="text-yellow-300 text-2xl font-extrabold drop-shadow-lg shadow-black">Log in</div>
+                <br/>
+                <div className="text-rose-800 text-2xl font-extrabold drop-shadow-lg shadow-black whitespace-pre-wrap"
+                     hidden={hidden}>
+                    {message}
+                </div>
                 <form
                     onSubmit={(e) => {
                         handleSubmit(e);

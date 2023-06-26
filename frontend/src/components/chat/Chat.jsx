@@ -1,11 +1,11 @@
-import { aiAnswerQuestion } from "../answers/AiAnswer.jsx";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { FaUserSecret } from "react-icons/fa";
 import { HiComputerDesktop } from "react-icons/hi2";
+import { aiAnswerQuestion } from "../answers/AiAnswer.jsx";
 
 export const Chat = ()=>{
-    const [message, setMessage] = useState(null);
     const [input, setInput] = useState('');
+    const [message, setMessage] = useState(null);
     const [previousChats, setPreviousChats] = useState([]);
     const [currentTitle, setCurrentTitle] = useState(null);
     const chatId = 0;

@@ -8,8 +8,9 @@ public interface AnswerDAO {
     List<Answer> getAllAnswers();
     Answer findAnswerById(long id);
     List<Answer> getAllAnswersByQuestionId(long id);
-    int addAnswer(AnswerRequestDTO answer);
+    boolean addAnswer(AnswerRequestDTO answer);
     boolean deleteAnswerById(long theId);
     boolean update(String description, long id);
     void changeVote(String vote, long id);
+    int getNumberOfUserAnswers(long id);
 }

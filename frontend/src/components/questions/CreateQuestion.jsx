@@ -1,23 +1,23 @@
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import { uploadQuestion } from "../../utils/uploadQuestion";
 import { aiAnswerQuestion } from "../answers/AiAnswer";
-
+import { multiFetch } from "../../utils/MultiFetch.jsx";
+import {loggedInUserId} from "../../utils/TokenDecoder.jsx";
 export const CreateQuestion = () => {
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const userId = Cookies.get("id");
-        const title = e.target[0].value;
+        const questionUrl = "/api/questions/";
+        const title = e.target[0].value
         const description = e.target[1].value;
-        await uploadQuestion(title, description, userId);
+        const data = {title: title, description: description, userID: loggedInUserId()}
+        await multiFetch(questionUrl,"POST", data);
         await fetchData(title);
-        navigate("/forum")
+        navigate("/forum");
     };
 
     const fetchData = async (title) => {
-        const data = await fetch("/api/questions/last");
-        const lastQuestionId = await data.json();
+        const data = await multiFetch("/api/questions/last","GET");
+        const lastQuestionId = await data;
         await aiAnswerQuestion(title, lastQuestionId);
     };
     return (

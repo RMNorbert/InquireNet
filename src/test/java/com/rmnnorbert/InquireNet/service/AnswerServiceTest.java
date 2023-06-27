@@ -4,6 +4,7 @@ import com.rmnnorbert.InquireNet.dao.model.answer.Answer;
 import com.rmnnorbert.InquireNet.dao.model.answer.AnswerDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
+import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -14,13 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class AnswerServiceTest {
     @Mock
     private AnswerDAOJdbc answerDAOJdbc;
-    private AnswerService answerService;
+    @Mock
     private ReplyService replyService;
+    private AnswerService answerService;
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
@@ -59,37 +62,34 @@ class AnswerServiceTest {
         verify(answerDAOJdbc, times(1)).findAnswerById(id);
     }
 
-    /*@Test
+    @Test
     void getAllAnswersByQuestionId() {
-        int id = 2;
-        AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO(1,"User",1);
-        AnswerRequestDTO answerRequestDTO2 = new AnswerRequestDTO(1,"User",2);
-        answerDAOJdbc.addAnswer(answerRequestDTO);
-        answerDAOJdbc.addAnswer(answerRequestDTO2);
-        List<Answer> answers = List.of(
-        new Answer(1,1,1,"User",LocalDateTime.now(),0,"unvoted"),
-        new Answer(2,1,2,"User", LocalDateTime.now(),0,"unvoted")
+        long id = 2;
+        List<Answer> mockAnswers = List.of(
+                new Answer(1, 1, 1, "User", LocalDateTime.now(), 0, "unvoted"),
+                new Answer(2, 1, 1, "User", LocalDateTime.now(), 0, "unvoted")
         );
-        List<AnswerDTO> expectedAnswers = List.of(AnswerDTO.of(answers.get(1)));
-        when(answerService.getAllAnswersByQuestionId(id)).thenReturn(expectedAnswers);
 
-        List<AnswerDTO> actualAnswers = answerService.getAllAnswersByQuestionId(id);
-        assertEquals(expectedAnswers, actualAnswers);
-        assertEquals(1, actualAnswers.size());
+        when(answerDAOJdbc.getAllAnswersByQuestionId(id)).thenReturn(mockAnswers);
+        List<AnswerDTO> result = answerService.getAllAnswersByQuestionId(id);
+
+        assertEquals(mockAnswers.size(), result.size());
+        verify(answerDAOJdbc).getAllAnswersByQuestionId(id);
+
     }
 
     @Test
     void deleteAnswerById() {
         int id = 1;
         Answer answer = new Answer(1,1,1,"desc",LocalDateTime.now(),0,"un voted");
+        when(answerDAOJdbc.findAnswerById(id)).thenReturn(answer);
         when(answerDAOJdbc.deleteAnswerById(id)).thenReturn(true);
-
         boolean response = answerService.deleteAnswerById(new DeleteRequestDTO(1,1));
 
         assertTrue(response);
         verify(answerDAOJdbc, times(1)).deleteAnswerById(answer.question_id());
     }
-*/
+
     @Test
     void addNewAnswer() {
         AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO(1,"User",1);

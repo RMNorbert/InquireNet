@@ -21,8 +21,9 @@ import static org.mockito.Mockito.*;
 class QuestionServiceTest {
     @Mock
     private QuestionsDaoJdbc questionsDaoJdbc;
-    private QuestionService questionService;
+    @Mock
     private AnswerService answerService;
+    private QuestionService questionService;
 
     @BeforeEach
     void init() {
@@ -52,10 +53,6 @@ class QuestionServiceTest {
     }
     @Test
     void getLastQuestion() {
-        List<Question> questions = List.of(
-                new Question(1,1,"title","desc", LocalDateTime.now(),1),
-                new Question(2,1,"title","desc", LocalDateTime.now(),1)
-        );
         when(questionsDaoJdbc.findLastQuestionId()).thenReturn(1L);
 
         long lastQuestionId = questionService.getLastQuestion();
@@ -80,10 +77,12 @@ class QuestionServiceTest {
     @Test
     void deleteQuestionById() {
         int id = 1;
-        Question question = new Question(1,1,"title","desc", LocalDateTime.now(),1);
+        Question question = new Question(1, 1, "title", "desc", LocalDateTime.now(), 1);
+
+        when(questionsDaoJdbc.findQuestionById(id)).thenReturn(question);
         when(questionsDaoJdbc.deleteQuestionById(id)).thenReturn(true);
 
-        boolean response = questionService.deleteQuestionById(new DeleteRequestDTO(id,id));
+        boolean response = questionService.deleteQuestionById(new DeleteRequestDTO(id, id));
 
         assertTrue(response);
         verify(questionsDaoJdbc, times(1)).deleteQuestionById(question.question_id());

@@ -22,6 +22,7 @@ import static org.mockito.Mockito.*;
 class UserServiceTest {
     @Mock
     private UserDaoJdbc userDAO;
+    @Mock
     private UserService userService;
 
     @BeforeEach

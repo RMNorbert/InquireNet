@@ -1,8 +1,10 @@
 package com.rmnnorbert.InquireNet.dao.model.user;
 
+import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.UserRowMapper;
-import com.rmnnorbert.InquireNet.dto.user.NewUserDTO;
+import com.rmnnorbert.InquireNet.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -13,7 +15,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 @Repository
 public class UserDaoJdbc implements UserDAO{
     private final JdbcTemplate jdbcTemplate;
@@ -23,66 +25,54 @@ public class UserDaoJdbc implements UserDAO{
     }
     @Override
     public List<User> getAllUser() {
-        String sql = "SELECT id,password, status, name, registration_date,number_of_questions,number_of_answers" +
+        String sql = "SELECT id,password, role, username, registration_date" +
                 " FROM \"user\"";
         return jdbcTemplate.query(sql, new UserRowMapper());
     }
 
     @Override
-    public Optional<User> findUserById(int id) {
-        String sql = "SELECT id,password, status,name, registration_date, number_of_questions, number_of_answers " +
+    public User findUserById(long id) {
+        String sql = "SELECT id,password, role, username, registration_date" +
                 " FROM \"user\" WHERE id = ?";
         return jdbcTemplate.query(sql, new UserRowMapper(),id)
                 .stream()
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("User"));
     }
 
     @Override
-    public Optional<User> findUser(NewUserDTO newUserDTO) {
-        String sql = "SELECT name, id,password,status,registration_date, number_of_questions, number_of_answers " +
-                " FROM \"user\" WHERE name = ? AND password = ?";
-        return jdbcTemplate.query(sql, new UserRowMapper(), newUserDTO.username(),newUserDTO.password())
+    public User findUser(String username) {
+        String sql = "SELECT username, id,password,role,registration_date" +
+                " FROM \"user\" WHERE username = ?";
+        return jdbcTemplate.query(sql, new UserRowMapper(), username)
                 .stream()
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("User"));
     }
     @Override
-    public int addUser(NewUserDTO newUserDTO) {
-       // String sql = "INSERT INTO \"user\"(name,password,registration_date,number_of_questions,number_of_answers) values (?,?,?,?,?)";
-       // return jdbcTemplate.update(sql,newUserDTO.username() ,newUserDTO.password(), LocalDateTime.now(),0,0);
-        String sql = "INSERT INTO \"user\" (name, password, registration_date, number_of_questions, number_of_answers , status) " +
-                "VALUES (?, ?, ?, ?, ?, ?) RETURNING id";
+    public ResponseEntity<String> addUser(String registrationUsername, String registrationPassword) {
+
+        String sql = "INSERT INTO \"user\" (username, password, registration_date, role)" +
+                " VALUES (?, ?, ?, ?) RETURNING id";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, newUserDTO.username());
-            ps.setString(2, newUserDTO.password());
+            ps.setString(1, registrationUsername);
+            ps.setString(2, registrationPassword);
             ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setInt(4, 0);
-            ps.setInt(5, 0);
-            ps.setString(6,"User");
+            ps.setString(4,"USER");
             return ps;
         }, keyHolder);
 
-        return keyHolder.getKey().intValue() + 1;
+        return Response.successful("Created");
     }
 
     @Override
-    public boolean deleteUserById(int theId) {
-        int delete = jdbcTemplate.update("delete from \"user\" where id = ?",theId);
+    public boolean deleteUserById(long id) {
+        int delete = jdbcTemplate.update("DELETE FROM \"user\" WHERE id = ?",id);
         return delete == 1;
     }
 
-    @Override
-    public void updateNumberOfQuestion(User user, int id) {
-        String sql = "UPDATE \"user\" SET number_of_questions = ? WHERE id = ?";
-        jdbcTemplate.update(sql, user.getNumber_of_questions() + 1, id);
-    }
-
-    @Override
-    public void updateNumberOfAnswers(User user, int id) {
-        String sql = "UPDATE \"user\" SET number_of_answers = ? WHERE id = ?";
-        jdbcTemplate.update(sql, user.getNumber_of_answers() + 1, id);
-    }
 }

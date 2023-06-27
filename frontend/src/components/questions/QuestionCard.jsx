@@ -1,32 +1,31 @@
-import React, {useEffect, useState} from "react";
-import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 import { MdQuestionAnswer } from "react-icons/md";
-import { useNavigate } from "react-router";
-import {RiDeleteBin2Fill} from "react-icons/ri";
-import {submitDelete} from "../../utils/submitAnswer.jsx";
+import { RiDeleteBin2Fill } from "react-icons/ri";
+import { useEffect, useState } from "react";
+import { multiFetch } from "../../utils/MultiFetch.jsx";
+import { createdTime } from "../../utils/TimeFormatter";
+import { loggedInUserId } from "../../utils/TokenDecoder.jsx";
 export const QuestionCard = ({ id, title, description, created, numberOfAnswers }) => {
     const [deleting, setDeleting] = useState(false);
-    const createdTime = new Date(created)
-        .toISOString()
-        .substring(0, 19)
-        .replace("T", " ");
     const navigate = useNavigate();
-    const url = "http://127.0.0.1:8080/questions/";
+    const url = "/api/questions/";
     const handleAnswer = () => {
         navigate(`/question/${id}`);
     };
+
     useEffect(() => {
 
     },[]);
     const handleDelete = async (currentId) => {
-        const data = await submitDelete(parseInt(Cookies.get("id")),currentId,url);
+        const data = await multiFetch(url,"DELETE",{userId: loggedInUserId(), targetId: currentId})
         if(data) {
             setDeleting(!deleting);
         }
     };
+
     if(deleting){
         return (<></>)
-    }else {
+    } else {
         return (
             <>
                 <div
@@ -36,7 +35,7 @@ export const QuestionCard = ({ id, title, description, created, numberOfAnswers 
                     <div>
                         <p>Title: {title}</p>
                         <p>Description: {description}</p>
-                        <p>Created: {`${createdTime} `}</p>
+                        <p>Created: {`${createdTime(created)} `}</p>
                     </div>
                     <div>
                         <button>

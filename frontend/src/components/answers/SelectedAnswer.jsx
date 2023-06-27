@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from "react";
+import { Reply } from "../reply/Reply.jsx";
 import { useParams } from "react-router-dom";
-import { Reply } from "../reply/Reply";
-import {submitReply} from "../../utils/submitAnswer.jsx";
+import { useEffect, useState } from "react";
+import { multiFetch } from "../../utils/MultiFetch.jsx";
+import { loggedInUserId } from "../../utils/TokenDecoder.jsx";
 
 export const SelectedAnswer = ({}) => {
-    const [currentAnswer, setCurrentAnswer] = useState(null);
+    const { id } = useParams();
+    const [replies, setReplies] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [replys, setReplys] = useState([]);
-    const [params] = useState(useParams());
-    const [shouldFetchData, setShouldFetchData] = useState(true);
+    const [reFetchData, setReFetchData] = useState(true);
+    const [currentAnswer, setCurrentAnswer] = useState(null);
+    const answersUrl = "/api/answers/" + id;
+    const responsesUrl = "/api/reply/a/" + id;
     const getData = async () => {
         setIsLoading(true);
-        const answerResponse = await fetch(
-            "http://127.0.0.1:8080/answers/" + params.id
-        );
-        const replyResponse = await fetch(
-            "http://127.0.0.1:8080/reply/a/" + params.id
-        );
-        const answerData = await answerResponse.json();
-        const replyData = await replyResponse.json();
+        const answerResponse = await multiFetch(answersUrl,"GET");
+        const replyResponse = await multiFetch(responsesUrl,"GET");
+        const answerData = await answerResponse;
+        const replyData = await replyResponse;
         setCurrentAnswer(answerData);
-        setReplys(replyData);
+        setReplies(replyData);
         setIsLoading(false);
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
         let description = e.target[0].value;
-        let a = await submitReply(description, params.id);
-        setShouldFetchData(true);
+        let data = {description: description, answerId: id, userId: loggedInUserId()}
+        await multiFetch("/api/reply/", "POST",data);
+        setReFetchData(true);
     };
 
     useEffect(() => {
-        if (shouldFetchData) {
+        if (reFetchData) {
             getData();
-            setShouldFetchData(false);
+            setReFetchData(false);
         }
-    }, [params.id, shouldFetchData]);
+    }, [id, reFetchData]);
     if (isLoading)
         return (
             <div>
@@ -44,9 +44,9 @@ export const SelectedAnswer = ({}) => {
         );
     else
         return (
-            <div onSubmit={()=>setShouldFetchData(true)}>
+            <div onSubmit={()=>setReFetchData(true)}>
                 <form
-                    action=""
+                    action="../questions"
                     onSubmit={(e) => {
                         handleSubmit(e);
                     }}
@@ -62,7 +62,7 @@ export const SelectedAnswer = ({}) => {
                     </button>
                 </form>
                 <div className="flex justify-center">
-                    <div className="h-64 bg-slate-200 my-5 rounded-xl w-2/3 text-black  ">
+                    <div className="object-cover bg-slate-200 my-5 rounded-xl w-2/3 text-black  ">
                         <p className="text-5xl flex justify-center">
                             {currentAnswer.title}
                         </p>
@@ -70,12 +70,12 @@ export const SelectedAnswer = ({}) => {
                     </div>
                 </div>
                 <div className="flex justify-center items-center flex-col">
-                    {replys.map((currentReply, i) => (
+                    {replies.map((currentReply, i) => (
                         <Reply
                             key={i}
+                            id={currentReply.reply_id}
                             description={currentReply.description}
                             created={currentReply.created}
-
                         />
                     ))}
                 </div>

@@ -1,65 +1,70 @@
 package com.rmnnorbert.InquireNet.service;
 
-import com.rmnnorbert.InquireNet.dao.model.answer.Answer;
-import com.rmnnorbert.InquireNet.dao.model.answer.AnswerDAOJdbc;
 import com.rmnnorbert.InquireNet.dao.model.question.Question;
 import com.rmnnorbert.InquireNet.dao.model.question.QuestionsDaoJdbc;
-import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
+import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
+import com.rmnnorbert.InquireNet.dto.question.UpdateQuestionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 @Service
 public class QuestionService {
     private final QuestionsDaoJdbc questionsDAO;
-    private final AnswerDAOJdbc answerDAOJdbc;
-    private final ReplyDAOJdbc replyDAOJdbc;
+    private final AnswerService answerService;
+
 
     @Autowired
-    public QuestionService(QuestionsDaoJdbc questionsDAO, AnswerDAOJdbc answerDAOJdbc, ReplyDAOJdbc replyDAOJdbc) {
+    public QuestionService(QuestionsDaoJdbc questionsDAO, AnswerService answerService) {
         this.questionsDAO = questionsDAO;
-        this.answerDAOJdbc = answerDAOJdbc;
-        this.replyDAOJdbc = replyDAOJdbc;
+        this.answerService = answerService;
     }
 
     public List<QuestionDTO> getAllQuestions() {
-        return questionsDAO.getAllQuestion().stream().map(QuestionDTO::of).toList();
+        return questionsDAO.getAllQuestion()
+                .stream()
+                .map(QuestionDTO::of)
+                .toList();
     }
-    public Optional<QuestionDTO> getLastQuestion() {
-        return questionsDAO.findLastQuestion().map(QuestionDTO::of);
+    public List<QuestionDTO> getAllQuestionOfUser(long userId){
+        return questionsDAO.getAllQuestionByUserID(userId)
+                .stream()
+                .map(QuestionDTO::of)
+                .toList();
+    }
+    public long getLastQuestion() {
+        return questionsDAO.findLastQuestionId();
     }
 
-    public Optional<QuestionDTO> getQuestionById(int id) {
-        Optional<Question> question = questionsDAO.findQuestionById(id);
-        return question.map(QuestionDTO::of);
+    public QuestionDTO getQuestionById(long id) {
+        Question question = questionsDAO.findQuestionById(id);
+        return QuestionDTO.of(question);
     }
 
     public boolean deleteQuestionById(DeleteRequestDTO dto) {
-        Optional<Question> question = questionsDAO.findQuestionById(dto.targetId());
-        if(question.isPresent()) {
-            if (question.get().getUserID() == dto.userId()) {
+        Question question = questionsDAO.findQuestionById(dto.targetId());
+            if (question.user_id() == dto.userId()) {
                 deleteAnswers(dto.targetId());
                 return questionsDAO.deleteQuestionById(dto.targetId());
             }
+        return false;
+    }
+    public boolean updateQuestion(UpdateQuestionDTO questionDTO){
+        QuestionDTO question = getQuestionById(questionDTO.question_id());
+        if (question.user_id() == questionDTO.user_id()) {
+            return questionsDAO.update(questionDTO);
         }
         return false;
     }
-
-    public int addNewQuestion(NewQuestionDTO question) {
+    public boolean addNewQuestion(NewQuestionDTO question) {
         return questionsDAO.addQuestion(question);
     }
-    private boolean deleteAnswers(int id){
-        List<Answer> answersOfQuestion = answerDAOJdbc.getAllAnswersByQuestionId(id);
-        for (Answer answer: answersOfQuestion) {
-            deleteAllReply(answer.getAnswer_id());
-        }
-        return answerDAOJdbc.deleteAnswerByQuestionId(id);
+    private void deleteAnswers(long id){
+        List<AnswerDTO> answersOfQuestion = answerService.getAllAnswersByQuestionId(id);
+        answerService.deleteAnswers(answersOfQuestion);
     }
-    private boolean deleteAllReply(int id){
-        return replyDAOJdbc.deleteReplyByAnswerId(id);
-    }
+
 }

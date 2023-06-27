@@ -1,54 +1,63 @@
 package com.rmnnorbert.InquireNet.service;
 
 import com.rmnnorbert.InquireNet.dao.model.answer.AnswerDAOJdbc;
-import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
-import com.rmnnorbert.InquireNet.dto.answer.NewAnswerDTO;
+import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
 import com.rmnnorbert.InquireNet.dto.answer.VoteDTO;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 @Service
 public class AnswerService {
     private final AnswerDAOJdbc answerDAO;
-    private final ReplyDAOJdbc replyDAOJdbc;
+    private final ReplyService replyService;
     @Autowired
-    public AnswerService(AnswerDAOJdbc answerDAO, ReplyDAOJdbc replyDAOJdbc) {
+    public AnswerService(AnswerDAOJdbc answerDAO, ReplyService replyService) {
         this.answerDAO = answerDAO;
-        this.replyDAOJdbc = replyDAOJdbc;
+        this.replyService = replyService;
     }
-
     public List<AnswerDTO> getAllAnswers() {
         return answerDAO.getAllAnswers()
                 .stream()
                 .map(AnswerDTO::of)
                 .toList();
     }
-
-    public Optional<AnswerDTO> getAnswerById(int id) {
-        return answerDAO.findAnswerById(id).map(AnswerDTO::of);
+    public AnswerDTO getAnswerById(long id) {
+        return AnswerDTO.of(answerDAO.findAnswerById(id));
     }
-    public List<AnswerDTO> getAllAnswersByQuestionId(int id){
+    public List<AnswerDTO> getAllAnswersByQuestionId(long id){
         return answerDAO.getAllAnswersByQuestionId(id)
                 .stream()
                 .map(AnswerDTO::of)
                 .toList();
     }
-
-
     public boolean deleteAnswerById(DeleteRequestDTO dto) {
-        deleteRepliesOfAnswer(dto.targetId());
-        return answerDAO.deleteAnswerById(dto.targetId());
+        AnswerDTO answer = getAnswerById(dto.targetId());
+        if(answer.user_id() == dto.userId()) {
+            deleteRepliesOfAnswer(dto.targetId());
+            return answerDAO.deleteAnswerById(dto.targetId());
+        }
+        return false;
     }
-
-    public int addNewAnswer(NewAnswerDTO answer) {
+    public void deleteAnswers(List<AnswerDTO> answerDTOS) {
+        for (AnswerDTO answer: answerDTOS) {
+        deleteRepliesOfAnswer(answer.answer_id());
+        answerDAO.deleteAnswerById(answer.answer_id());
+        }
+    }
+    public boolean addNewAnswer(AnswerRequestDTO answer) {
         return answerDAO.addAnswer(answer);
     }
-    public void updateVote(VoteDTO voteDTO) { answerDAO.changeVote(voteDTO.vote(), voteDTO.id());}
-    private boolean deleteRepliesOfAnswer(int id){
-        return replyDAOJdbc.deleteReplyByAnswerId(id);
+    public boolean update(AnswerRequestDTO answerRequestDTO){ return answerDAO.update(answerRequestDTO.description(),answerRequestDTO.id());}
+    private void deleteRepliesOfAnswer(long id){
+        replyService.deleteAllReplyOfAnswer(id);
+    }
+    public void updateVote(VoteDTO voteDTO) {
+            answerDAO.changeVote(voteDTO.vote(), voteDTO.id());
+    }
+    public int getNumberOfAnswersByUserId(long id) {
+        return answerDAO.getNumberOfUserAnswers(id);
     }
 }

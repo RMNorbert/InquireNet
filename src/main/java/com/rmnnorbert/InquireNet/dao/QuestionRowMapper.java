@@ -10,8 +10,8 @@ public class QuestionRowMapper implements RowMapper<Question> {
     @Override
     public Question mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Question(
-                rs.getInt("question_id"),
-                rs.getInt("user_id"),
+                rs.getLong("question_id"),
+                rs.getLong("user_id"),
                 rs.getString("title"),
                 rs.getString("description"),
                 rs.getTimestamp("created").toLocalDateTime(),

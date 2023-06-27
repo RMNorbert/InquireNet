@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import "./App.css";
-import {QuestionList} from "./components/questions/QuestionList";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { multiFetch } from "./utils/MultiFetch.jsx";
+import { QuestionList } from "./components/questions/QuestionList";
 
 
 function App() {
@@ -11,8 +12,8 @@ function App() {
         navigate('/createquestion')
     };
     const fetchData = async () => {
-        const data = await fetch("http://127.0.0.1:8080/questions/all");
-        const dataJSON = await data.json();
+        const data = await multiFetch("/api/questions/all","GET");
+        const dataJSON = await data;
         setQuestions(dataJSON);
     };
     useEffect(() => {

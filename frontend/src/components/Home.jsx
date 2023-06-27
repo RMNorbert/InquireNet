@@ -1,6 +1,4 @@
-
 export const Home = ()=>{
-
    return (
        <>
           <div className="text-4xl text-black h-24">InquireNet</div>

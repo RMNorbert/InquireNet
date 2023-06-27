@@ -1,77 +1,54 @@
 package com.rmnnorbert.InquireNet.dao.model.user;
 
+import com.rmnnorbert.InquireNet.dao.model.user.data.Role;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
-public class User {
-
-    public User(int id, String status, String name, String password, LocalDateTime registration_date, Integer number_of_questions, Integer number_of_answers) {
-        this.id = id;
-        this.status = status;
-        this.name = name;
-        this.password = password;
-        this.registration_date = registration_date;
-        this.number_of_questions = number_of_questions;
-        this.number_of_answers = number_of_answers;
-    }
-    private int id;
-    private String status;
-    private String name;
+@Getter
+@Setter
+public class User implements UserDetails {
+    private long id;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    private String username;
     private String password;
     private LocalDateTime registration_date;
-    private Integer number_of_questions;
-    private Integer number_of_answers;
-
-    public User() {}
-
-    public int getId() {
-        return id;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
+    public User(long id, Role role, String username, String password, LocalDateTime registration_date) {
+        this.id = id;
+        this.role = role;
+        this.username = username;
         this.password = password;
-    }
-
-    public LocalDateTime getRegistration_date() {
-        return registration_date;
-    }
-
-    public void setRegistration_date(LocalDateTime registration_date) {
         this.registration_date = registration_date;
     }
 
-    public Integer getNumber_of_questions() {
-        return number_of_questions;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return role.getAuthorities();
     }
 
-    public void setNumber_of_questions(Integer number_of_questions) {
-        this.number_of_questions = number_of_questions;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public Integer getNumber_of_answers() {
-        return number_of_answers;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setNumber_of_answers(Integer number_of_answers) {
-        this.number_of_answers = number_of_answers;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

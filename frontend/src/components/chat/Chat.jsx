@@ -1,51 +1,52 @@
-import { aiAnswerQuestion } from "../answers/AiAnswer";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { FaUserSecret } from "react-icons/fa";
 import { HiComputerDesktop } from "react-icons/hi2";
+import { aiAnswerQuestion } from "../answers/AiAnswer.jsx";
 
 export const Chat = ()=>{
+    const [input, setInput] = useState('');
     const [message, setMessage] = useState(null);
-    const [value, setValue] = useState('');
     const [previousChats, setPreviousChats] = useState([]);
     const [currentTitle, setCurrentTitle] = useState(null);
+    const chatId = 0;
     const getMessage = async () => {
-        let chatId = 0;
-        const res = await aiAnswerQuestion(value,chatId);
-        setMessage(res);
+        const res = await aiAnswerQuestion(input,chatId);
+        setMessage(await res);
     }
 
     const createNewChat = () => {
         setMessage(null);
-        setValue("");
+        setInput("");
         setCurrentTitle(null);
     }
 
     const handleClick = (uniqueTitle) => {
         setCurrentTitle(uniqueTitle);
         setMessage(null);
-        setValue("");
+        setInput("");
     }
 
     useEffect(() => {
-        if(!currentTitle && value && message) {
-            setCurrentTitle(value);
+        if(!currentTitle && input && message) {
+            setCurrentTitle(input);
         }
-        if(currentTitle && value && message) {
+        if(currentTitle && input && message) {
             setPreviousChats(prevChats => (
                 [...prevChats, {
                     title: currentTitle,
                     role: <FaUserSecret/>,
-                    content: value
+                    content: input
                 }, {
                     title: currentTitle,
                     role: <HiComputerDesktop/>,
                     content: message
                 }]
             ))
+            setInput("");
         }
     },[message,currentTitle]);
 
-    const currentChat = previousChats.filter(previousChats => previousChats.title === currentTitle)
+    const currentChat = previousChats.filter(previousChats => previousChats.title === currentTitle);
     const uniqueTitle = Array.from(new Set(previousChats.map(previousChat => previousChat.title)));
 
     return(<>
@@ -54,10 +55,7 @@ export const Chat = ()=>{
             <button className="chat" onClick={createNewChat}>+ New chat</button>
             <ul className="history">
                 {uniqueTitle?.map((uniqueTitle, index) =>
-                    <li
-                        key={index}
-                        onClick={() => handleClick(uniqueTitle)}
-                    >
+                    <li key={index} onClick={() => handleClick(uniqueTitle)}>
                         {uniqueTitle}
                     </li>)}
             </ul>
@@ -76,7 +74,7 @@ export const Chat = ()=>{
                 </ul>
                 <div className="bottom-section">
                     <div className="input-container">
-                        <input value={value} onChange={(e) =>setValue(e.target.value)}/>
+                        <input value={input} onChange={(e) =>setInput(e.target.value)}/>
                         <div id="submit" onClick={getMessage}>
                             ➤
                         </div>

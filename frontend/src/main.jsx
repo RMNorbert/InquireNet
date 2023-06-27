@@ -1,18 +1,18 @@
+import "./index.css";
+import App from "./App";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Register } from "./components/user/Register";
+import { Home } from "./components/Home.jsx";
+import { User } from "./components/user/User";
 import { Login } from "./components/user/Login";
+import { Navbar } from "./components/Navbar.jsx";
+import { Chat } from "./components/chat/Chat.jsx";
+import { Register } from "./components/user/Register";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { SelectedAnswer } from "./components/answers/SelectedAnswer.jsx";
 import { SelectedQuestion } from "./components/questions/SelectedQuestion";
 import { CreateQuestion } from "./components/questions/CreateQuestion.jsx";
-import { Navbar } from "./components/Navbar.jsx";
-import { User } from "./components/user/User";
-import {Home} from "./components/Home.jsx";
-import {Chat} from "./components/questions/Chat.jsx";
-import {SelectedAnswer} from "./components/questions/SelectedAnswer.jsx";
 
 const router = createBrowserRouter([
     {

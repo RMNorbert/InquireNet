@@ -1,55 +1,33 @@
 package com.rmnnorbert.InquireNet.dto.user;
 
 import com.rmnnorbert.InquireNet.dao.model.user.User;
+import com.rmnnorbert.InquireNet.dao.model.user.data.Role;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-public class UserDTO {
-    private final int id;
-    private final String status;
-    private final String name;
-    private final LocalDateTime registration_date;
-    private int number_of_questions;
-    private int number_of_answers;
-
-    private UserDTO(int id, String status, String name, LocalDateTime registration_date, int number_of_questions, int number_of_answers) {
-        this.id = id;
-        this.status = status;
-        this.name = name;
-        this.registration_date = registration_date;
-        this.number_of_questions = number_of_questions;
-        this.number_of_answers = number_of_answers;
-    }
-
+public record UserDTO(long id,
+                      Role role,
+                      String username,
+                      LocalDateTime registration_date
+                      )
+{
     public static UserDTO of(User user) {
         return new UserDTO(user.getId(),
-                user.getStatus(), user.getName(),
-                user.getRegistration_date(),
-                user.getNumber_of_questions(),
-                user.getNumber_of_answers());
+                user.getRole(), user.getUsername(),
+                user.getRegistration_date());
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDTO userDTO = (UserDTO) o;
+        return id == userDTO.id && role == userDTO.role && username.equals(userDTO.username) && registration_date.equals(userDTO.registration_date);
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public LocalDateTime getRegistration_date() {
-        return registration_date;
-    }
-
-    public int getNumber_of_questions() {
-        return number_of_questions;
-    }
-
-    public int getNumber_of_answers() {
-        return number_of_answers;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, role, username, registration_date);
     }
 }

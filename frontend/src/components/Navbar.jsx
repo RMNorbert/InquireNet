@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
-import { username, time } from "../utils/TokenDecoder.jsx";
+import {username, time} from "../utils/TokenDecoder.jsx";
 export const Navbar = () => {
     const [open, setOpen] = useState(false);
     const [user, setUser] = useState(null);
@@ -15,10 +15,9 @@ export const Navbar = () => {
     const handleOpen = () => setOpen(!open);
 
     useEffect(() => {
-        if(username()) {
-            setUser(username());
-            setIsLoggedIn(true);
-
+        const loggedInUser = username();
+        if (loggedInUser) {
+            setUser(loggedInUser);
             setTimeout(() => {
                 handleLogout();
             }, 2 * 60 * 60 * 1000);
@@ -28,12 +27,13 @@ export const Navbar = () => {
             if (currentDate > targetDate) {
                 handleLogout();
             }
-        }else{
+            setIsLoggedIn(true);
+        } else {
             setUser(null);
             setIsLoggedIn(false);
         }
+    }, [username()]);
 
-    },[username()]);
 
     return (<>
         <div className="flex justify-between bg-slate-200 text-4xl text-black h-24 rounded-xl h-36 pl-10 ">

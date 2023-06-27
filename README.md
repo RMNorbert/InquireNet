@@ -1,3 +1,23 @@
+<!-- MANPAGE: BEGIN EXCLUDED SECTION -->
+<div align="center">
+<a href="#readme">
+    <img src="https://raw.githubusercontent.com/RMNorbert/InquireNet/master/InquireNet/My%20project.png" alt="InquireNet">
+</a>
+
+[![Release version](https://img.shields.io/github/v/release/RMNorbert/InquireNet?color=brightgreen&label=Download&style=for-the-badge)](#installation "Installation")
+[![Java](https://img.shields.io/badge/-Java-blue.svg?logo=java&labelColor=555555&style=for-the-badge)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+[![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-brightgreen.svg?logo=spring&labelColor=555555&style=for-the-badge)](https://spring.io/projects/spring-boot)
+[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-blue.svg?logo=postgresql&labelColor=555555&style=for-the-badge)](https://www.postgresql.org)
+[![OpenAI](https://img.shields.io/badge/-OpenAi-ff69b4.svg?logo=openai&labelColor=555555&style=for-the-badge)](https://openai.com)
+
+[![License: Unlicense](https://img.shields.io/badge/-Unlicense-blue.svg?style=for-the-badge)](LICENSE "License")
+[![CI/CD](https://img.shields.io/github/workflow/status/RMNorbert/InquireNet/CI?label=CI%2FCD&logo=github&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "CI/CD")
+[![Last Commit](https://img.shields.io/github/last-commit/RMNorbert/InquireNet?label=&style=for-the-badge&display_timestamp=committer)](https://github.com/RMNorbert/InquireNet/commits "Commit History")
+
+
+</div>
+<!-- MANPAGE: END EXCLUDED SECTION -->
+
 # InquireNet
 
 [Description for the project](#description)
@@ -13,7 +33,7 @@ InquireNet is an interactive question and answer platform that leverages the pow
 
  Backend
   - Java,
-  - Spring Boot,
+  - Spring Boot, Spring Security, JWT
   - JDBC
   
  Frontend
@@ -48,19 +68,76 @@ InquireNet is an interactive question and answer platform that leverages the pow
 
 Follow these instructions to get a copy of the InquireNet project up and running on your local machine for development and testing purposes.
 
-Prerequisites
+## Prerequisites
 
-    Java Development Kit (JDK)
-    Spring Framework
-    JDBC Database (e.g., PostgreSQL)
-    Any required dependencies as specified in the project configuration
+    
+Make sure you have the following dependencies installed before proceeding with the installation:
+
+- [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [JDBC Database (e.g., PostgreSQL)](https://www.postgresql.org)
+
+In addition, you will need the following dependencies specified in the project configuration (`pom.xml`):
+
+- `spring-boot-starter-security` (version 3.1.0)
+- `jjwt-api` (version 0.11.5)
+- `jjwt-impl` (version 0.11.5)
+- `jjwt-jackson` (version 0.11.5)
+- `spring-boot-starter-web` (version 3.1.0)
+- `snakeyaml` (version 2.0)
+- `postgresql` (runtime scope)
+- `spring-boot-starter-test` (version 3.1.0, test scope)
+- `spring-security-test` (version 6.1.0, test scope)
+- `spring-boot-starter-jdbc` (version 3.1.0)
+- `spring-jdbc` (version 6.0.9)
+- `javax.persistence-api` (version 2.2)
+- `spring-boot-starter-validation`
+- `lombok` (version 1.18.26, optional)
+
+Additionally, you will need the following dependencies specified in the `package.json` file:
+
+- `dotenv` (version 16.1.4)
+- `jwt-decode` (version 3.1.2)
+- `openai` (version 3.2.1)
+- `react` (version 18.2.0)
+- `react-dom` (version 18.2.0)
+- `react-icons` (version 4.9.0)
+- `react-router-dom` (version 6.12.1)
 
 Installation
 
-   Clone the repository: git clone https://github.com/RMNorbert/InquireNet.git
-   Configure the project with the necessary environment variables and database connection details.
-   Build and run the project using your preferred development environment or command-line tools.
-   Access the application through the provided URL and create your account to start asking and answering questions.
+Follow these instructions to get a copy of the InquireNet project up and running on your local machine for development and testing purposes.
+
+1. **Clone the repository:**
+   Start by cloning the InquireNet repository to your local machine. Open a terminal or command prompt and run the following command:
+
+   ```bash
+   git clone https://github.com/RMNorbert/InquireNet.git
+   ```
+This command will create a local copy of the repository on your machine.
+
+2. **Configure the project:**
+    Once you have cloned the repository, you need to configure the project by providing the necessary environment variables and database connection details. This includes setting up the database connection URL, username, and password, as well as any other environment-specific configuration values. Make sure to update the configuration files (application.properties, .env) with the appropriate values.
+
+3. **Build and run the project:**
+    InquireNet can be built and run using your preferred development environment or command-line tools. Here are a few options:
+
+     Using an IDE: Import the project into your favorite IDE (e.g., IntelliJ, Eclipse) as a Maven project. Build the project to resolve the dependencies and then run the main application class (InquireNetApplication.java) to start the server.
+
+     Using Maven: Open a terminal or command prompt, navigate to the project's root directory, and run the following command:
+    ```bash
+    mvn spring-boot:run
+    ```
+    This command will build the project, resolve the dependencies, and start the server.
+
+4. ***Access the application:***
+    Once the server is up and running, you can access the InquireNet application through the provided URL. Open a web browser and enter the appropriate URL (e.g., http://localhost:8080) to access the application. You can create your account to start asking and answering questions on the platform.
+
+    Note: The URL and port number may vary depending on your configuration.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 Acknowledgments
 

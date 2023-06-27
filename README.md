@@ -1,6 +1,6 @@
 <!-- MANPAGE: BEGIN EXCLUDED SECTION -->
 <div align="center">
-[![InquireNet](https://raw.githubusercontent.com/RMNorbert/InquireNet/master/InquireNet/My%20project.png)](README.md)
+[![InquireNet](https://github.com/RMNorbert/InquireNet/blob/master/My%20project.png?raw=true)](README.md)
 
 [![GitHub latest release version](https://img.shields.io/github/v/release/RMNorbert/InquireNet.svg?style=flat)](https://github.com/RMNorbert/InquireNet/releases/latest)
 [![Java](https://img.shields.io/badge/-Java-blue.svg?logo=java&labelColor=555555&style=for-the-badge)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)

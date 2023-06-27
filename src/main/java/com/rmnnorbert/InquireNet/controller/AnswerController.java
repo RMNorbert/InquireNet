@@ -46,9 +46,9 @@ public class AnswerController {
             return answerService.deleteAnswerById(dto);
         }
         @PutMapping("/vote")
-        public VoteDTO voteOnAnswerById(@RequestBody VoteDTO voteDTO) {
-        voteService.vote(voteDTO);
-        return voteDTO;
+        public boolean voteOnAnswerById(@RequestBody VoteDTO voteDTO) {
+        return voteService.vote(voteDTO);
+
        }
        @PutMapping("/")
        public boolean updateAnswer(@RequestBody AnswerRequestDTO answerRequestDTO){

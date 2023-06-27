@@ -36,8 +36,11 @@ export const Answer = ({answerId, questionId, description, created , numberOfRep
                                    questionId: questionId
                                  });
         const data = await res;
-        setCurrentVote(data.vote);
-        setVoting(!voting);
+        if(data) {
+            const currentVote = up ?  "upVoted" : "downVoted";
+            setCurrentVote(currentVote);
+            setVoting(!voting);
+        }
     };
     const handleAnswer = () => { navigate(`/answer/${answerId}`);};
     const handleDelete = async (currentId) => {

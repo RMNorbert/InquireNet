@@ -1,10 +1,12 @@
 import {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import { multiFetch } from "../../utils/MultiFetch.jsx";
 import {loggedInUserId, username} from "../../utils/TokenDecoder.jsx";
 import {QuestionList} from "../questions/QuestionList.jsx";
 import { Confirm } from "../confirm/Confirm.jsx";
 
 export const User = ()=>{
+    const navigate = useNavigate();
     const [answerData, setAnswerData] = useState(null);
     const [questionData , setQuestionData] = useState([]);
     const [isDeletion, setIsDeletion] = useState(false);
@@ -24,6 +26,9 @@ export const User = ()=>{
     }
 
     useEffect(() => {
+        if(username() === null){
+            navigate("/");
+        }
         fetchData();
     },[isDeletion]);
 

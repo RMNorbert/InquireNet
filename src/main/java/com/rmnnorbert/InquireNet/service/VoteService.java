@@ -15,10 +15,12 @@ public class VoteService {
         this.answerService = answerService;
     }
 
-    public void vote(VoteDTO voteDTO) {
+    public boolean vote(VoteDTO voteDTO) {
         QuestionDTO question = questionService.getQuestionById(voteDTO.questionId());
         if(question.user_id() == voteDTO.userId()) {
             answerService.updateVote(voteDTO);
+            return true;
         }
+        return false;
     }
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { multiFetch } from "./utils/MultiFetch.jsx";
 import { QuestionList } from "./components/questions/QuestionList";
+import {username} from "./utils/TokenDecoder.jsx";
 
 
 function App() {
@@ -17,21 +18,28 @@ function App() {
         setQuestions(dataJSON);
     };
     useEffect(() => {
+        if(username() === null){
+            navigate("/");
+        }
         fetchData();
     }, []);
-    return (
-        <div className="App">
-            <div className="w-full flex justify-center items-center">
-                <button
-                    className=" h-16  bg-blue-400 hover:bg-blue-700 text-white rounded-xl text-lg"
-                    onClick={handleCreate}
-                >
-                    Create new question
-                </button>
+    if(username()) {
+        return (
+            <div className="App">
+                <div className="w-full flex justify-center items-center">
+                    <button
+                        className=" h-16  bg-blue-400 hover:bg-blue-700 text-white rounded-xl text-lg"
+                        onClick={handleCreate}
+                    >
+                        Create new question
+                    </button>
+                </div>
+                <QuestionList questionData={questions}/>
             </div>
-            <QuestionList questionData={questions}/>
-        </div>
-    );
+        );
+    } else {
+        return (<></>);
+    }
 }
 
 export default App;

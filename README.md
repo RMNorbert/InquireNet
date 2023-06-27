@@ -1,8 +1,6 @@
 <!-- MANPAGE: BEGIN EXCLUDED SECTION -->
 <div align="center">
-<a href="#readme">
-    <img src="https://raw.githubusercontent.com/RMNorbert/InquireNet/master/InquireNet/My%20project.png" alt="InquireNet">
-</a>
+[![InquireNet](https://raw.githubusercontent.com/RMNorbert/InquireNet/master/InquireNet/My%20project.png)](README.md)
 
 [![Release version](https://img.shields.io/github/v/release/RMNorbert/InquireNet?color=brightgreen&label=Download&style=for-the-badge)](#installation "Installation")
 [![Java](https://img.shields.io/badge/-Java-blue.svg?logo=java&labelColor=555555&style=for-the-badge)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)

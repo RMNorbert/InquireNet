@@ -1,7 +1,7 @@
 <!-- MANPAGE: BEGIN EXCLUDED SECTION -->
 <div align="center">
 
-[<img src="https://github.com/RMNorbert/InquireNet/blob/RMNorbert-patch-2/My%20project.png" alt="InquireNet" width="100">](README.md)
+[<img src="https://github.com/RMNorbert/InquireNet/blob/main/My%20project.png" alt="InquireNet" width="100">](README.md)
 
 [![GitHub latest release version](https://img.shields.io/github/v/release/RMNorbert/InquireNet.svg?style=flat)](https://github.com/RMNorbert/InquireNet/releases/latest)
 [![Java](https://img.shields.io/badge/-Java-blue.svg?logo=java&labelColor=555555&style=for-the-badge)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)

@@ -17,6 +17,7 @@
 
 </div>
 <!-- MANPAGE: END EXCLUDED SECTION -->
+
 # InquireNet
 
 [Description for the project](#description)

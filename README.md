@@ -10,7 +10,7 @@
 [![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-blue.svg?logo=postgresql&labelColor=555555&style=for-the-badge)](https://www.postgresql.org)
 [![OpenAI](https://img.shields.io/badge/-OpenAi-ff69b4.svg?logo=openai&labelColor=555555&style=for-the-badge)](https://openai.com)
 
-[![License: MIT](https://img.shields.io/github/license/RMNorbert/InquireNet?style=for-the-badge)](LICENSE)
+[![License: MIT](https://img.shields.io/github/license/RMNorbert/InquireNet?style=for-the-badge)](License)
 [![CI/CD](https://img.shields.io/github/workflow/status/RMNorbert/InquireNet/CI?label=CI%2FCD&logo=github&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "CI/CD")
 [![Last Commit](https://img.shields.io/github/last-commit/RMNorbert/InquireNet?label=&style=for-the-badge&display_timestamp=committer)](https://github.com/RMNorbert/InquireNet/commits "Commit History")
 

@@ -8,7 +8,7 @@
 
 [![Java](https://img.shields.io/badge/Java-blue.svg?logo=openjdk&logoColor=white&labelColor=555555&style=for-the-badge)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 [![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-brightgreen.svg?logo=spring&labelColor=555555&style=for-the-badge)](https://spring.io/projects/spring-boot)
-[![Spring Security](https://img.shields.io/badge/-Spring%20Security-darkgreen.svg?logo=springsecurity&labelColor=555555&style=for-the-badge)](https://spring.io/projects/spring-boot)
+[![Spring Security](https://img.shields.io/badge/-Spring%20Security-darkgreen.svg?logo=springsecurity&labelColor=555555&style=for-the-badge)](https://spring.io/projects/spring-security)
 [![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-blue.svg?logo=postgresql&logoColor=0197f6&labelColor=555555&style=for-the-badge)](https://www.postgresql.org)
 
 [![OpenAI](https://img.shields.io/badge/-OpenAi-1c1c2c.svg?logo=openai&labelColor=555555&style=for-the-badge)](https://openai.com)
@@ -17,7 +17,7 @@
 
 [![License: Unlicense](https://img.shields.io/badge/-Unlicense-blue.svg?logo=unlicense&logoColor=white&style=for-the-badge)](License "License")
 [![CI/CD](https://img.shields.io/github/workflow/status/RMNorbert/InquireNet/CI?label=CI%2FCD&logo=github&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "CI/CD")
-[![CI Status](https://img.shields.io/github/actions/workflow/status/yt-dlp/yt-dlp/core.yml?branch=master&label=Tests&style=for-the-badge)](https://github.com/yt-dlp/yt-dlp/actions "CI Status")
+[![CI Status](https://img.shields.io/github/actions/workflow/status/RMNorbert/InquireNet/maven.yml?branch=main&label=Tests&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "Java CI TEST")
 [![Last Commit](https://img.shields.io/github/last-commit/RMNorbert/InquireNet?label=Last%20Commit&logo=github&style=for-the-badge&display_timestamp=committer)](https://github.com/RMNorbert/InquireNet/commits "Commit History")
 
 

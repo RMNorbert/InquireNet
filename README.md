@@ -3,15 +3,22 @@
 
 [<img src="https://github.com/RMNorbert/InquireNet/blob/main/My%20project.png" alt="InquireNet" width="100">](README.md)
 
-[![GitHub latest release version](https://img.shields.io/github/v/release/RMNorbert/InquireNet.svg?style=flat)](https://github.com/RMNorbert/InquireNet/releases/latest)
-[![Java](https://img.shields.io/badge/-Java-blue.svg?logo=java&labelColor=555555&style=for-the-badge)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
-[![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-brightgreen.svg?logo=spring&labelColor=555555&style=for-the-badge)](https://spring.io/projects/spring-boot)
-[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-blue.svg?logo=postgresql&labelColor=555555&style=for-the-badge)](https://www.postgresql.org)
-[![OpenAI](https://img.shields.io/badge/-OpenAi-ff69b4.svg?logo=openai&labelColor=555555&style=for-the-badge)](https://openai.com)
+<!--[![GitHub latest release version](https://img.shields.io/github/v/release/RMNorbert/InquireNet.svg?style=flat)](https://github.com/RMNorbert/InquireNet/releases/latest) -->
 
-[![License: Unlicense](https://img.shields.io/badge/-Unlicense-blue.svg?style=for-the-badge)](LICENSE "License")
+
+[![Java](https://img.shields.io/badge/Java-blue.svg?logo=openjdk&logoColor=white&labelColor=555555&style=for-the-badge)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+[![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-brightgreen.svg?logo=spring&labelColor=555555&style=for-the-badge)](https://spring.io/projects/spring-boot)
+[![Spring Security](https://img.shields.io/badge/-Spring%20Security-darkgreen.svg?logo=springsecurity&labelColor=555555&style=for-the-badge)](https://spring.io/projects/spring-boot)
+[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-blue.svg?logo=postgresql&logoColor=0197f6&labelColor=555555&style=for-the-badge)](https://www.postgresql.org)
+
+[![OpenAI](https://img.shields.io/badge/-OpenAi-1c1c2c.svg?logo=openai&labelColor=555555&style=for-the-badge)](https://openai.com)
+[![Java Script](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.javascript.com/)
+[![Vite](https://img.shields.io/badge/Vite-purple.svg?logo=vite&logoColor=F7DF1E&labelColor=323330&style=for-the-badge)](https://vitejs.dev/)
+
+[![License: Unlicense](https://img.shields.io/badge/-Unlicense-blue.svg?logo=unlicense&logoColor=white&style=for-the-badge)](LICENSE "License")
 [![CI/CD](https://img.shields.io/github/workflow/status/RMNorbert/InquireNet/CI?label=CI%2FCD&logo=github&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "CI/CD")
-[![Last Commit](https://img.shields.io/github/last-commit/RMNorbert/InquireNet?label=&style=for-the-badge&display_timestamp=committer)](https://github.com/RMNorbert/InquireNet/commits "Commit History")
+[![CI Status](https://img.shields.io/github/actions/workflow/status/yt-dlp/yt-dlp/core.yml?branch=master&label=Tests&style=for-the-badge)](https://github.com/yt-dlp/yt-dlp/actions "CI Status")
+[![Last Commit](https://img.shields.io/github/last-commit/RMNorbert/InquireNet?label=Last%20Commit&logo=github&style=for-the-badge&display_timestamp=committer)](https://github.com/RMNorbert/InquireNet/commits "Commit History")
 
 
 </div>

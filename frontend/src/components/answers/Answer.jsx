@@ -65,19 +65,20 @@ export const Answer = ({answerId, questionId, description, created , numberOfRep
         return (
             <>
                 <div
-                    className="object-cover flex gap-3 text-black rounded-lg my-5 w-2/3 p-6 flex-col"
+                    className="object-cover flex gap-3 text-black rounded-lg mt-5 w-2/3 p-6 flex-col"
                     onClick={handleAnswer}
                     id={currentVote}
                 >
                     <div className="gap-4">{createdTime(created)}</div>
                     <div className="text-4xl">{description}</div>
                 </div>
+                <div className="bg-slate-200  mt-[-4px] w-2/3 p-1 flex-col rounded-b">
                 <div>
                     <button onClick={() => voteTo(true, answerId)}>
                         <ImArrowUp className="text-3xl text-green-900"/>
                     </button>
-                    <button>
-                        <MdQuestionAnswer className="text-3xl "/> {numberOfReply}
+                    <button className="text-black">
+                        <MdQuestionAnswer className="text-3xl text-black"/> {numberOfReply}
                     </button>
                     <button onClick={() => voteTo(false, answerId)}>
                         <ImArrowDown className="text-3xl text-red-900"/>
@@ -86,6 +87,7 @@ export const Answer = ({answerId, questionId, description, created , numberOfRep
                 <button onClick={() => handleDelete(answerId)}>
                     <RiDeleteBin2Fill className="text-2xl text-red-900"/>
                 </button>
+                </div>
             </>
         );
     }

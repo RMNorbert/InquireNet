@@ -19,6 +19,13 @@ export const SelectedQuestion = ({}) => {
         const questionData = await questionResponse;
         const answerData = await answersResponse;
         setCurrentQuestion(questionData);
+
+        answerData.sort((a, b) => Number(b.created.substring(0,19)
+                                                  .replace(/[T:-]/g, ""))
+                                  -
+                                  Number(a.created.substring(0,19)
+                                                  .replace(/[T:-]/g, "")));
+
         setAnswers(answerData);
         setIsLoading(false);
     };

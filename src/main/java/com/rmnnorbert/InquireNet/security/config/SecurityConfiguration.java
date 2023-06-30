@@ -45,6 +45,7 @@ public class SecurityConfiguration {
                         "/answers/**",
                         "/questions/**",
                         "/reply/**",
+                        "/chat/**",
                         "/user/{id}"
                 ).hasAnyRole(USER.name(), EMPLOYEE.name())
                 .anyRequest()

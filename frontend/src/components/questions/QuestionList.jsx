@@ -9,6 +9,7 @@ export const QuestionList = ({ questionData }) => {
                         <QuestionCard
                             key={question.question_id}
                             id={question.question_id}
+                            userId={question.user_id}
                             title={question.title}
                             description={question.description}
                             created={question.created}

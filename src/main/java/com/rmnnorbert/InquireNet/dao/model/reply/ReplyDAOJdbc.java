@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.dao.model.reply;
 
+import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.ReplyRowMapper;
 import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;
 import com.rmnnorbert.InquireNet.dto.reply.ReplyDTO;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 @Repository
 public class ReplyDAOJdbc implements ReplyDAO {
     private final JdbcTemplate jdbcTemplate;
@@ -25,11 +25,12 @@ public class ReplyDAOJdbc implements ReplyDAO {
     }
 
     @Override
-    public Optional<Reply> findReplyById(long id) {
+    public Reply findReplyById(long id) {
         String sql = "SELECT * FROM reply WHERE reply_id = ?";
         return jdbcTemplate.query(sql, new ReplyRowMapper(), id)
                 .stream()
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("Reply"));
     }
 
     @Override
@@ -43,8 +44,12 @@ public class ReplyDAOJdbc implements ReplyDAO {
 
     @Override
     public boolean addReply(NewReplyDTO replyDTO) {
-        String sql = "INSERT INTO reply(description,created, answer_id, user_id) VALUES (?, ? , ? , ?)";
-        return jdbcTemplate.update(sql, replyDTO.description(), LocalDateTime.now(), replyDTO.answerId(), replyDTO.userId()) == 1;
+        String sql = "INSERT INTO reply(description,created, answer_id, user_id) VALUES (?, ?, ?, ?)";
+        return jdbcTemplate.update(sql,
+                replyDTO.description(),
+                LocalDateTime.now(),
+                replyDTO.answerId(),
+                replyDTO.userId()) == 1;
     }
 
     @Override

@@ -74,6 +74,7 @@ export const SelectedAnswer = ({}) => {
                         <Reply
                             key={i}
                             id={currentReply.reply_id}
+                            creatorId={currentReply.user_id}
                             description={currentReply.description}
                             created={currentReply.created}
                         />

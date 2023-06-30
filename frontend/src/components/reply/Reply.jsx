@@ -3,7 +3,7 @@ import { loggedInUserId } from "../../utils/TokenDecoder"
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { createdTime } from "../../utils/TimeFormatter";
 import { multiFetch } from "../../utils/MultiFetch.jsx";
-export const Reply = ({id, description, created }) => {
+export const Reply = ({id, creatorId, description, created }) => {
     const [deleting, setDeleting] = useState(false);
     const url = "/api/reply/";
     const handleDelete = async (currentId) => {
@@ -19,9 +19,11 @@ export const Reply = ({id, description, created }) => {
         <div className="object-cover flex gap-3 bg-slate-200 text-black rounded-lg my-5 w-2/3 p-6 flex-col">
             <div className="gap-4">{createdTime(created)}</div>
             <div className="text-4xl">{description}</div>
+            {loggedInUserId() === creatorId &&
             <button onClick={() => handleDelete(id)}>
                 <RiDeleteBin2Fill className="text-2xl text-red-900"/>
             </button>
+            }
         </div>
     );
 };

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { multiFetch } from "../../utils/MultiFetch.jsx";
 import { createdTime } from "../../utils/TimeFormatter";
 import { loggedInUserId } from "../../utils/TokenDecoder.jsx";
-export const QuestionCard = ({ id, title, description, created, numberOfAnswers }) => {
+export const QuestionCard = ({ id, userId, title, description, created, numberOfAnswers }) => {
     const [deleting, setDeleting] = useState(false);
     const navigate = useNavigate();
     const url = "/api/questions/";
@@ -43,9 +43,11 @@ export const QuestionCard = ({ id, title, description, created, numberOfAnswers 
                         </button>
                     </div>
                 </div>
+                {loggedInUserId() === userId &&
                 <button onClick={() => handleDelete(id)}>
                     <RiDeleteBin2Fill className="text-2xl text-red-900"/>
                 </button>
+                }
             </>
         );
     }

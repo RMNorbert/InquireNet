@@ -7,7 +7,7 @@ import { ImArrowDown, ImArrowUp } from "react-icons/im";
 import { multiFetch } from "../../utils/MultiFetch.jsx";
 import { createdTime } from "../../utils/TimeFormatter";
 import {loggedInUserId} from "../../utils/TokenDecoder.jsx";
-export const Answer = ({answerId, questionId, description, created , numberOfReply , vote}) => {
+export const Answer = ({answerId, creatorId , questionCreatorId, questionId, description, created , numberOfReply , vote}) => {
     const navigate = useNavigate();
     const [voting, setVoting] = useState(false);
     const [deleting, setDeleting] = useState(false);
@@ -74,19 +74,25 @@ export const Answer = ({answerId, questionId, description, created , numberOfRep
                 </div>
                 <div className="bg-slate-200  mt-[-4px] w-2/3 p-1 flex-col rounded-b">
                 <div>
+                    {userId === questionCreatorId &&
                     <button onClick={() => voteTo(true, answerId)}>
                         <ImArrowUp className="text-3xl text-green-900"/>
                     </button>
+                    }
                     <button className="text-black">
                         <MdQuestionAnswer className="text-3xl text-black"/> {numberOfReply}
                     </button>
+                    {userId === questionCreatorId &&
                     <button onClick={() => voteTo(false, answerId)}>
                         <ImArrowDown className="text-3xl text-red-900"/>
                     </button>
+                    }
                 </div>
+                    {userId === creatorId &&
                 <button onClick={() => handleDelete(answerId)}>
                     <RiDeleteBin2Fill className="text-2xl text-red-900"/>
                 </button>
+                    }
                 </div>
             </>
         );

@@ -8,11 +8,24 @@ body,html {
 }
 .chat{
   color: white;
+  font-weight: lighter;
   border: solid 0.5px rgb(255, 255, 255, 0.5);
   background-color: transparent;
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
+}
+.store{
+  color: white;
+  border: solid 0.1px rgb(255, 255, 255, 0.5);
+  font-weight: lighter;
+  background-color: transparent;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.store:hover, .chat:hover{
+  font-weight: normal;
 }
 .side-bar{
   display: flex;

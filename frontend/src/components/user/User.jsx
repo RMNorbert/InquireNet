@@ -4,17 +4,48 @@ import { multiFetch } from "../../utils/MultiFetch.jsx";
 import {loggedInUserId, username} from "../../utils/TokenDecoder.jsx";
 import {QuestionList} from "../questions/QuestionList.jsx";
 import { Confirm } from "../confirm/Confirm.jsx";
+import {ManageItem} from "../ManageItem.jsx";
 
 export const User = ()=>{
     const navigate = useNavigate();
     const [answerData, setAnswerData] = useState(null);
     const [questionData , setQuestionData] = useState([]);
     const [isDeletion, setIsDeletion] = useState(false);
+    const [chatsData, setChatsData] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
     const fetchData = async () => {
         const answerResponse = await multiFetch(`/api/answers/user/${loggedInUserId()}`,"GET");
         setAnswerData(await answerResponse);
         const questionResponse = await multiFetch(`/api/questions/all/${loggedInUserId()}`,"GET");
         setQuestionData(await questionResponse);
+        const chatResponse = await multiFetch(`/api/chat/${loggedInUserId()}`,"GET");
+
+        const uniqueArray = await chatResponse.reduce((accumulator, value) => {
+            const found = accumulator.find(item => item.title === value.title);
+            if (!found) {
+                accumulator.push(value);
+            }
+            return accumulator;
+        }, []);
+        setChatsData(await uniqueArray);
+    }
+
+    const chatList = () => {
+        const chatUrl = "/api/chat/"
+        return (
+            <div>
+                {chatsData.map((chat,index) => (
+                    <div key={index}>
+                    <ManageItem
+                        dataTitle={chat.title}
+                        userId={loggedInUserId()}
+                        currentDataId={chat.title}
+                        url={chatUrl}
+                    />
+                    </div>
+                ))}
+            </div>
+        )
     }
 
     const handleDelete = async () => {
@@ -29,7 +60,10 @@ export const User = ()=>{
         if(username() === null){
             navigate("/");
         }
-        fetchData();
+        if(!isLoaded) {
+            fetchData();
+            setIsLoaded(true);
+        }
     },[isDeletion]);
 
     return (
@@ -69,8 +103,13 @@ export const User = ()=>{
                     Questions of the user :
                 </div>
                         <QuestionList questionData={questionData}/>
+                <div className="grid justify-center items-center ">
+                    <div className="text-yellow-300 text-2xl font-extrabold drop-shadow-lg shadow-black">
+                        Chat history
+                    </div>
+                        {chatList()}
+                </div>
             </>
-
         </div>
     )
 }

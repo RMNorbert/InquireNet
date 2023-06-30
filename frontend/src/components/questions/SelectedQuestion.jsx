@@ -86,6 +86,8 @@ export const SelectedQuestion = ({}) => {
                     {answers.map((currentAnswer, i) => (
                         <Answer
                             key={i}
+                            creatorId={currentAnswer.user_id}
+                            questionCreatorId={currentQuestion.user_id}
                             answerId={currentAnswer.answer_id}
                             questionId={id}
                             description={currentAnswer.description}

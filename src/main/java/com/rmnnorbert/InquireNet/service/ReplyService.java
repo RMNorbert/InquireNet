@@ -4,7 +4,6 @@ import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;
 import com.rmnnorbert.InquireNet.dto.reply.ReplyDTO;
-import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class ReplyService {
                 .toList();
     }
     public ReplyDTO getReplyById(long id) {
-        return replyDAOJdbc.findReplyById(id).map(ReplyDTO::of).orElseThrow(() -> new NotFoundException("Reply"));
+        return ReplyDTO.of(replyDAOJdbc.findReplyById(id));
     }
     public List<ReplyDTO> getAllReplyByAnswerId(long id){
         return replyDAOJdbc.getAllReplyByAnswerId(id)

@@ -18,7 +18,7 @@
 [![License: Unlicense](https://img.shields.io/badge/-Unlicense-blue.svg?logo=unlicense&logoColor=white&style=for-the-badge)](License "License")
 [![CI/CD](https://img.shields.io/github/workflow/status/RMNorbert/InquireNet/CI?label=CI%2FCD&logo=github&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "CI/CD")
 [![CI Status](https://img.shields.io/github/actions/workflow/status/RMNorbert/InquireNet/maven.yml?branch=main&label=Tests&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "Java CI TEST")
-[![Last Commit](https://img.shields.io/github/last-commit/RMNorbert/InquireNet?label=Last%20Commit&logo=github&style=for-the-badge&display_timestamp=committer)](https://github.com/RMNorbert/InquireNet/commits "Commit History")
+[![Last Commit](https://img.shields.io/github/last-commit/RMNorbert/InquireNet?logo=github&label=Last%20Commit&style=for-the-badge&display_timestamp=committer)](https://github.com/RMNorbert/InquireNet/commits "Commit History")
 
 
 </div>
@@ -56,17 +56,15 @@ InquireNet is an interactive question and answer platform that leverages the pow
 
 ## Features
 
-   User Registration and Authentication: Users can create accounts and log in to the platform to ask and answer questions.
+   User Registration and Authentication: Users can create accounts and log in to the platform using secure authentication mechanisms implemented with Spring Security and JSON Web Tokens (JWT). This ensures that user data is protected and only accessible to authorized individuals.
 
-   Question and Answer Functionality: Users can post questions on any topic and receive answers from other community members.
+   Question and Answer Functionality: Users can post questions on any topic and receive answers from other community members. The platform provides a user-friendly interface for submitting, viewing and updating questions, answers, replies to answers, to participate in discussions.
 
    AI Automated Answers: Users get AI provided answers to their questions instantly, powered by OpenAI, enhancing the overall user experience. These AI-powered answers are generated using state-of-the-art natural language processing techniques, ensuring accurate and insightful responses. 
 
-   Chat with AI: Users have the ability to directly engage in chat conversations with the AI. This interactive chat feature allows users to have dynamic and real-time exchanges with the AI, enabling them to explore their questions in more depth and receive personalized responses.
+   Chat with AI: Users have the ability to directly engage in chat conversations with the AI. This interactive chat feature allows users to have dynamic and real-time exchanges with the AI, enabling them to explore their questions in more depth and receive personalized responses. The user can store the chat and delete stored chats.
 
    User Interaction: InquireNet allows users to upvote or downvote answers, comment on questions and answers, and engage in meaningful discussions.
-
-## In progress Features
 
    Search Functionality: Users can search for specific questions or topics of interest to quickly find relevant information.
 

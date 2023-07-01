@@ -77,16 +77,16 @@ class UserServiceTest {
 
     @Test
     void deleteUserByIdWhenUserExist() {
-        DeleteRequestDTO id = new DeleteRequestDTO(1,1);
-        User user = new User(1,Role.USER,"aka","aka", LocalDateTime.now());
-        when(userDAO.findUserById(1)).thenReturn(user);
-        when(userDAO.deleteUserById(1)).thenReturn(true);
+        DeleteRequestDTO dto = new DeleteRequestDTO(1L,1L);
+        User user = new User(1L,Role.USER,"aka","aka", LocalDateTime.now());
+        when(userDAO.findUserById(dto.targetId())).thenReturn(user);
+        when(userDAO.deleteUserById(dto.targetId())).thenReturn(true);
 
-        boolean response = userService.deleteUserById(id);
+        boolean response = userService.deleteUserById(dto);
 
         assertTrue(response);
-        verify(userDAO, times(1)).findUserById(user.getId());
-        verify(userDAO, times(1)).deleteUserById(user.getId());
+        verify(userDAO, times(2)).findUserById(dto.targetId());
+        verify(userDAO, times(1)).deleteUserById(dto.userId());
     }
     @Test
     void deleteUserByIdWhenUserDontExist() {

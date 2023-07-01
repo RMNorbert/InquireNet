@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.service;
 
+import com.rmnnorbert.InquireNet.dao.model.reply.Reply;
 import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;
@@ -40,7 +41,7 @@ public class ReplyService {
         return false;
     }
     public boolean updateReply(ReplyDTO replyDTO) {
-        ReplyDTO updatingReply = getReplyById(replyDTO.reply_id());
+        Reply updatingReply = replyDAOJdbc.findReplyById(replyDTO.reply_id());
         if(replyDTO.user_id() == updatingReply.user_id()) {
             return replyDAOJdbc.update(replyDTO);
         }

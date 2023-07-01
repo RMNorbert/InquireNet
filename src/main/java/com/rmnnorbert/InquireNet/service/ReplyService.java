@@ -40,7 +40,11 @@ public class ReplyService {
         return false;
     }
     public boolean updateReply(ReplyDTO replyDTO) {
-        return replyDAOJdbc.update(replyDTO);
+        ReplyDTO updatingReply = getReplyById(replyDTO.reply_id());
+        if(replyDTO.user_id() == updatingReply.user_id()) {
+            return replyDAOJdbc.update(replyDTO);
+        }
+        return false;
     }
     public boolean addNewReply(NewReplyDTO replyDTO) {
         return replyDAOJdbc.addReply(replyDTO);

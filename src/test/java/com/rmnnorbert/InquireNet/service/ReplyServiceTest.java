@@ -131,13 +131,16 @@ class ReplyServiceTest {
         boolean actual = replyService.deleteReplyById(dto);
 
         assertFalse(actual);
-        verify(replyDAOJdbc,times(0)).findReplyById(dto.targetId());
+        verify(replyDAOJdbc,times(1)).findReplyById(dto.targetId());
         verify(replyDAOJdbc,times(0)).deleteReplyById(dto.targetId());
     }
     @Test
     void updateReply() {
+        Reply reply = new Reply(1,1,1,"des",LocalDateTime.now());
         ReplyDTO replyDTO = new ReplyDTO(1,1,1,"desc",LocalDateTime.now());
+        when(replyDAOJdbc.findReplyById(replyDTO.reply_id())).thenReturn(reply);
         when(replyDAOJdbc.update(replyDTO)).thenReturn(true);
+
         boolean actual = replyService.updateReply(replyDTO);
 
         assertTrue(actual);

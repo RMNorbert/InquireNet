@@ -53,7 +53,7 @@ public class QuestionService {
         return false;
     }
     public boolean updateQuestion(UpdateQuestionDTO questionDTO){
-        QuestionDTO question = getQuestionById(questionDTO.question_id());
+        Question question = questionsDAO.findQuestionById(questionDTO.question_id());
         if (question.user_id() == questionDTO.user_id()) {
             return questionsDAO.update(questionDTO);
         }

@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.service;
 
+import com.rmnnorbert.InquireNet.dao.model.answer.Answer;
 import com.rmnnorbert.InquireNet.dao.model.answer.AnswerDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
@@ -50,7 +51,13 @@ public class AnswerService {
     public boolean addNewAnswer(AnswerRequestDTO answer) {
         return answerDAO.addAnswer(answer);
     }
-    public boolean update(AnswerRequestDTO answerRequestDTO){ return answerDAO.update(answerRequestDTO.description(),answerRequestDTO.id());}
+    public boolean update(AnswerRequestDTO answerRequestDTO){
+        Answer answer = answerDAO.findAnswerById(answerRequestDTO.id());
+        if(answerRequestDTO.userId() == answer.user_id()) {
+            return answerDAO.update(answerRequestDTO.description(), answerRequestDTO.id());
+        }
+        return false;
+    }
     private void deleteRepliesOfAnswer(long id){
         replyService.deleteAllReplyOfAnswer(id);
     }

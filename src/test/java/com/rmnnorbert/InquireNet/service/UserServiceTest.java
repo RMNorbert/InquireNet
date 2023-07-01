@@ -65,7 +65,15 @@ class UserServiceTest {
         assertUserEquals(user, foundUser);
         verify(userDAO, times(1)).findUserById(id);
     }
+    @Test
+    void findUserByIdWithWrongId() {
+        long wrongId = 2;
+        when(userDAO.findUserById(wrongId)).thenThrow(new NotFoundException("User"));
 
+        assertThrows(NotFoundException.class, () -> userService.findUserById(wrongId));
+
+        verify(userDAO, times(1)).findUserById(wrongId);
+    }
 
     @Test
     void deleteUserByIdWhenUserExist() {
@@ -77,6 +85,7 @@ class UserServiceTest {
         boolean response = userService.deleteUserById(id);
 
         assertTrue(response);
+        verify(userDAO, times(1)).findUserById(user.getId());
         verify(userDAO, times(1)).deleteUserById(user.getId());
     }
     @Test
@@ -86,6 +95,7 @@ class UserServiceTest {
 
         assertThrows(NotFoundException.class, () -> userService.deleteUserById(id));
 
+        verify(userDAO, times(1)).findUserById(id.targetId());
         verify(userDAO, times(0)).deleteUserById(id.targetId());
     }
 

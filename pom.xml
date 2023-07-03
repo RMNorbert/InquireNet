@@ -118,6 +118,11 @@
 			<artifactId>plexus-utils</artifactId>
 			<version>3.5.1</version>
 		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-core</artifactId>
+			<version>1.11.0</version>
+		</dependency>
 
 	</dependencies>
 

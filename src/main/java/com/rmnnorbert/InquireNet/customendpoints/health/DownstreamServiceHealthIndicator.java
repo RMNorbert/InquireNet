@@ -1,4 +1,4 @@
-package com.rmnnorbert.InquireNet.health;
+package com.rmnnorbert.InquireNet.customendpoints.health;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;

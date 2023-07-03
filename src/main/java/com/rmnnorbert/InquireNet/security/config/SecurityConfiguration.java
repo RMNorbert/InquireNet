@@ -26,7 +26,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
+                    .requestMatchers(
                         "/register",
                         "/login",
                         "/authenticate",
@@ -38,18 +38,19 @@ public class SecurityConfiguration {
                         "/*.json",
                         "/*.png",
                         "/frontend/**",
-                        "/home"
-                ).permitAll()
-                .requestMatchers(
+                        "/home",
+                        "/actuator/**"
+                    ).permitAll()
+                    .requestMatchers(
                         "/api/**",
                         "/answers/**",
                         "/questions/**",
                         "/reply/**",
                         "/chat/**",
                         "/user/{id}"
-                ).hasAnyRole(USER.name(), EMPLOYEE.name())
-                .anyRequest()
-                .authenticated())
+                    ).hasAnyRole(USER.name(), EMPLOYEE.name())
+                    .anyRequest()
+                    .authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

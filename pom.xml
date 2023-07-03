@@ -89,10 +89,77 @@
 			<version>1.18.26</version>
 			<optional>true</optional>
 		</dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- For WebClient -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<!-- For JSON serialization -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-kotlin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>pl.project13.maven</groupId>
+			<artifactId>git-commit-id-plugin</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>31.1-jre</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>3.5.1</version>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>4.0.0</version>
+				<executions>
+					<execution>
+						<id>get-the-git-infos</id>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+						<phase>initialize</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<useNativeGit>false</useNativeGit>
+					<dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+					<failOnNoGitDirectory>false</failOnNoGitDirectory>
+					<!--<abbrevLength>7</abbrevLength>-->
+					<gitDescribe>
+						<skip>false</skip>
+					</gitDescribe>
+					<generateGitPropertiesFile>true</generateGitPropertiesFile>
+					<generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+					<includeOnlyProperties>
+						<includeOnlyProperty>^git.build.(time|version)$</includeOnlyProperty>
+						<includeOnlyProperty>^git.closest.tag.name</includeOnlyProperty>
+						<includeOnlyProperty>^git.commit.id.(abbrev|full)$</includeOnlyProperty>
+						<includeOnlyProperty>^git.commit.message.full</includeOnlyProperty>
+						<includeOnlyProperty>^git.commit.time</includeOnlyProperty>
+						<includeOnlyProperty>^git.dirty</includeOnlyProperty>
+						<includeOnlyProperty>^git.local.branch.ahead</includeOnlyProperty>
+						<includeOnlyProperty>^git.local.branch.behind</includeOnlyProperty>
+						<includeOnlyProperty>^git.total.commit.count</includeOnlyProperty>
+					</includeOnlyProperties>
+					<commitIdGenerationMode>full</commitIdGenerationMode>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

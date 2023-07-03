@@ -14,6 +14,7 @@
 [![OpenAI](https://img.shields.io/badge/-OpenAi-1c1c2c.svg?logo=openai&labelColor=555555&style=for-the-badge)](https://openai.com)
 [![Java Script](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.javascript.com/)
 [![Vite](https://img.shields.io/badge/Vite-purple.svg?logo=vite&logoColor=F7DF1E&labelColor=323330&style=for-the-badge)](https://vitejs.dev/)
+[![Swagger](https://img.shields.io/badge/Swagger-white.svg?logo=swagger&logoColor=66FF01&labelColor=323330&style=for-the-badge)](https://swagger.io/)
 
 [![License: Unlicense](https://img.shields.io/badge/-Unlicense-blue.svg?logo=unlicense&logoColor=white&style=for-the-badge)](License "License")
 [![CI Status](https://img.shields.io/github/actions/workflow/status/RMNorbert/InquireNet/maven.yml?branch=main&label=Tests&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "Java CI TEST")
@@ -38,7 +39,7 @@ InquireNet is an interactive question and answer platform that leverages the pow
 
  Backend
   - Java,
-  - Spring Boot, Spring Security, JWT
+  - Spring Boot, Spring Security, JWT,Actuator, Webflux
   - JDBC
   
  Frontend
@@ -67,20 +68,32 @@ InquireNet is an interactive question and answer platform that leverages the pow
 
    Search Functionality: Users can search for specific questions or topics of interest to quickly find relevant information.
 
+   Actuator: Exposes endpoints for custom metrics, health, and management purposes.
+
+   Custom Features Endpoint: Allows dynamic configuration and management of application features.
+
+   Swagger Documentation: Generates and serves API documentation using the Swagger framework.
+
 ## Getting Started
 
 Follow these instructions to get a copy of the InquireNet project up and running on your local machine for development and testing purposes.
 
 ## Prerequisites
 
+To set up the project, follow these steps:
     
 Make sure you have the following dependencies installed before proceeding with the installation:
 
-- [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
-- [Spring Boot](https://spring.io/projects/spring-boot)
-- [JDBC Database (e.g., PostgreSQL)](https://www.postgresql.org)
+#### 1.   Java Development Kit (JDK):
+   Ensure that you have the Java Development Kit installed on your machine. You can download the JDK from the Oracle website and install it according to the provided instructions.
 
-In addition, you will need the following dependencies specified in the project configuration (`pom.xml`):
+#### 2.    Spring Boot: 
+   Install Spring Boot, which is the framework used for building the application. You can find the necessary resources and installation instructions on the official Spring Boot website. Choose the appropriate version for your project and follow the installation guide.
+
+#### 3.    JDBC Database (e.g., PostgreSQL):
+   In order to use a JDBC database with the application, such as PostgreSQL, make sure you have the necessary database server installed on your system. You can download and install PostgreSQL from the official PostgreSQL website and configure it as required.
+
+#### 4.    In addition, you will need the following dependencies specified in the project configuration (`pom.xml`):
 
 - `spring-boot-starter-security` (version 3.1.0)
 - `jjwt-api` (version 0.11.5)
@@ -96,8 +109,15 @@ In addition, you will need the following dependencies specified in the project c
 - `javax.persistence-api` (version 2.2)
 - `spring-boot-starter-validation`
 - `lombok` (version 1.18.26, optional)
+- `spring-boot-starter-actuator`
+- `spring-boot-starter-webflux`
+- `jackson-module-kotlin`
+- `git-commit-id-plugin` (version 4.0.0)
+- `guava` (version 31.1-jre)
+- `plexus-utils` (version 3.5.1)
+- `micrometer-core` (version 1.11.0)
 
-Additionally, you will need the following dependencies specified in the `package.json` file:
+#### 5.    Additionally, you will need the following dependencies specified in the `package.json` file:
 
 - `dotenv` (version 16.1.4)
 - `jwt-decode` (version 3.1.2)
@@ -107,7 +127,7 @@ Additionally, you will need the following dependencies specified in the `package
 - `react-icons` (version 4.9.0)
 - `react-router-dom` (version 6.12.1)
 
-Installation
+### Installation
 
 Follow these instructions to get a copy of the InquireNet project up and running on your local machine for development and testing purposes.
 

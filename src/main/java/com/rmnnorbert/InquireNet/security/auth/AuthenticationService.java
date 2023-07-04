@@ -11,6 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Metrics;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -21,12 +23,16 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final Counter loginSuccessCounter;
+    private final Counter loginFailureCounter;
     @Autowired
     public AuthenticationService(UserDaoJdbc userDaoJdbc, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
         this.userDaoJdbc = userDaoJdbc;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
+        loginSuccessCounter = Metrics.counter("counter.login.success");
+        loginFailureCounter = Metrics.counter("counter.login.failure");
     }
     public AuthenticationResponse register(AuthenticationDTO request){
        String password = passwordEncoder.encode(request.password());
@@ -50,7 +56,7 @@ public class AuthenticationService {
                             request.password()
                     )
             );
-
+            loginSuccessCounter.increment(); // Increment success counter
             HashMap<String, Object> additionalClaims = new HashMap<>();
             additionalClaims.put("role", user.getRole());
             additionalClaims.put("userId",user.getId());
@@ -61,6 +67,7 @@ public class AuthenticationService {
                     .time(LocalDateTime.now().plusHours(1))
                     .build();
         } catch (Exception e) {
+            loginFailureCounter.increment(); // Increment failure counter
             throw new InvalidLoginException();
         }
     }

@@ -39,7 +39,11 @@ public class SecurityConfiguration {
                         "/*.png",
                         "/frontend/**",
                         "/home",
-                        "/actuator/**"
+                        "/actuator/**",
+                        "/api-docs/**",
+                        "/swagger-ui/**",
+                        "/v3/api-docs",
+                        "/api-docs.yaml"
                     ).permitAll()
                     .requestMatchers(
                         "/api/**",

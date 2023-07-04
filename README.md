@@ -14,7 +14,7 @@
 [![OpenAI](https://img.shields.io/badge/-OpenAi-1c1c2c.svg?logo=openai&labelColor=555555&style=for-the-badge)](https://openai.com)
 [![Java Script](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.javascript.com/)
 [![Vite](https://img.shields.io/badge/Vite-purple.svg?logo=vite&logoColor=F7DF1E&labelColor=323330&style=for-the-badge)](https://vitejs.dev/)
-[![Swagger](https://img.shields.io/badge/Swagger-white.svg?logo=swagger&logoColor=66FF01&labelColor=323330&style=for-the-badge)](https://swagger.io/)
+[![OpenAPI 3](https://img.shields.io/badge/OpenApi-66FF01.svg?logo=openapiinitiative&logoColor=66FF01&labelColor=323330&style=for-the-badge)](https://www.openapis.org/)
 
 [![License: Unlicense](https://img.shields.io/badge/-Unlicense-blue.svg?logo=unlicense&logoColor=white&style=for-the-badge)](License "License")
 [![CI Status](https://img.shields.io/github/actions/workflow/status/RMNorbert/InquireNet/maven.yml?branch=main&label=Tests&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "Java CI TEST")
@@ -53,6 +53,7 @@ InquireNet is an interactive question and answer platform that leverages the pow
   Others
   - Docker (In progress),
   - CI/CD GitHub workflows (In progress)
+  - OpenApi
 
 ## Features
 
@@ -72,7 +73,7 @@ InquireNet is an interactive question and answer platform that leverages the pow
 
    Custom Features Endpoint: Allows dynamic configuration and management of application features.
 
-   Swagger Documentation: Generates and serves API documentation using the Swagger framework.
+   OpenApi Documentation: Generates and serves API documentation using the OpenApi 3 framework.
 
 ## Getting Started
 
@@ -112,6 +113,7 @@ Make sure you have the following dependencies installed before proceeding with t
 - `spring-boot-starter-actuator`
 - `spring-boot-starter-webflux`
 - `jackson-module-kotlin`
+- `springdoc-openapi-starter-webmvc-ui`
 - `git-commit-id-plugin` (version 4.0.0)
 - `guava` (version 31.1-jre)
 - `plexus-utils` (version 3.5.1)

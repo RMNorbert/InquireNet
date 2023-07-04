@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
-import {username, time} from "../utils/TokenDecoder.jsx";
+import {username, time, role} from "../utils/TokenDecoder.jsx";
 export const Navbar = () => {
     const [open, setOpen] = useState(false);
     const [user, setUser] = useState(null);
@@ -60,8 +60,13 @@ export const Navbar = () => {
                             <a href="/user">
                                 <div>{user}</div>
                             </a>
-                            <TfiLayoutLineSolid className="w-full"></TfiLayoutLineSolid>
-                            <div onClick={handleLogout}>Logout</div>
+                            <TfiLayoutLineSolid className="w-full mt-[-15px]"></TfiLayoutLineSolid>
+                            {role() === "EMPLOYEE"&&
+                            <a href="/docs">
+                                <div className="mt-[-15px]">Documentation</div>
+                            </a>}
+                            <TfiLayoutLineSolid className="w-full mt-[-15px]"></TfiLayoutLineSolid>
+                            <div onClick={handleLogout} className="mt-[-15px]">Logout</div>
                         </button>
                     ) : (
                         <ul className="border-sky-600 hover:bg-sky-900 border-solid border-2">

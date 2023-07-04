@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client";
 
 import { Home } from "./components/Home.jsx";
 import { User } from "./components/user/User";
+import { DocumentationPage } from "./components/DocumentationPage.jsx";
 import { Login } from "./components/user/Login";
 import { Navbar } from "./components/Navbar.jsx";
 import { Chat } from "./components/chat/Chat.jsx";
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Home />,
+    },
+    {
+        path:"/docs",
+        element:<DocumentationPage />,
     },
     {
         path: "/chat",

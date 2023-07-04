@@ -15,6 +15,13 @@ body,html {
   padding: 10px;
   margin: 10px;
 }
+.information-container {
+height: 100px
+}
+.swagger-ui{
+  background-color: white;
+  object-fit: cover;
+}
 .store{
   color: white;
   border: solid 0.1px rgb(255, 255, 255, 0.5);

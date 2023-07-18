@@ -43,7 +43,7 @@ InquireNet is an interactive question and answer platform that leverages the pow
  Frontend
   - JavaScript,
   - Vite,
-  - OpenAi
+  - OpenAi (version 3.2.1)
   
  Database
   - PostgreSQL
@@ -51,7 +51,7 @@ InquireNet is an interactive question and answer platform that leverages the pow
   Others
   - Docker (In progress),
   - CI/CD GitHub workflows (In progress)
-  - OpenApi (version 3.2.1)
+  - OpenApi (version 3.0)
 
 ## Features
 

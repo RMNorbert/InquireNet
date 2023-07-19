@@ -3,6 +3,7 @@ package com.rmnnorbert.InquireNet.dao.model.answer;
 import com.rmnnorbert.InquireNet.dao.AnswerRowMapper;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
+import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -75,9 +76,9 @@ public class AnswerDAOJdbc implements AnswerDAO{
     }
 
     @Override
-    public boolean update(String description, long id) {
+    public boolean update(UpdateDTO updateDTO) {
         String sql = "UPDATE answer SET description = ? WHERE answer_id = ?";
-        return jdbcTemplate.update(sql, description, id) == 1;
+        return jdbcTemplate.update(sql, updateDTO.description(), updateDTO.id()) == 1;
     }
 
     @Override

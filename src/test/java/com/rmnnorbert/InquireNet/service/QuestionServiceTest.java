@@ -6,7 +6,7 @@ import com.rmnnorbert.InquireNet.dao.model.question.QuestionsDaoJdbc;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
-import com.rmnnorbert.InquireNet.dto.question.UpdateQuestionDTO;
+import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -176,36 +176,36 @@ class QuestionServiceTest {
     @Test
     void updateQuestion() {
         Question question = new Question(1,1,"title","des",LocalDateTime.now(),0);
-        UpdateQuestionDTO dto = new UpdateQuestionDTO(1,1,"title","desc");
-        when(questionsDaoJdbc.findQuestionById(dto.question_id())).thenReturn(question);
+        UpdateDTO dto = new UpdateDTO(1,1,"title","desc");
+        when(questionsDaoJdbc.findQuestionById(dto.id())).thenReturn(question);
         when(questionsDaoJdbc.update(dto)).thenReturn(true);
 
         boolean actual = questionService.updateQuestion(dto);
 
         assertTrue(actual);
-        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.question_id());
+        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.id());
         verify(questionsDaoJdbc, times(1)).update(dto);
     }
     @Test
     void updateQuestionWithWrongQuestionId() {
-        UpdateQuestionDTO dto = new UpdateQuestionDTO(1,1,"title","desc");
-        when(questionsDaoJdbc.findQuestionById(dto.question_id())).thenThrow(new NotFoundException("Question"));
+        UpdateDTO dto = new UpdateDTO(1,1,"title","desc");
+        when(questionsDaoJdbc.findQuestionById(dto.id())).thenThrow(new NotFoundException("Question"));
 
         assertThrows(NotFoundException.class, () -> questionService.updateQuestion(dto));
 
-        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.question_id());
+        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.id());
         verify(questionsDaoJdbc, times(0)).update(dto);
     }
     @Test
     void updateQuestionWithWrongUserId() {
         Question question = new Question(1,2,"title","des",LocalDateTime.now(),0);
-        UpdateQuestionDTO dto = new UpdateQuestionDTO(1,1,"title","desc");
-        when(questionsDaoJdbc.findQuestionById(dto.question_id())).thenReturn(question);
+        UpdateDTO dto = new UpdateDTO(1,1,"title","desc");
+        when(questionsDaoJdbc.findQuestionById(dto.id())).thenReturn(question);
 
         boolean actual = questionService.updateQuestion(dto);
 
         assertFalse(actual);
-        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.question_id());
+        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.id());
         verify(questionsDaoJdbc, times(0)).update(dto);
     }
 }

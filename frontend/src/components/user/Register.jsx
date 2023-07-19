@@ -15,7 +15,7 @@ export const Register = () => {
             setHidden(false);
             setMessage(response.split(";").join("\n"));
         } else{
-            navigate("/login");
+            navigate("/");
         }
     };
 

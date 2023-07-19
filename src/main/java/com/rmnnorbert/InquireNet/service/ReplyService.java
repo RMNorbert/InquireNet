@@ -5,6 +5,7 @@ import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;
 import com.rmnnorbert.InquireNet.dto.reply.ReplyDTO;
+import com.rmnnorbert.InquireNet.dto.reply.ReplyUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,10 +41,12 @@ public class ReplyService {
         }
         return false;
     }
-    public boolean updateReply(ReplyDTO replyDTO) {
-        Reply updatingReply = replyDAOJdbc.findReplyById(replyDTO.reply_id());
-        if(replyDTO.user_id() == updatingReply.user_id()) {
-            return replyDAOJdbc.update(replyDTO);
+    public boolean updateReply(ReplyUpdateDTO updateDTO) {
+        Reply foundReply = replyDAOJdbc.findReplyById(updateDTO.id());
+        if(updateDTO.userId() == foundReply.user_id() &&
+           !updateDTO.description().equals(foundReply.description())) {
+            Reply updatingReply = foundReply.withDescription(updateDTO.description());
+            return replyDAOJdbc.update(updatingReply);
         }
         return false;
     }

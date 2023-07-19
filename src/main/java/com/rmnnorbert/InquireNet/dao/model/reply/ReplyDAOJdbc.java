@@ -3,7 +3,6 @@ package com.rmnnorbert.InquireNet.dao.model.reply;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.ReplyRowMapper;
 import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;
-import com.rmnnorbert.InquireNet.dto.reply.ReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -65,8 +64,8 @@ public class ReplyDAOJdbc implements ReplyDAO {
     }
 
     @Override
-    public boolean update(ReplyDTO replyDTO) {
-        String sql = "UPDATE reply set description = ? WHERE reply_id =" + replyDTO.reply_id();
-        return jdbcTemplate.update(sql, replyDTO.description()) > 0;
+    public boolean update(Reply replyUpdate) {
+        String sql = "UPDATE reply set description = ? WHERE reply_id =" + replyUpdate.reply_id();
+        return jdbcTemplate.update(sql, replyUpdate.description()) > 0;
     }
 }

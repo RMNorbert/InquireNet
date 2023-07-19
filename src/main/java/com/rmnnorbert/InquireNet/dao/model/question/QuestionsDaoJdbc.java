@@ -1,9 +1,9 @@
 package com.rmnnorbert.InquireNet.dao.model.question;
 
+import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.QuestionRowMapper;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
-import com.rmnnorbert.InquireNet.dto.question.UpdateQuestionDTO;
-import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
+import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -72,9 +72,9 @@ public class QuestionsDaoJdbc implements QuestionDAO{
     }
 
     @Override
-    public boolean update(UpdateQuestionDTO questionDTO) {
-        String sql = "UPDATE question SET title = ? , description = ? WHERE question_id =" + questionDTO.question_id();
-        return jdbcTemplate.update(sql, questionDTO.title(), questionDTO.description()) > 0;
+    public boolean update(UpdateDTO updateDTO) {
+        String sql = "UPDATE question SET title = ? , description = ? WHERE question_id =" + updateDTO.id();
+        return jdbcTemplate.update(sql, updateDTO.title(), updateDTO.description()) > 0;
     }
     @Override
     public long findLastQuestionId() {

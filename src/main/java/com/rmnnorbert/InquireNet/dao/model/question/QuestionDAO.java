@@ -1,7 +1,7 @@
 package com.rmnnorbert.InquireNet.dao.model.question;
 
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
-import com.rmnnorbert.InquireNet.dto.question.UpdateQuestionDTO;
+import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 
 import java.util.List;
 
@@ -12,6 +12,6 @@ public interface QuestionDAO {
     boolean addQuestion(NewQuestionDTO question);
     List<Question> getAllQuestionByUserID(long userID);
     boolean deleteQuestionById(long theId);
-    boolean update(UpdateQuestionDTO questionDTO);
+    boolean update(UpdateDTO updateDTO);
 
 }

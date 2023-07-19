@@ -14,10 +14,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { SelectedAnswer } from "./components/answers/SelectedAnswer.jsx";
 import { SelectedQuestion } from "./components/questions/SelectedQuestion";
 import { CreateQuestion } from "./components/questions/CreateQuestion.jsx";
+import {EmployeePage} from "./components/user/EmployeePage.jsx";
+import {UpdatePage} from "./components/Update.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
+        element: <Login />,
+    },
+    {
+        path: "/home",
         element: <Home />,
     },
     {
@@ -41,10 +47,6 @@ const router = createBrowserRouter([
         element: <Register />,
     },
     {
-        path: "/login",
-        element: <Login />,
-    },
-    {
         path: "/question/:id",
         element: <SelectedQuestion />,
     },
@@ -60,6 +62,22 @@ const router = createBrowserRouter([
         path: "/user",
         element: <User />,
     },
+    {
+        path: "/employee",
+        element: <EmployeePage />,
+    },
+    {
+        path: "/question/update/:id",
+        element: <UpdatePage />,
+    },
+    {
+        path: "/answer/update/:id",
+        element: <UpdatePage />,
+    },
+    {
+        path: "/reply/update/:id",
+        element: <UpdatePage />,
+    }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { MdQuestionAnswer } from "react-icons/md";
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import { RxUpdate } from "react-icons/rx";
 import { useEffect, useState } from "react";
 import { multiFetch } from "../../utils/MultiFetch.jsx";
 import { createdTime } from "../../utils/TimeFormatter";
@@ -44,9 +45,14 @@ export const QuestionCard = ({ id, userId, title, description, created, numberOf
                     </div>
                 </div>
                 {loggedInUserId() === userId &&
+             <div>
                 <button onClick={() => handleDelete(id)}>
                     <RiDeleteBin2Fill className="text-2xl text-red-900"/>
                 </button>
+                 <button onClick={() => navigate(`/question/update/${id}`)}>
+                     <RxUpdate className="text-2xl text-red-900"/>
+                 </button>
+             </div>
                 }
             </>
         );

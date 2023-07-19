@@ -3,9 +3,12 @@ import { loggedInUserId } from "../../utils/TokenDecoder"
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { createdTime } from "../../utils/TimeFormatter";
 import { multiFetch } from "../../utils/MultiFetch.jsx";
+import {RxUpdate} from "react-icons/rx";
+import {useNavigate} from "react-router-dom";
 export const Reply = ({id, creatorId, description, created }) => {
-    const [deleting, setDeleting] = useState(false);
     const url = "/api/reply/";
+    const navigate = useNavigate();
+    const [deleting, setDeleting] = useState(false);
     const handleDelete = async (currentId) => {
         const response = await multiFetch(url,"DELETE",{userId: loggedInUserId(), targetId: currentId});
         if(response) {
@@ -20,9 +23,14 @@ export const Reply = ({id, creatorId, description, created }) => {
             <div className="gap-4">{createdTime(created)}</div>
             <div className="text-4xl">{description}</div>
             {loggedInUserId() === creatorId &&
+                <>
             <button onClick={() => handleDelete(id)}>
                 <RiDeleteBin2Fill className="text-2xl text-red-900"/>
             </button>
+            <button onClick={() => navigate(`/reply/update/${id}`)}>
+                <RxUpdate className="text-2xl text-red-900"/>
+            </button>
+                </>
             }
         </div>
     );

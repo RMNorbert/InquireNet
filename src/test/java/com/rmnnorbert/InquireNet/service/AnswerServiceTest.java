@@ -6,6 +6,7 @@ import com.rmnnorbert.InquireNet.dao.model.answer.AnswerDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
+import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -141,36 +142,37 @@ class AnswerServiceTest {
     void updateAnswer() {
         AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO(1,"desc",1);
         Answer answer = new Answer(1,1,1,"desc",LocalDateTime.now(),0,"un voted");
+        UpdateDTO updateDTO = new UpdateDTO(1,1, "desc","1");
         when(answerDAOJdbc.findAnswerById(answerRequestDTO.id())).thenReturn(answer);
-        when(answerDAOJdbc.update(answerRequestDTO.description(),answerRequestDTO.id())).thenReturn(true);
+        when(answerDAOJdbc.update(updateDTO)).thenReturn(true);
 
-        boolean actual = answerService.update(answerRequestDTO);
+        boolean actual = answerService.update(updateDTO);
         assertTrue(actual);
         verify(answerDAOJdbc, times(1)).findAnswerById(answerRequestDTO.id());
-        verify(answerDAOJdbc, times(1)).update(answerRequestDTO.description(),answerRequestDTO.id());
+        verify(answerDAOJdbc, times(1)).update(updateDTO);
     }
     @Test
     void updateAnswerWithWrongAnswerId() {
-        AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO(1,"desc",1);
-        when(answerDAOJdbc.findAnswerById(answerRequestDTO.id())).thenThrow(new NotFoundException("Answer"));
+        UpdateDTO updateDTO = new UpdateDTO(1, 1,"desc","test");
+        when(answerDAOJdbc.findAnswerById(updateDTO.id())).thenThrow(new NotFoundException("Answer"));
 
-        assertThrows(NotFoundException.class, () -> answerService.update(answerRequestDTO));
+        assertThrows(NotFoundException.class, () -> answerService.update(updateDTO));
 
-        verify(answerDAOJdbc, times(1)).findAnswerById(answerRequestDTO.id());
-        verify(answerDAOJdbc, times(0)).update(answerRequestDTO.description(),answerRequestDTO.id());
+        verify(answerDAOJdbc, times(1)).findAnswerById(updateDTO.id());
+        verify(answerDAOJdbc, times(0)).update(updateDTO);
     }
     @Test
     void updateAnswerWithWrongUserId() {
-        AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO(1,"desc",1);
+        UpdateDTO updateDTO = new UpdateDTO(1,1,"title","desc");
         Answer answer = new Answer(1,2,1,"desc",LocalDateTime.now(),0,"un voted");
-        when(answerDAOJdbc.findAnswerById(answerRequestDTO.id())).thenReturn(answer);
+        when(answerDAOJdbc.findAnswerById(updateDTO.id())).thenReturn(answer);
 
-        boolean actual = answerService.update(answerRequestDTO);
+        boolean actual = answerService.update(updateDTO);
 
         assertFalse(actual);
 
-        verify(answerDAOJdbc, times(1)).findAnswerById(answerRequestDTO.id());
-        verify(answerDAOJdbc, times(0)).update(answerRequestDTO.description(),answerRequestDTO.id());
+        verify(answerDAOJdbc, times(1)).findAnswerById(updateDTO.id());
+        verify(answerDAOJdbc, times(0)).update(updateDTO);
     }
     @Test
     void addNewAnswer() {

@@ -6,7 +6,7 @@ import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
-import com.rmnnorbert.InquireNet.dto.question.UpdateQuestionDTO;
+import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,10 +52,10 @@ public class QuestionService {
             }
         return false;
     }
-    public boolean updateQuestion(UpdateQuestionDTO questionDTO){
-        Question question = questionsDAO.findQuestionById(questionDTO.question_id());
-        if (question.user_id() == questionDTO.user_id()) {
-            return questionsDAO.update(questionDTO);
+    public boolean updateQuestion(UpdateDTO updateDTO){
+        Question question = questionsDAO.findQuestionById(updateDTO.id());
+        if (question.user_id() == updateDTO.userId()) {
+            return questionsDAO.update(updateDTO);
         }
         return false;
     }

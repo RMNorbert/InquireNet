@@ -10,7 +10,7 @@ export const Navbar = () => {
         setUser(null);
         setIsLoggedIn(false);
         localStorage.clear();
-        window.location.href = "/login";
+        window.location.href = "/";
     };
     const handleOpen = () => setOpen(!open);
 
@@ -37,7 +37,7 @@ export const Navbar = () => {
 
     return (<>
         <div className="flex justify-between bg-slate-200 text-4xl text-black h-24 rounded-xl h-36 pl-10 ">
-            <a href="/" className="flex"><img className="t-0 left-230px " src={'/log.png'} alt={"logo"}/></a>
+            <a href="/home" className="flex"><img className="t-0 left-230px " src={'/log.png'} alt={"logo"}/></a>
             <div className="pr-36 pt-10 text-center">
                 <a href="/forum">
                 <button className=" h-16 w-64 rounded-xl h-12  border-sky-600 hover:bg-sky-900 border-solid border-2 ">
@@ -71,7 +71,7 @@ export const Navbar = () => {
                     ) : (
                         <ul className="border-sky-600 hover:bg-sky-900 border-solid border-2">
                             <li>
-                                <a href="/login">Log in</a>
+                                <a href="/">Log in</a>
                             </li>
                             <li>
                                 <a href="/register">Register</a>

@@ -1,0 +1,71 @@
+import {multiFetch} from "../utils/MultiFetch.jsx";
+import {useParams} from "react-router-dom";
+import {loggedInUserId} from "../utils/TokenDecoder.jsx";
+import { RxUpdate } from "react-icons/rx";
+import {useEffect, useState} from "react";
+export const UpdatePage = () => {
+    const { id } = useParams();
+    const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState([]);
+    const windowUrl = window.location.href.split("/");
+    const currentUrlPath = windowUrl[3];
+    const dataUrl = currentUrlPath === "question" ? `/api/questions/${id}` : currentUrlPath === "answer" ? `/api/answers/${id}` : `/api/reply/${id}`;
+    const updateUrl = currentUrlPath === "question" ? "/api/questions/" : currentUrlPath === "answer" ? "/api/answers/" : "/api/reply";
+    const getData = async() => {
+        const response = await multiFetch(dataUrl, "GET");
+        setData(await response);
+        setIsLoading(false);
+    }
+    const update = async (e) => {
+        e.preventDefault();
+        const updatedTitle = e.target.title.value;
+        const updatedDesc = e.target.desc.value;
+        const data = currentUrlPath === "reply" ?
+            {id: id, userId: loggedInUserId(), description:  updatedDesc} :
+            {id: id, userId: loggedInUserId(), title: updatedTitle, description:  updatedDesc};
+        await multiFetch(updateUrl, "PUT", data);
+    }
+
+    useEffect(() => {
+        if(isLoading){
+            getData();
+        }
+    },[isLoading])
+    return (  <div className="text-black">
+            <div className="object-cover bg-slate-200 my-5 rounded-xl w-100">
+            <label className="flex items-center justify-center text-3xl mb-5">
+                Update content
+                <RxUpdate className="text-red-900 ml-5"/>
+            </label>
+            <label htmlFor="update">{currentUrlPath === "reply" ? "Current reply" :
+                currentUrlPath === "answer" ? "Current answer" : "Current question"
+            }'s</label>
+                {currentUrlPath === "question" &&
+                    <div>Title: {data.title}</div>
+                }
+            <div>Text:{data.description}</div>
+            </div>
+            <form onSubmit={(e) => update(e)}>
+                {currentUrlPath === "question" &&
+                    <>
+                    <label htmlFor="title">Update title</label>
+                    <input
+                        type="text"
+                        name="title"
+                        id=""
+                        placeholder="Provide the new title here. If no input given the title won't change."
+                    />
+                    </>
+                }
+                <label htmlFor="desc">Update text</label>
+                <input
+                    type="text"
+                    name="desc"
+                    id=""
+                    placeholder="Provide the new text here. If no input given the text won't change."
+                />
+                <button type="submit" >Submit</button>
+            </form>
+        </div>
+        )
+}

@@ -3,6 +3,7 @@ package com.rmnnorbert.InquireNet.controller;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;
 import com.rmnnorbert.InquireNet.dto.reply.ReplyDTO;
+import com.rmnnorbert.InquireNet.dto.reply.ReplyUpdateDTO;
 import com.rmnnorbert.InquireNet.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +34,8 @@ public class ReplyController {
         return replyService.addNewReply(replyDTO);
     }
     @PutMapping("/")
-    public boolean updateReply(@RequestBody ReplyDTO replyDTO) {
-        return replyService.updateReply(replyDTO);
+    public boolean updateReply(@RequestBody ReplyUpdateDTO updateDTO) {
+        return replyService.updateReply(updateDTO);
     }
     @DeleteMapping("/")
     public boolean deleteReplyById(@RequestBody DeleteRequestDTO dto) {

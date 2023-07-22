@@ -43,11 +43,12 @@ public class AnswerService {
         }
         return false;
     }
-    public void deleteAnswers(List<AnswerDTO> answerDTOS) {
+    public boolean deleteAnswers(List<AnswerDTO> answerDTOS) {
         for (AnswerDTO answer: answerDTOS) {
         deleteRepliesOfAnswer(answer.answer_id());
         answerDAO.deleteAnswerById(answer.answer_id());
         }
+        return true;
     }
     public boolean addNewAnswer(AnswerRequestDTO answer) {
         return answerDAO.addAnswer(answer);

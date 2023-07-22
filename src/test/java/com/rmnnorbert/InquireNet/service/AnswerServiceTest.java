@@ -32,7 +32,7 @@ class AnswerServiceTest {
     }
 
     @Test
-    void getAllAnswersWhenAnswersExist() {
+    void getAllAnswersWhenAnswersExistShouldReturnExpectedAnswerList() {
         List<Answer> answers = List.of(
                 new Answer(1,1,1,"desc",LocalDateTime.now(),0,"un voted"),
                 new Answer(2,1,2,"title", LocalDateTime.now(),0,"un voted")
@@ -44,7 +44,7 @@ class AnswerServiceTest {
         assertEquals(answers.size(), answerDTOS.size());
     }
     @Test
-    void getAllAnswersWhenNoAnswersExist() {
+    void getAllAnswersWhenNoAnswersExistShouldReturnEmptyList() {
         when(answerDAOJdbc.getAllAnswers()).thenReturn(new ArrayList<>());
 
         List<AnswerDTO> answerDTOS = answerService.getAllAnswers();
@@ -52,7 +52,7 @@ class AnswerServiceTest {
         assertEquals(0, answerDTOS.size());
     }
     @Test
-    void getAnswerById() {
+    void getAnswerByIdShouldReturnExpectedAnswer() {
         int id = 1;
         Answer answer = new Answer(1,1,1,"desc",LocalDateTime.now(),0,"un voted");
         when(answerDAOJdbc.findAnswerById(id)).thenReturn(answer);
@@ -64,7 +64,7 @@ class AnswerServiceTest {
     }
 
     @Test
-    void getAnswerByIdWithExpectedException() {
+    void getAnswerByIdWithWrongIdShouldThrowNotFoundException() {
         int id = 1;
 
         when(answerDAOJdbc.findAnswerById(id)).thenThrow(new NotFoundException("Answer"));
@@ -74,7 +74,7 @@ class AnswerServiceTest {
     }
 
     @Test
-    void getAllAnswersByQuestionId() {
+    void getAllAnswersByQuestionIdShouldReturnExpectedAnswerList() {
         long id = 1;
         List<Answer> mockAnswers = List.of(
                 new Answer(1, 1, 1, "User", LocalDateTime.now(), 0, "unvoted"),
@@ -93,7 +93,7 @@ class AnswerServiceTest {
 
     }
     @Test
-    void getAllAnswersByQuestionIdWhenQuestionHaveNoAnswer() {
+    void getAllAnswersByQuestionIdWhenQuestionHaveNoAnswerShouldReturnEmptyList() {
         long id = 1;
         when(answerDAOJdbc.getAllAnswersByQuestionId(id)).thenReturn(new ArrayList<>());
 
@@ -106,7 +106,7 @@ class AnswerServiceTest {
     }
 
     @Test
-    void deleteAnswerById() {
+    void deleteAnswerByIdWithAppropriateIdShouldReturnTrue() {
         long id = 1;
         Answer answer = new Answer(1,1,1,"desc",LocalDateTime.now(),0,"un voted");
         when(answerDAOJdbc.findAnswerById(id)).thenReturn(answer);
@@ -118,7 +118,7 @@ class AnswerServiceTest {
     }
 
     @Test
-    void deleteAnswerByIdWithWrongId() {
+    void deleteAnswerByIdWithWrongAnswerIdShouldThrowNotFoundException() {
         DeleteRequestDTO dto = new DeleteRequestDTO(2L,2L);
         when(answerDAOJdbc.findAnswerById(dto.targetId())).thenThrow(new NotFoundException("Answer"));
 
@@ -129,7 +129,7 @@ class AnswerServiceTest {
     }
 
     @Test
-    void deleteAnswerByIdWithWrongUserId() {
+    void deleteAnswerByIdWithWrongUserIdShouldReturnFalse() {
         Answer answer = new Answer(2,1,1,"desc",LocalDateTime.now(),0,"un voted");
         DeleteRequestDTO dto = new DeleteRequestDTO(2L,2L);
 
@@ -139,7 +139,7 @@ class AnswerServiceTest {
     }
 
     @Test
-    void updateAnswer() {
+    void updateAnswerWithAppropriateRequestShouldReturnTrue() {
         AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO(1,"desc",1);
         Answer answer = new Answer(1,1,1,"desc",LocalDateTime.now(),0,"un voted");
         UpdateDTO updateDTO = new UpdateDTO(1,1, "desc","1");
@@ -152,7 +152,7 @@ class AnswerServiceTest {
         verify(answerDAOJdbc, times(1)).update(updateDTO);
     }
     @Test
-    void updateAnswerWithWrongAnswerId() {
+    void updateAnswerWithWrongAnswerIdShouldThrowNotFoundException() {
         UpdateDTO updateDTO = new UpdateDTO(1, 1,"desc","test");
         when(answerDAOJdbc.findAnswerById(updateDTO.id())).thenThrow(new NotFoundException("Answer"));
 
@@ -162,7 +162,7 @@ class AnswerServiceTest {
         verify(answerDAOJdbc, times(0)).update(updateDTO);
     }
     @Test
-    void updateAnswerWithWrongUserId() {
+    void updateAnswerWithWrongUserIdShouldReturnFalse() {
         UpdateDTO updateDTO = new UpdateDTO(1,1,"title","desc");
         Answer answer = new Answer(1,2,1,"desc",LocalDateTime.now(),0,"un voted");
         when(answerDAOJdbc.findAnswerById(updateDTO.id())).thenReturn(answer);
@@ -175,7 +175,7 @@ class AnswerServiceTest {
         verify(answerDAOJdbc, times(0)).update(updateDTO);
     }
     @Test
-    void addNewAnswer() {
+    void addNewAnswerShouldReturnTrue() {
         AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO(1,"User",1);
         boolean modifiedRows = true;
         when(answerDAOJdbc.addAnswer(answerRequestDTO)).thenReturn(modifiedRows);
@@ -185,6 +185,20 @@ class AnswerServiceTest {
         assertEquals(modifiedRows,response);
         verify(answerDAOJdbc, times(1)).addAnswer(answerRequestDTO);
     }
+
+    @Test
+    void deleteAnswers() {
+        List<AnswerDTO> answerDTOS = List.of(
+                new AnswerDTO(1,1,1,"desc",LocalDateTime.now(),0,"un voted"),
+                new AnswerDTO(2,1,2,"title", LocalDateTime.now(),0,"un voted"));
+
+        boolean actual = answerService.deleteAnswers(answerDTOS);
+
+        assertTrue(actual);
+        verify(answerDAOJdbc,times(1)).deleteAnswerById(1);
+        verify(answerDAOJdbc,times(1)).deleteAnswerById(2);
+    }
+
     private void assertAnswerEquals(Answer answer, AnswerDTO answerDTO) {
         assertEquals(answer.answer_id(), answerDTO.answer_id());
         assertEquals(answer.question_id(), answerDTO.question_id());

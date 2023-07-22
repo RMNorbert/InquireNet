@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { multiFetch } from "../../utils/MultiFetch.jsx";
-import {loggedInUserId, username} from "../../utils/TokenDecoder.jsx";
-import {QuestionList} from "../questions/QuestionList.jsx";
+import { loggedInUserId, username } from "../../utils/TokenDecoder.jsx";
+import { QuestionList } from "../questions/QuestionList.jsx";
 import { Confirm } from "../confirm/Confirm.jsx";
-import {ManageItem} from "../ManageItem.jsx";
+import { ManageItem } from "../ManageItem.jsx";
 
 export const User = ()=>{
     const navigate = useNavigate();

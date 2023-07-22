@@ -29,7 +29,7 @@ class ChatServiceTest {
     }
 
     @Test
-    void getAllChatByUserId() {
+    void getAllChatByUserIdShouldReturnExpectedChatList() {
         long id = 1;
         List<Chat> chats = List.of(
                 new Chat(1,1,"Chat","user","Chat")
@@ -43,7 +43,7 @@ class ChatServiceTest {
         assertEquals(expected,actual);
     }
     @Test
-    void getAllChatByUserIdWhenThereIsNoChatRegisteredToTheUser() {
+    void getAllChatByUserIdWhenThereIsNoChatRegisteredToTheUserShouldReturnEmptyList() {
         long id = 2;
 
         when(chatDAOJdbc.getAllChatByUserId(id)).thenReturn(new ArrayList<>());
@@ -54,7 +54,7 @@ class ChatServiceTest {
         assertEquals(expected,actual);
     }
     @Test
-    void deleteChatByTitle() {
+    void deleteChatByTitleShouldReturnTrue() {
         ChatDeleteRequest deleteRequest = new ChatDeleteRequest(1,"Title");
         Chat chat = new Chat(1,1,"Title","user","content");
         when(chatDAOJdbc.findChatByTitle(deleteRequest.targetID())).thenReturn(chat);
@@ -65,7 +65,7 @@ class ChatServiceTest {
         assertTrue(actual);
     }
     @Test
-    void deleteChatByTitleWenTitleDoNotExist() {
+    void deleteChatByTitleWenTitleDoNotExistShouldThrowNotFoundException() {
         ChatDeleteRequest deleteRequest = new ChatDeleteRequest(1,"T");
         when(chatDAOJdbc.findChatByTitle(deleteRequest.targetID())).thenThrow(new NotFoundException("Chat"));
 
@@ -75,7 +75,7 @@ class ChatServiceTest {
         verify(chatDAOJdbc, times(0)).deleteChatByTitle(deleteRequest.targetID());
     }
     @Test
-    void deleteChatByTitleWenUserIdDoNotMatch() {
+    void deleteChatByTitleWenUserIdDoNotMatchShouldReturnFalse() {
         ChatDeleteRequest deleteRequest = new ChatDeleteRequest(2,"Title");
         Chat chat = new Chat(1,1,"Title","user","content");
         when(chatDAOJdbc.findChatByTitle(deleteRequest.targetID())).thenReturn(chat);
@@ -87,7 +87,7 @@ class ChatServiceTest {
     }
 
     @Test
-    void storeChat() {
+    void storeChatShouldReturnTrue() {
         ChatRegisterDTO chatRegisterDTO = new ChatRegisterDTO(1,"Title","user","content");
         when(chatDAOJdbc.storeChat(chatRegisterDTO)).thenReturn(true);
 

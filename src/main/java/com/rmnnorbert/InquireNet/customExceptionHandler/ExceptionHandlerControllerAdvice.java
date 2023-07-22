@@ -35,7 +35,7 @@ public class ExceptionHandlerControllerAdvice {
         int detailStartIndex = cause.indexOf("=");
         String message = cause.substring(detailStartIndex + 1).trim().replaceAll("[()]", "");
         System.out.println(message);
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(message);
     }
     @ExceptionHandler({NotFoundException.class, InvalidLoginException.class})
     public ResponseEntity<String> handleCustomNotFoundException(Exception e) {

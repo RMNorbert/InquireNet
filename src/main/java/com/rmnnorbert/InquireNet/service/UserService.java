@@ -26,9 +26,8 @@ public class UserService {
         return UserDTO.of(userDAO.findUserById(id));
     }
     public boolean deleteUserById(DeleteRequestDTO dto) {
-        UserDTO requestingUser = findUserById(dto.userId());
         UserDTO targetUser = findUserById(dto.targetId());
-        if(requestingUser.equals(targetUser)) {
+        if(targetUser.id() == dto.userId()) {
             return userDAO.deleteUserById(dto.targetId());
         }
         return false;

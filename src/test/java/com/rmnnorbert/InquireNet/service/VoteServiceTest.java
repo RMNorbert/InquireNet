@@ -28,7 +28,7 @@ class VoteServiceTest {
     }
 
     @Test
-    void voteSuccessfully() {
+    void voteSuccessfullyShouldReturnTrue() {
         VoteDTO voteDTO = new VoteDTO("upvote",1,1,1);
         QuestionDTO question = new QuestionDTO(1,1,"Title","Desc", LocalDateTime.now(),0);
 
@@ -39,7 +39,7 @@ class VoteServiceTest {
     }
 
     @Test
-    void voteUnSuccessfully() {
+    void voteUnSuccessfullyShouldReturnFalse() {
         VoteDTO voteDTO = new VoteDTO("upvote",1,2,1);
         QuestionDTO question = new QuestionDTO(1,1,"Title","Desc", LocalDateTime.now(),0);
 

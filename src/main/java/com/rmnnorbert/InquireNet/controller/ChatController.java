@@ -26,7 +26,7 @@ public class ChatController {
         return chatService.storeChat(dto);
     }
     @DeleteMapping("/")
-    public boolean deleteChatByChatId(@RequestBody ChatDeleteRequest dto){
+    public boolean deleteChatByChatTitle(@RequestBody ChatDeleteRequest dto){
         return chatService.deleteChatByTitle(dto);
     }
 }

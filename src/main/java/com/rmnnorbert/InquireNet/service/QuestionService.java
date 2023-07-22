@@ -62,9 +62,9 @@ public class QuestionService {
     public boolean addNewQuestion(NewQuestionDTO question) {
         return questionsDAO.addQuestion(question);
     }
-    private void deleteAnswers(long id){
+    private boolean deleteAnswers(long id){
         List<AnswerDTO> answersOfQuestion = answerService.getAllAnswersByQuestionId(id);
-        answerService.deleteAnswers(answersOfQuestion);
+        return answerService.deleteAnswers(answersOfQuestion);
     }
 
 }

@@ -3,9 +3,6 @@
 
 [<img src="https://github.com/RMNorbert/InquireNet/blob/main/My%20project.png" alt="InquireNet" width="100">](README.md)
 
-<!--[![GitHub latest release version](https://img.shields.io/github/v/release/RMNorbert/InquireNet.svg?style=flat)](https://github.com/RMNorbert/InquireNet/releases/latest) -->
-
-
 [![Java](https://img.shields.io/badge/Java-blue.svg?logo=openjdk&logoColor=white&labelColor=555555&style=for-the-badge)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 [![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-brightgreen.svg?logo=spring&labelColor=555555&style=for-the-badge)](https://spring.io/projects/spring-boot)
 [![Spring Security](https://img.shields.io/badge/-Spring%20Security-darkgreen.svg?logo=springsecurity&labelColor=555555&style=for-the-badge)](https://spring.io/projects/spring-security)
@@ -27,7 +24,7 @@
 
 # InquireNet
 
-[Description for the project](#description)
+[Table of content:](#description)
 - [Used technologies](#used-technologies)
 - [Features](#features)
 - [Getting started](#getting-started)
@@ -39,14 +36,14 @@ InquireNet is an interactive question and answer platform that leverages the pow
 ## Used technologies:
 
  Backend
-  - Java,
-  - Spring Boot, Spring Security, JWT,Actuator, Webflux
-  - JDBC
+  - Java (version 17.0.7),
+  - Spring Boot (version 3.1), Spring Security( version 6.1.0), JWT , Actuator, Webflux
+  - JDBC (version 6.0.9)
   
  Frontend
   - JavaScript,
   - Vite,
-  - OpenAi
+  - OpenAi (version 3.2.1)
   
  Database
   - PostgreSQL
@@ -54,27 +51,45 @@ InquireNet is an interactive question and answer platform that leverages the pow
   Others
   - Docker (In progress),
   - CI/CD GitHub workflows (In progress)
-  - OpenApi
+  - OpenApi (version 3.0)
 
 ## Features
 
-   User Registration and Authentication: Users can create accounts and log in to the platform using secure authentication mechanisms implemented with Spring Security and JSON Web Tokens (JWT). This ensures that user data is protected and only accessible to authorized individuals.
+**User Registration and Authentication:**
+ 
+Users can create accounts and log in to the platform using secure authentication mechanisms implemented with Spring Security and JSON Web Tokens (JWT). This ensures that user data is protected and only accessible to authorized individuals.
 
-   Question and Answer Functionality: Users can post questions on any topic and receive answers from other community members. The platform provides a user-friendly interface for submitting, viewing and updating questions, answers, replies to answers, to participate in discussions.
+**Question and Answer Functionality:**
 
-   AI Automated Answers: Users get AI provided answers to their questions instantly, powered by OpenAI, enhancing the overall user experience. These AI-powered answers are generated using state-of-the-art natural language processing techniques, ensuring accurate and insightful responses. 
+Users can post questions on any topic and receive answers from other community members. The platform provides a user-friendly interface for submitting, viewing and updating questions, answers, replies to answers, to participate in discussions.
 
-   Chat with AI: Users have the ability to directly engage in chat conversations with the AI. This interactive chat feature allows users to have dynamic and real-time exchanges with the AI, enabling them to explore their questions in more depth and receive personalized responses. The user can store the chat and delete stored chats.
+**AI Automated Answers:** 
 
-   User Interaction: InquireNet allows users to upvote or downvote answers, comment on questions and answers, and engage in meaningful discussions.
+Users get AI provided answers to their questions instantly, powered by OpenAI, enhancing the overall user experience. These AI-powered answers are generated using state-of-the-art natural language processing techniques, ensuring accurate and insightful responses. 
 
-   Search Functionality: Users can search for specific questions or topics of interest to quickly find relevant information.
+**Chat with AI:**
 
-   Actuator: Exposes endpoints for custom metrics, health, and management purposes.
+Users have the ability to directly engage in chat conversations with the AI. This interactive chat feature allows users to have dynamic and real-time exchanges with the AI, enabling them to explore their questions in more depth and receive personalized responses. The user can store the chat and delete stored chats.
 
-   Custom Features Endpoint: Allows dynamic configuration and management of application features.
+**User Interaction:**
 
-   OpenApi Documentation: Generates and serves API documentation using the OpenApi 3 framework.
+InquireNet allows users to upvote or downvote answers, comment on questions and answers, and engage in meaningful discussions.
+
+**Search Functionality:**
+
+Users can search for specific questions or topics of interest to quickly find relevant information.
+
+**Actuator:**
+
+Exposes endpoints for custom metrics, health, and management purposes.
+
+**Custom Features Endpoint:**
+
+Allows dynamic configuration and management of application features.
+
+**OpenApi Documentation:**
+
+Generates and serves API documentation using the OpenApi 3 framework.
 
 ## Getting Started
 
@@ -95,60 +110,17 @@ Make sure you have the following dependencies installed before proceeding with t
 #### 3.    JDBC Database (e.g., PostgreSQL):
    In order to use a JDBC database with the application, such as PostgreSQL, make sure you have the necessary database server installed on your system. You can download and install PostgreSQL from the official PostgreSQL website and configure it as required.
 
-#### 4.    In addition, you will need the following dependencies specified in the project configuration (`pom.xml`):
-
-- `spring-boot-starter-security` (version 3.1.0)
-- `jjwt-api` (version 0.11.5)
-- `jjwt-impl` (version 0.11.5)
-- `jjwt-jackson` (version 0.11.5)
-- `spring-boot-starter-web` (version 3.1.0)
-- `snakeyaml` (version 2.0)
-- `postgresql` (runtime scope)
-- `spring-boot-starter-test` (version 3.1.0, test scope)
-- `spring-security-test` (version 6.1.0, test scope)
-- `spring-boot-starter-jdbc` (version 3.1.0)
-- `spring-jdbc` (version 6.0.9)
-- `javax.persistence-api` (version 2.2)
-- `spring-boot-starter-validation`
-- `lombok` (version 1.18.26, optional)
-- `spring-boot-starter-actuator`
-- `spring-boot-starter-webflux`
-- `jackson-module-kotlin`
-- `springdoc-openapi-starter-webmvc-ui`
-- `git-commit-id-plugin` (version 4.0.0)
-- `guava` (version 31.1-jre)
-- `plexus-utils` (version 3.5.1)
-- `micrometer-core` (version 1.11.0)
-
-#### 5.    Additionally, you will need the following dependencies specified in the `package.json` file:
-
-- `dotenv` (version 16.1.4)
-- `jwt-decode` (version 3.1.2)
-- `openai` (version 3.2.1)
-- `react` (version 18.2.0)
-- `react-dom` (version 18.2.0)
-- `react-icons` (version 4.9.0)
-- `react-router-dom` (version 6.12.1)
-
 ### Installation
 
 Follow these instructions to get a copy of the InquireNet project up and running on your local machine for development and testing purposes.
 
 1. **Clone the repository:**
-   Start by cloning the InquireNet repository to your local machine. Open a terminal or command prompt and run the following command:
-
-   ```bash
-   git clone https://github.com/RMNorbert/InquireNet.git
-   ```
-This command will create a local copy of the repository on your machine.
 
 2. **Configure the project:**
     Once you have cloned the repository, you need to configure the project by providing the necessary environment variables and database connection details. This includes setting up the database connection URL, username, and password, as well as any other environment-specific configuration values. Make sure to update the configuration files (application.properties, .env) with the appropriate values.
 
 3. **Build and run the project:**
     InquireNet can be built and run using your preferred development environment or command-line tools. Here are a few options:
-
-     Using an IDE: Import the project into your favorite IDE (e.g., IntelliJ, Eclipse) as a Maven project. Build the project to resolve the dependencies and then run the main application class (InquireNetApplication.java) to start the server.
 
      Using Maven: Open a terminal or command prompt, navigate to the project's root directory, and run the following command:
     ```bash

@@ -10,8 +10,8 @@ export const SelectedAnswer = ({}) => {
     const [isLoading, setIsLoading] = useState(true);
     const [reFetchData, setReFetchData] = useState(true);
     const [currentAnswer, setCurrentAnswer] = useState(null);
-    const answersUrl = "/api/answers/" + id;
-    const responsesUrl = "/api/reply/a/" + id;
+    const answersUrl = "/answers/" + id;
+    const responsesUrl = "/reply/a/" + id;
     const getData = async () => {
         setIsLoading(true);
         const answerResponse = await multiFetch(answersUrl,"GET");
@@ -26,7 +26,7 @@ export const SelectedAnswer = ({}) => {
         e.preventDefault();
         let description = e.target[0].value;
         let data = {description: description, answerId: id, userId: loggedInUserId()}
-        await multiFetch("/api/reply/", "POST",data);
+        await multiFetch("/reply/", "POST",data);
         setReFetchData(true);
     };
 

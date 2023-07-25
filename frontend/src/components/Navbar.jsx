@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
-import {username, time, role} from "../utils/TokenDecoder.jsx";
+import { username, time, role } from "../utils/TokenDecoder.jsx";
+import {useNavigate} from "react-router-dom";
 export const Navbar = () => {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [user, setUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -10,14 +12,13 @@ export const Navbar = () => {
         setUser(null);
         setIsLoggedIn(false);
         localStorage.clear();
-        window.location.href = "/";
+        navigate("/");
     };
     const handleOpen = () => setOpen(!open);
 
     useEffect(() => {
-        const loggedInUser = username();
-        if (loggedInUser) {
-            setUser(loggedInUser);
+        if (username()) {
+            setUser(username());
             setTimeout(() => {
                 handleLogout();
             }, 2 * 60 * 60 * 1000);
@@ -37,18 +38,20 @@ export const Navbar = () => {
 
     return (<>
         <div className="flex justify-between bg-slate-200 text-4xl text-black h-24 rounded-xl h-36 pl-10 ">
-            <a href="/home" className="flex"><img className="t-0 left-230px " src={'/log.png'} alt={"logo"}/></a>
+            <a onClick={() => navigate("/home")} className="flex"><img className="t-0 left-230px cursor-pointer" src={'/log.png'} alt={"logo"}/></a>
             <div className="pr-36 pt-10 text-center">
-                <a href="/forum">
-                <button className=" h-16 w-64 rounded-xl h-12  border-sky-600 hover:bg-sky-900 border-solid border-2 ">
+                <button
+                    className=" h-16 w-64 rounded-xl h-12  border-sky-600 hover:bg-sky-900 border-solid border-2 "
+                    onClick={() => navigate("/forum")}
+                >
                      Forum
                 </button>
-                </a>
-                    <a href="/chat">
-                        <button className=" h-16 w-64 rounded-xl h-12  border-sky-600 hover:bg-sky-900 border-solid border-2 ">
+                        <button
+                            className=" h-16 w-64 rounded-xl h-12  border-sky-600 hover:bg-sky-900 border-solid border-2 "
+                            onClick={() => navigate("/chat")}
+                        >
                             Chat with AI
                         </button>
-                    </a>
             </div>
                 <div className="flex justify-evenly gap-y-12">
                 <div>
@@ -57,24 +60,28 @@ export const Navbar = () => {
                 {open ? (
                     isLoggedIn ? (
                         <button className="bg-cyan-800 rounded-xl border-sky-600 hover:bg-sky-900 border-solid border-2">
-                            <a href="/user">
-                                <div>{user}</div>
+                            <a onClick={() => navigate("/user")}>
+                                <div className="cursor-pointer">{user}</div>
                             </a>
                             <TfiLayoutLineSolid className="w-full mt-[-15px]"></TfiLayoutLineSolid>
                             {role() === "EMPLOYEE"&&
-                            <a href="/docs">
-                                <div className="mt-[-15px]">Documentation</div>
-                            </a>}
+                                <a onClick={() => navigate("/docs")}>
+                                    <div className="cursor-pointer mt-[-15px]">Documentation</div>
+                                </a>}
                             <TfiLayoutLineSolid className="w-full mt-[-15px]"></TfiLayoutLineSolid>
-                            <div onClick={handleLogout} className="mt-[-15px]">Logout</div>
+                            <div onClick={() => handleLogout()} className="mt-[-15px]">Logout</div>
                         </button>
                     ) : (
                         <ul className="border-sky-600 hover:bg-sky-900 border-solid border-2">
-                            <li>
-                                <a href="/">Log in</a>
+                            <li className="cursor-pointer">
+                                <a onClick={() => navigate("/")}>
+                                    Log in
+                                </a>
                             </li>
-                            <li>
-                                <a href="/register">Register</a>
+                            <li className="cursor-pointer">
+                                <a onClick={() => navigate("/register")}>
+                                    Register
+                                </a>
                             </li>
                         </ul>
                     )

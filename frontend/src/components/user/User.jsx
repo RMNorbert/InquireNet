@@ -14,11 +14,11 @@ export const User = ()=>{
     const [chatsData, setChatsData] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const fetchData = async () => {
-        const answerResponse = await multiFetch(`/api/answers/user/${loggedInUserId()}`,"GET");
+        const answerResponse = await multiFetch(`/answers/user/${loggedInUserId()}`,"GET");
         setAnswerData(await answerResponse);
-        const questionResponse = await multiFetch(`/api/questions/all/${loggedInUserId()}`,"GET");
+        const questionResponse = await multiFetch(`/questions/all/${loggedInUserId()}`,"GET");
         setQuestionData(await questionResponse);
-        const chatResponse = await multiFetch(`/api/chat/${loggedInUserId()}`,"GET");
+        const chatResponse = await multiFetch(`/chat/${loggedInUserId()}`,"GET");
 
         const uniqueArray = await chatResponse.reduce((accumulator, value) => {
             const found = accumulator.find(item => item.title === value.title);
@@ -31,7 +31,7 @@ export const User = ()=>{
     }
 
     const chatList = () => {
-        const chatUrl = "/api/chat/"
+        const chatUrl = "/chat/"
         return (
             <div>
                 {chatsData.map((chat,index) => (
@@ -49,10 +49,10 @@ export const User = ()=>{
     }
 
     const handleDelete = async () => {
-        await multiFetch("/api/user/","DELETE")
+        await multiFetch("/user/","DELETE")
         setTimeout(() => {
             localStorage.clear();
-            window.location.href = "/register";
+            navigate("/register");
         },2 * 160);
     }
 

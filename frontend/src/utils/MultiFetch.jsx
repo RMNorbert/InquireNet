@@ -5,7 +5,7 @@ export const multiFetch = async (url, method, data ) => {
     const headers = tokenValue ?
         {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${tokenValue}`,
+            "Authorization": `Bearer ${token()}`,
         } :
         {
             "Content-Type": "application/json",
@@ -23,21 +23,14 @@ export const multiFetch = async (url, method, data ) => {
     return await response.json();
 }
 
-export const authFetch = async (url, data, login) => {
+export const authFetch = async (url, data) => {
     const response = await fetch(url, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data),
-    })
-     if(response.ok){
-        if(login) {
-            const data = await response.json();
-            const token = data.token;
-            const time = data.time;
-            localStorage.setItem('token', token);
-            localStorage.setItem('time', time);
-            }
-    } else {
+    });
+
+    if(!response.ok) {
         return await response.text();
     }
 }

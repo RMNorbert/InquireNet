@@ -9,7 +9,7 @@ export const aiAnswerQuestion = async(title,question_id)=>{
          const answer = await data.choices[0].message.content.replace(/As an AI language model,/g,'');
      if(question_id > 0) {
          const data = {userId: 0, description: await answer, id: question_id}
-         await multiFetch("/api/answers/","POST",data);
+         await multiFetch("/answers/","POST",data);
       } else {
          return answer;
       }

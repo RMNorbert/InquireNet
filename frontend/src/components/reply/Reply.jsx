@@ -6,7 +6,7 @@ import { multiFetch } from "../../utils/MultiFetch.jsx";
 import {RxUpdate} from "react-icons/rx";
 import {useNavigate} from "react-router-dom";
 export const Reply = ({id, creatorId, description, created }) => {
-    const url = "/api/reply/";
+    const url = "/reply/";
     const navigate = useNavigate();
     const [deleting, setDeleting] = useState(false);
     const handleDelete = async (currentId) => {

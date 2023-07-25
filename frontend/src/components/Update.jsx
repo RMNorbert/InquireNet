@@ -9,8 +9,8 @@ export const UpdatePage = () => {
     const [data, setData] = useState([]);
     const windowUrl = window.location.href.split("/");
     const currentUrlPath = windowUrl[3];
-    const dataUrl = currentUrlPath === "question" ? `/api/questions/${id}` : currentUrlPath === "answer" ? `/api/answers/${id}` : `/api/reply/${id}`;
-    const updateUrl = currentUrlPath === "question" ? "/api/questions/" : currentUrlPath === "answer" ? "/api/answers/" : "/api/reply";
+    const dataUrl = currentUrlPath === "question" ? `/questions/${id}` : currentUrlPath === "answer" ? `/answers/${id}` : `/reply/${id}`;
+    const updateUrl = currentUrlPath === "question" ? "/questions/" : currentUrlPath === "answer" ? "/answers/" : "/reply";
     const getData = async() => {
         const response = await multiFetch(dataUrl, "GET");
         setData(await response);

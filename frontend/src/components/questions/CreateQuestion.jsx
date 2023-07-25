@@ -6,7 +6,7 @@ export const CreateQuestion = () => {
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const questionUrl = "/api/questions/";
+        const questionUrl = "/questions/";
         const title = e.target[0].value
         const description = e.target[1].value;
         const data = {title: title, description: description, userID: loggedInUserId()}
@@ -16,7 +16,7 @@ export const CreateQuestion = () => {
     };
 
     const fetchData = async (title) => {
-        const data = await multiFetch("/api/questions/last","GET");
+        const data = await multiFetch("/questions/last","GET");
         const lastQuestionId = await data;
         await aiAnswerQuestion(title, lastQuestionId);
     };

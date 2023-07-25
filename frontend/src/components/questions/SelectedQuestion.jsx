@@ -5,9 +5,9 @@ import { multiFetch } from "../../utils/MultiFetch.jsx";
 import { loggedInUserId } from "../../utils/TokenDecoder.jsx";
 export const SelectedQuestion = ({}) => {
     const { id } = useParams();
-    const answerUrl = "/api/answers/";
-    const questionUrl = "/api/questions/" + id;
-    const answersToQuestionUrl = "/api/answers/q/" + id;
+    const answerUrl = "/answers/";
+    const questionUrl = "/questions/" + id;
+    const answersToQuestionUrl = "/answers/q/" + id;
     const [answers, setAnswers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [currentQuestion, setCurrentQuestion] = useState(null);

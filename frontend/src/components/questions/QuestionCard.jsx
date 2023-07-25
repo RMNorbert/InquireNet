@@ -9,7 +9,7 @@ import { loggedInUserId } from "../../utils/TokenDecoder.jsx";
 export const QuestionCard = ({ id, userId, title, description, created, numberOfAnswers }) => {
     const [deleting, setDeleting] = useState(false);
     const navigate = useNavigate();
-    const url = "/api/questions/";
+    const url = "/questions/";
     const handleAnswer = () => {
         navigate(`/question/${id}`);
     };

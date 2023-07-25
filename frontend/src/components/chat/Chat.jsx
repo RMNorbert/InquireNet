@@ -38,7 +38,7 @@ export const Chat = ()=>{
                                    role: chatData.title === <FaUserSecret/> ? "user" : "ai",
                                    content: chatData.content
                                  }
-                await multiFetch("/api/chat/","POST", data);
+                await multiFetch("/chat/","POST", data);
             }
         }
     }
@@ -50,7 +50,7 @@ export const Chat = ()=>{
 
     //Fetch previously stored chats//
     const fetchChatHistory = async () => {
-        const response = await multiFetch(`/api/chat/${loggedInUserId()}`,"GET");
+        const response = await multiFetch(`/chat/${loggedInUserId()}`,"GET");
         setStoredChats(response);
         await response.forEach((chat) => chat.role = changeRoleSymbols(chat.role));
         setPreviousChats(response);

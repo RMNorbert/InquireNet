@@ -24,7 +24,7 @@ function App() {
     }
 
     const fetchData = async () => {
-        const data = await multiFetch("/api/questions/all","GET");
+        const data = await multiFetch("/questions/all","GET");
         const dataJSON = await data;
         dataJSON.sort(
             (a, b) => Number(b.created.substring(0,19)

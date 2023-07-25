@@ -29,12 +29,12 @@ public class SecurityConfiguration {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                     .requestMatchers(
-                        "/register",
-                        "/login",
-                        "/authenticate",
                         "/**",
+                        "/api/**",
+                        "/register",
+                        "/authenticate",
+                        "/dist/index",
                         "/index.html",
-                        "/dist/**",
                         "/static/**",
                         "/*.ico",
                         "/*.json",
@@ -50,7 +50,6 @@ public class SecurityConfiguration {
                         "/api-docs.yaml"
                     ).permitAll()
                     .requestMatchers(
-                        "/api/**",
                         "/answers/**",
                         "/questions/**",
                         "/reply/**",

@@ -14,8 +14,8 @@ export const Answer = ({answerId, creatorId , questionCreatorId, questionId, des
     const [deleting, setDeleting] = useState(false);
     const [currentVote, setCurrentVote] = useState(vote);
     const userId = loggedInUserId();
-    const answersUrl = "/api/answers/";
-    const voteUrl = "/api/answers/vote";
+    const answersUrl = "/answers/";
+    const voteUrl = "/answers/vote";
     const voteTo = async (up, answerId) => {
         const res = up ? await multiFetch(
                                     voteUrl,

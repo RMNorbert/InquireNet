@@ -82,9 +82,9 @@ public class AnswerDAOJdbc implements AnswerDAO{
     }
 
     @Override
-    public void changeVote(String vote, long id) {
+    public boolean changeVote(String vote, long id) {
         String sql = "UPDATE answer set vote = ? WHERE answer_id = ?";
-        jdbcTemplate.update(sql, vote, id);
+        return jdbcTemplate.update(sql, vote, id) == 1;
     }
     @Override
     public int getNumberOfUserAnswers(long id) {

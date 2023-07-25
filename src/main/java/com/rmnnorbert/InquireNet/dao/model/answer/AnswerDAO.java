@@ -12,6 +12,6 @@ public interface AnswerDAO {
     boolean addAnswer(AnswerRequestDTO answer);
     boolean deleteAnswerById(long theId);
     boolean update(UpdateDTO updateDTO);
-    void changeVote(String vote, long id);
+    boolean changeVote(String vote, long id);
     int getNumberOfUserAnswers(long id);
 }

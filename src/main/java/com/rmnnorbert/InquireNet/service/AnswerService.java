@@ -63,8 +63,8 @@ public class AnswerService {
     private void deleteRepliesOfAnswer(long id){
         replyService.deleteAllReplyOfAnswer(id);
     }
-    public void updateVote(VoteDTO voteDTO) {
-            answerDAO.changeVote(voteDTO.vote(), voteDTO.id());
+    public boolean updateVote(VoteDTO voteDTO) {
+            return answerDAO.changeVote(voteDTO.vote(), voteDTO.id());
     }
     public int getNumberOfAnswersByUserId(long id) {
         return answerDAO.getNumberOfUserAnswers(id);

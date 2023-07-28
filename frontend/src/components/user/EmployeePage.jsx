@@ -8,9 +8,9 @@ export const EmployeePage = () => {
     const navigate = useNavigate();
     const [usersData, setUsersData] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
-    const userUrl = "/api/user/";
+    const userUrl = "/user/";
     const fetchUserData = async () => {
-        const response = await multiFetch("/api/user/all", "GET")
+        const response = await multiFetch("/user/all", "GET")
         setUsersData(await response);
     }
 

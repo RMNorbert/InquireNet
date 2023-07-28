@@ -1,0 +1,39 @@
+version: '3'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    network_mode: inquirenetnetwork
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=InquireNet
+    volumes:
+      - ./init-scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init-scripts/init.sql:/docker-entrypoint-initdb.d/create-values.sql
+      - postgres-data:/var/lib/postgresql/data
+
+  Inquirenet:
+    image: rmnorbert/inquirenet
+    container_name: inquirenet
+    network_mode: inquirenetnetwork
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    ports:
+      - '8080:8080'
+    environment:
+      - SECRET_KEY=81936T576E5A7234753777211C25432A462D4A614E645267556B58753873357638792F413F4428472B4B6250655748566D597133743677397B36932645294840
+    volumes:
+      - ./resources/static/dist:/app/src/main/resources/static/dist/
+volumes:
+  postgres-data:
+    driver: local

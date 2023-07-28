@@ -6,6 +6,7 @@ import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
 import com.rmnnorbert.InquireNet.dto.answer.VoteDTO;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
+import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,27 +43,28 @@ public class AnswerService {
         }
         return false;
     }
-    public void deleteAnswers(List<AnswerDTO> answerDTOS) {
+    public boolean deleteAnswers(List<AnswerDTO> answerDTOS) {
         for (AnswerDTO answer: answerDTOS) {
         deleteRepliesOfAnswer(answer.answer_id());
         answerDAO.deleteAnswerById(answer.answer_id());
         }
+        return true;
     }
     public boolean addNewAnswer(AnswerRequestDTO answer) {
         return answerDAO.addAnswer(answer);
     }
-    public boolean update(AnswerRequestDTO answerRequestDTO){
-        Answer answer = answerDAO.findAnswerById(answerRequestDTO.id());
-        if(answerRequestDTO.userId() == answer.user_id()) {
-            return answerDAO.update(answerRequestDTO.description(), answerRequestDTO.id());
+    public boolean update(UpdateDTO updateDTO){
+        Answer answer = answerDAO.findAnswerById(updateDTO.id());
+        if(updateDTO.userId() == answer.user_id()) {
+            return answerDAO.update(updateDTO);
         }
         return false;
     }
     private void deleteRepliesOfAnswer(long id){
         replyService.deleteAllReplyOfAnswer(id);
     }
-    public void updateVote(VoteDTO voteDTO) {
-            answerDAO.changeVote(voteDTO.vote(), voteDTO.id());
+    public boolean updateVote(VoteDTO voteDTO) {
+            return answerDAO.changeVote(voteDTO.vote(), voteDTO.id());
     }
     public int getNumberOfAnswersByUserId(long id) {
         return answerDAO.getNumberOfUserAnswers(id);

@@ -8,14 +8,14 @@ export const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const registrationUrl = "/api/register";
+        const registrationUrl = "/register";
         const data = {username: e.target[0].value, password:  e.target[1].value};
         const response = await authFetch(registrationUrl,data,false);
         if(response) {
             setHidden(false);
             setMessage(response.split(";").join("\n"));
         } else{
-            navigate("/login");
+            navigate("/");
         }
     };
 

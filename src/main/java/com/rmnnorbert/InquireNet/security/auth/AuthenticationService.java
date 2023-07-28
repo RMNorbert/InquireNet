@@ -64,7 +64,7 @@ public class AuthenticationService {
 
             return AuthenticationResponse.builder()
                     .token(jwtToken)
-                    .time(LocalDateTime.now().plusHours(1))
+                    .time(LocalDateTime.now().plusHours(3))
                     .build();
         } catch (Exception e) {
             loginFailureCounter.increment(); // Increment failure counter

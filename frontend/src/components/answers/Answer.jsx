@@ -7,14 +7,15 @@ import { ImArrowDown, ImArrowUp } from "react-icons/im";
 import { multiFetch } from "../../utils/MultiFetch.jsx";
 import { createdTime } from "../../utils/TimeFormatter";
 import {loggedInUserId} from "../../utils/TokenDecoder.jsx";
+import {RxUpdate} from "react-icons/rx";
 export const Answer = ({answerId, creatorId , questionCreatorId, questionId, description, created , numberOfReply , vote}) => {
     const navigate = useNavigate();
     const [voting, setVoting] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [currentVote, setCurrentVote] = useState(vote);
     const userId = loggedInUserId();
-    const answersUrl = "/api/answers/";
-    const voteUrl = "/api/answers/vote";
+    const answersUrl = "/answers/";
+    const voteUrl = "/answers/vote";
     const voteTo = async (up, answerId) => {
         const res = up ? await multiFetch(
                                     voteUrl,
@@ -75,11 +76,11 @@ export const Answer = ({answerId, creatorId , questionCreatorId, questionId, des
                 <div className="bg-slate-200  mt-[-4px] w-2/3 p-1 flex-col rounded-b">
                 <div>
                     {userId === questionCreatorId &&
-                    <button onClick={() => voteTo(true, answerId)}>
-                        <ImArrowUp className="text-3xl text-green-900"/>
-                    </button>
+                        <button onClick={() => voteTo(true, answerId)}>
+                            <ImArrowUp className="text-3xl text-green-900"/>
+                        </button>
                     }
-                    <button className="text-black">
+                    <button className="text-black"  onClick={() => navigate(`/answer/${answerId}`)}>
                         <MdQuestionAnswer className="text-3xl text-black"/> {numberOfReply}
                     </button>
                     {userId === questionCreatorId &&
@@ -89,9 +90,16 @@ export const Answer = ({answerId, creatorId , questionCreatorId, questionId, des
                     }
                 </div>
                     {userId === creatorId &&
-                <button onClick={() => handleDelete(answerId)}>
-                    <RiDeleteBin2Fill className="text-2xl text-red-900"/>
-                </button>
+                        <>
+                        <button onClick={() => handleDelete(answerId)}>
+                            <RiDeleteBin2Fill className="text-2xl text-red-900"/>
+                        </button>
+                            <div className="flex">
+                                <button onClick={() => navigate(`/answer/update/${answerId}`)}>
+                                    <RxUpdate className="text-2xl text-red-900"/>
+                                </button>
+                            </div>
+                        </>
                     }
                 </div>
             </>

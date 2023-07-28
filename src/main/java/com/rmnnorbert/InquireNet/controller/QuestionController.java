@@ -3,7 +3,7 @@ package com.rmnnorbert.InquireNet.controller;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
-import com.rmnnorbert.InquireNet.dto.question.UpdateQuestionDTO;
+import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import com.rmnnorbert.InquireNet.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +39,8 @@ public class QuestionController {
         return questionService.addNewQuestion(question);
     }
     @PutMapping("/")
-    public boolean updateQuestion(@RequestBody UpdateQuestionDTO question) {
-        return questionService.updateQuestion(question);
+    public boolean updateQuestion(@RequestBody UpdateDTO updateDTO) {
+        return questionService.updateQuestion(updateDTO);
     }
     @DeleteMapping("/")
     public boolean deleteQuestionById(@RequestBody DeleteRequestDTO dto) {

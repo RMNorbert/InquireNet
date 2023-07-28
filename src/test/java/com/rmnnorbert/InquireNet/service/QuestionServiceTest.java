@@ -6,7 +6,7 @@ import com.rmnnorbert.InquireNet.dao.model.question.QuestionsDaoJdbc;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
-import com.rmnnorbert.InquireNet.dto.question.UpdateQuestionDTO;
+import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -33,7 +33,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void getAllQuestionsWhenQuestionsExist() {
+    void getAllQuestionsWhenQuestionsExistShouldReturnExpectedQuestionList() {
         List<Question> questions = List.of(
                 new Question(1,1,"title","desc", LocalDateTime.now(),1),
                 new Question(2,1,"title","desc", LocalDateTime.now(),1)
@@ -48,7 +48,7 @@ class QuestionServiceTest {
         assertEquals(expected, actual);
     }
     @Test
-    void getAllQuestionsWhenNoQuestionExist() {
+    void getAllQuestionsWhenNoQuestionExistShouldReturnEmptyList() {
         when(questionsDaoJdbc.getAllQuestion()).thenReturn(new ArrayList<>());
 
         List<QuestionDTO> questionDTOS = questionService.getAllQuestions();
@@ -57,7 +57,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void getAllQuestionsOfUserWhenTheUserHaveQuestion() {
+    void getAllQuestionsOfUserWhenTheUserHaveQuestionShouldReturnExpectedQuestionList() {
         long userId = 1;
         List<Question> questions = List.of(
                 new Question(1,1,"title","desc", LocalDateTime.now(),1),
@@ -74,7 +74,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void getAllQuestionsOfUserWhenTheUserDoNotHaveAnyQuestion() {
+    void getAllQuestionsOfUserWhenTheUserDoNotHaveAnyQuestionShouldReturnEmptyList() {
         long userId = 1;
         when(questionsDaoJdbc.getAllQuestionByUserID(userId)).thenReturn(new ArrayList<>());
 
@@ -84,7 +84,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void getLastQuestion() {
+    void getLastQuestionShouldReturnExpectedValue() {
         when(questionsDaoJdbc.findLastQuestionId()).thenReturn(1L);
 
         long lastQuestionId = questionService.getLastQuestion();
@@ -94,7 +94,7 @@ class QuestionServiceTest {
         verify(questionsDaoJdbc, times(1)).findLastQuestionId();
     }
     @Test
-    void getLastQuestionWhenThereIsNoQuestion() {
+    void getLastQuestionWhenThereIsNoQuestionShouldReturnExpectedValue() {
         long noQuestionResponse = 0;
         when(questionsDaoJdbc.findLastQuestionId()).thenReturn(noQuestionResponse);
 
@@ -105,7 +105,7 @@ class QuestionServiceTest {
         verify(questionsDaoJdbc, times(1)).findLastQuestionId();
     }
     @Test
-    void getQuestionById() {
+    void getQuestionByIdShouldReturnExpectedQuestion() {
         long id = 1;
         Question question = new Question(1,1,"title","desc", LocalDateTime.now(),1);
         when(questionsDaoJdbc.findQuestionById(id)).thenReturn(question);
@@ -117,7 +117,7 @@ class QuestionServiceTest {
         verify(questionsDaoJdbc, times(1)).findQuestionById(id);
     }
     @Test
-    void getQuestionByIdWithWrongId() {
+    void getQuestionByIdWithWrongIdShouldThrowNotFoundException() {
         long id = 1;
         when(questionsDaoJdbc.findQuestionById(id)).thenThrow(new NotFoundException("Question"));
 
@@ -127,7 +127,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void deleteQuestionById() {
+    void deleteQuestionByIdShouldReturnTrue() {
         long id = 1;
         Question question = new Question(1, 1, "title", "desc", LocalDateTime.now(), 1);
         when(questionsDaoJdbc.findQuestionById(id)).thenReturn(question);
@@ -140,7 +140,7 @@ class QuestionServiceTest {
         verify(questionsDaoJdbc, times(1)).deleteQuestionById(question.question_id());
     }
     @Test
-    void deleteQuestionByIdWithWrongQuestionId() {
+    void deleteQuestionByIdWithWrongQuestionIdShouldThrowNotFoundException() {
         long id = 1;
         when(questionsDaoJdbc.findQuestionById(id)).thenThrow(new NotFoundException("Question"));
         when(questionsDaoJdbc.deleteQuestionById(id)).thenReturn(true);
@@ -151,7 +151,7 @@ class QuestionServiceTest {
         verify(questionsDaoJdbc, times(0)).deleteQuestionById(id);
     }
     @Test
-    void deleteQuestionByIdWithWrongUserId() {
+    void deleteQuestionByIdWithWrongUserIdShouldReturnFalse() {
         DeleteRequestDTO dto = new DeleteRequestDTO(1L, 1L);
         Question question = new Question(1L, 2L, "title", "desc", LocalDateTime.now(), 1);
         when(questionsDaoJdbc.findQuestionById(dto.targetId())).thenReturn(question);
@@ -163,49 +163,48 @@ class QuestionServiceTest {
         verify(questionsDaoJdbc, times(0)).deleteQuestionById(dto.targetId());
     }
     @Test
-    void addNewQuestion() {
+    void addNewQuestionShouldReturnTrue() {
         NewQuestionDTO questionDTO = new NewQuestionDTO("User","aka",1);
-        boolean modifiedRows = true;
         when(questionsDaoJdbc.addQuestion(questionDTO)).thenReturn(true);
 
         boolean response = questionService.addNewQuestion(questionDTO);
 
-        assertEquals(modifiedRows,response);
+        assertTrue(response);
         verify(questionsDaoJdbc, times(1)).addQuestion(questionDTO);
     }
     @Test
-    void updateQuestion() {
+    void updateQuestionShouldReturnTrue() {
         Question question = new Question(1,1,"title","des",LocalDateTime.now(),0);
-        UpdateQuestionDTO dto = new UpdateQuestionDTO(1,1,"title","desc");
-        when(questionsDaoJdbc.findQuestionById(dto.question_id())).thenReturn(question);
+        UpdateDTO dto = new UpdateDTO(1,1,"title","desc");
+        when(questionsDaoJdbc.findQuestionById(dto.id())).thenReturn(question);
         when(questionsDaoJdbc.update(dto)).thenReturn(true);
 
         boolean actual = questionService.updateQuestion(dto);
 
         assertTrue(actual);
-        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.question_id());
+        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.id());
         verify(questionsDaoJdbc, times(1)).update(dto);
     }
     @Test
-    void updateQuestionWithWrongQuestionId() {
-        UpdateQuestionDTO dto = new UpdateQuestionDTO(1,1,"title","desc");
-        when(questionsDaoJdbc.findQuestionById(dto.question_id())).thenThrow(new NotFoundException("Question"));
+    void updateQuestionWithWrongQuestionIdShouldThrowNotFoundException() {
+        UpdateDTO dto = new UpdateDTO(1,1,"title","desc");
+        when(questionsDaoJdbc.findQuestionById(dto.id())).thenThrow(new NotFoundException("Question"));
 
         assertThrows(NotFoundException.class, () -> questionService.updateQuestion(dto));
 
-        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.question_id());
+        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.id());
         verify(questionsDaoJdbc, times(0)).update(dto);
     }
     @Test
-    void updateQuestionWithWrongUserId() {
+    void updateQuestionWithWrongUserIdShouldReturnFalse() {
         Question question = new Question(1,2,"title","des",LocalDateTime.now(),0);
-        UpdateQuestionDTO dto = new UpdateQuestionDTO(1,1,"title","desc");
-        when(questionsDaoJdbc.findQuestionById(dto.question_id())).thenReturn(question);
+        UpdateDTO dto = new UpdateDTO(1,1,"title","desc");
+        when(questionsDaoJdbc.findQuestionById(dto.id())).thenReturn(question);
 
         boolean actual = questionService.updateQuestion(dto);
 
         assertFalse(actual);
-        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.question_id());
+        verify(questionsDaoJdbc, times(1)).findQuestionById(dto.id());
         verify(questionsDaoJdbc, times(0)).update(dto);
     }
 }

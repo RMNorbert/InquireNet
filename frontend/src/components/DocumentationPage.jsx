@@ -12,7 +12,7 @@ export const DocumentationPage = () => {
         if(username() === null){
             navigate("/");
         }
-        const swaggerUrl = '/api/api-docs'; // Replace with your Swagger API URL
+        const swaggerUrl = '/api-docs';
         SwaggerUI({
             url: swaggerUrl,
             dom_id: '#swagger-ui',

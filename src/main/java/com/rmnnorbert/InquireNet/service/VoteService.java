@@ -18,8 +18,7 @@ public class VoteService {
     public boolean vote(VoteDTO voteDTO) {
         QuestionDTO question = questionService.getQuestionById(voteDTO.questionId());
         if(question.user_id() == voteDTO.userId()) {
-            answerService.updateVote(voteDTO);
-            return true;
+            return answerService.updateVote(voteDTO);
         }
         return false;
     }

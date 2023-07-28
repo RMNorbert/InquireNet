@@ -4,6 +4,7 @@ import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
 import com.rmnnorbert.InquireNet.dto.answer.VoteDTO;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
+import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import com.rmnnorbert.InquireNet.service.AnswerService;
 import com.rmnnorbert.InquireNet.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +49,9 @@ public class AnswerController {
         @PutMapping("/vote")
         public boolean voteOnAnswerById(@RequestBody VoteDTO voteDTO) {
         return voteService.vote(voteDTO);
-
        }
        @PutMapping("/")
-       public boolean updateAnswer(@RequestBody AnswerRequestDTO answerRequestDTO){
-           return answerService.update(answerRequestDTO);
+       public boolean updateAnswer(@RequestBody UpdateDTO updateDTO){
+           return answerService.update(updateDTO);
        }
 }

@@ -10,64 +10,35 @@ import { Login } from "./components/user/Login";
 import { Navbar } from "./components/Navbar.jsx";
 import { Chat } from "./components/chat/Chat.jsx";
 import { Register } from "./components/user/Register";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SelectedAnswer } from "./components/answers/SelectedAnswer.jsx";
 import { SelectedQuestion } from "./components/questions/SelectedQuestion";
 import { CreateQuestion } from "./components/questions/CreateQuestion.jsx";
-
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Home />,
-    },
-    {
-        path:"/docs",
-        element:<DocumentationPage />,
-    },
-    {
-        path: "/chat",
-        element: <Chat />,
-    },
-    {
-        path: "/forum",
-        element: <App />,
-    },
-    {
-        path: "/question",
-        element: <App />,
-    },
-    {
-        path: "/register",
-        element: <Register />,
-    },
-    {
-        path: "/login",
-        element: <Login />,
-    },
-    {
-        path: "/question/:id",
-        element: <SelectedQuestion />,
-    },
-    {
-        path: "/answer/:id",
-        element: <SelectedAnswer />,
-    },
-    {
-        path: "/createquestion",
-        element: <CreateQuestion />,
-    },
-    {
-        path: "/user",
-        element: <User />,
-    },
-]);
+import {EmployeePage} from "./components/user/EmployeePage.jsx";
+import {UpdatePage} from "./components/Update.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <div>
-            <Navbar />
-            <RouterProvider router={router} />
-        </div>
+        <Router>
+            <Navbar/>
+            <Routes>
+                <Route path='/' element={ <Login />} />
+                <Route path='/register' element={<Register/>}/>
+                <Route path='/home' element={<Home />} />
+                <Route path='/docs' element={<DocumentationPage/>} />
+                <Route path='/chat' element={<Chat/>}/>
+                <Route path='/forum' element={<App/>}/>
+                <Route path='/question' element={<App/>}/>
+                <Route path='/question/:id' element={<SelectedQuestion/>}/>
+                <Route path='/answer/:id' element={<SelectedAnswer/>}/>
+                <Route path='/createquestion' element={<CreateQuestion/>}/>
+                <Route path='/user' element={<User/>}/>
+                <Route path='/employee' element={<EmployeePage/>}/>
+                <Route path='/question/update/:id' element={<UpdatePage/>} />
+                <Route path='/answer/update/:id' element={<UpdatePage/>} />
+                <Route path='/reply/update/:id' element={<UpdatePage/>} />
+            </Routes>
+        </Router>
     </React.StrictMode>
-);
+    );
 

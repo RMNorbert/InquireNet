@@ -3,6 +3,7 @@ package com.rmnnorbert.InquireNet.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -13,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import static com.rmnnorbert.InquireNet.dao.model.user.data.Role.EMPLOYEE;
 import static com.rmnnorbert.InquireNet.dao.model.user.data.Role.USER;
 @Configuration
+@Profile("dev")
 public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
@@ -27,18 +29,20 @@ public class SecurityConfiguration {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                     .requestMatchers(
+                        "/**",
+                        "/api/**",
                         "/register",
-                        "/login",
                         "/authenticate",
-                        "/",
-                        "/frontend/index",
+                        "/dist/index",
                         "/index.html",
                         "/static/**",
                         "/*.ico",
                         "/*.json",
                         "/*.png",
-                        "/frontend/**",
+                        "/*.svg",
+                        "/static/dist/**",
                         "/home",
+                        "/assets/**",
                         "/actuator/**",
                         "/api-docs/**",
                         "/swagger-ui/**",
@@ -46,7 +50,6 @@ public class SecurityConfiguration {
                         "/api-docs.yaml"
                     ).permitAll()
                     .requestMatchers(
-                        "/api/**",
                         "/answers/**",
                         "/questions/**",
                         "/reply/**",

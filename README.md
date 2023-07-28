@@ -7,6 +7,7 @@
 [![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-brightgreen.svg?logo=spring&labelColor=555555&style=for-the-badge)](https://spring.io/projects/spring-boot)
 [![Spring Security](https://img.shields.io/badge/-Spring%20Security-darkgreen.svg?logo=springsecurity&labelColor=555555&style=for-the-badge)](https://spring.io/projects/spring-security)
 [![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-blue.svg?logo=postgresql&logoColor=0197f6&labelColor=555555&style=for-the-badge)](https://www.postgresql.org)
+[![Docker](https://img.shields.io/badge/-docker-blue.svg?logo=docker&logoColor=0197f6&labelColor=white&style=for-the-badge)](https://www.docker.com/)
 
 [![OpenAI](https://img.shields.io/badge/-OpenAi-1c1c2c.svg?logo=openai&labelColor=555555&style=for-the-badge)](https://openai.com)
 [![JWT](https://img.shields.io/badge/JWT-323330?style=for-the-badge&logo=jsonwebtokens&logoColor=red)](https://jwt.io/)
@@ -33,6 +34,9 @@
 
 InquireNet is an interactive question and answer platform that leverages the power of AI for automated answers. It is built using Java, Spring, JDBC, and other technologies to provide a robust and user-friendly web application. In addition to the public question and answer functionality, InquireNet offers users the flexibility to maintain privacy. If users prefer not to publicize their questions, they can utilize the chat feature to ask their queries directly to the AI. This ensures that users have multiple avenues to seek answers and engage with the platform based on their preferences.
 
+# Dockerized version can be pulled from DockerHub:
+https://hub.docker.com/repository/docker/7nrm/inquirenet/general
+
 ## Used technologies:
 
  Backend
@@ -49,8 +53,8 @@ InquireNet is an interactive question and answer platform that leverages the pow
   - PostgreSQL
   
   Others
-  - Docker (In progress),
-  - CI/CD GitHub workflows (In progress)
+  - Docker,
+  - CI/CD GitHub workflows
   - OpenApi (version 3.0)
 
 ## Features

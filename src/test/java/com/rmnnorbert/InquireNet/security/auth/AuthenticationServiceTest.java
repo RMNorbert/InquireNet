@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.security.auth;
 
+import com.rmnnorbert.InquireNet.customExceptionHandler.InvalidLoginException;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.model.user.User;
 import com.rmnnorbert.InquireNet.dao.model.user.UserDaoJdbc;
@@ -13,12 +14,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class AuthenticationServiceTest {
@@ -39,15 +41,15 @@ class AuthenticationServiceTest {
     @Test
     void registerShouldReturnExpectedAuthenticationResponse() {
         AuthenticationDTO dto = new AuthenticationDTO("username","password");
-        User user = new User(1, Role.USER,"username","password",LocalDateTime.now());
+        User user = new User(1, Role.USER,"username","password",LocalDateTime.of(2000,10,10,10,10));
 
         when(userDaoJdbc.findUser(dto.username())).thenReturn(user);
         when(jwtService.generateToken(user)).thenReturn("token");
 
-        AuthenticationResponse expected = new AuthenticationResponse("token", LocalDateTime.now());
+        AuthenticationResponse expected = new AuthenticationResponse("token", LocalDateTime.now().plusHours(3));
         AuthenticationResponse actual = authenticationService.register(dto);
 
-        assertAuthenticationResponse(expected,actual);
+        assertTrue(assertAuthenticationResponse(expected,actual));
         verify(userDaoJdbc,times(1)).findUser(dto.username());
         verify(jwtService,times(1)).generateToken(user);
     }
@@ -62,7 +64,7 @@ class AuthenticationServiceTest {
     }
 
     @Test
-    void authenticateShouldReturnExpectedValue() {
+    void authenticateShouldReturnFalse() {
         AuthenticationDTO dto = new AuthenticationDTO("username","passw");
         User user = new User(1, Role.USER,"username","password",LocalDateTime.now());
         HashMap<String, Object> additionalClaims = new HashMap<>();
@@ -72,7 +74,7 @@ class AuthenticationServiceTest {
 
         AuthenticationResponse expected = new AuthenticationResponse("token", LocalDateTime.now().plusHours(1));
         AuthenticationResponse actual = authenticationService.authenticate(dto);
-        assertAuthenticationResponse(expected,actual);
+        assertFalse(assertAuthenticationResponse(expected,actual));
         verify(userDaoJdbc,times(1)).findUser(dto.username());
     }
     @Test
@@ -84,8 +86,20 @@ class AuthenticationServiceTest {
         assertThrows(NotFoundException.class, () -> authenticationService.authenticate(dto));
         verify(userDaoJdbc,times(1)).findUser(dto.username());
     }
+    @Test
+    void authenticateShouldReturnInvalidLoginException() {
+        AuthenticationDTO dto = new AuthenticationDTO("username","passw");
+        User user = new User(1, Role.USER,"username","password",LocalDateTime.now());
+
+        when(userDaoJdbc.findUser(dto.username())).thenReturn(user);
+        when(authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.username(), dto.password())))
+                .thenThrow(InvalidLoginException.class);
+
+        assertThrows(InvalidLoginException.class, () -> authenticationService.authenticate(dto));
+        verify(userDaoJdbc,times(1)).findUser(dto.username());
+    }
     private boolean assertAuthenticationResponse(AuthenticationResponse expected, AuthenticationResponse actual) {
         return expected.token().equals(actual.token()) &&
-                expected.time().toLocalTime().equals(actual.time().toLocalTime());
+                expected.time().toLocalDate().equals(actual.time().toLocalDate());
     }
 }

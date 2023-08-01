@@ -38,6 +38,7 @@ class QuestionServiceTest {
                 new Question(1,1,"title","desc", LocalDateTime.now(),1),
                 new Question(2,1,"title","desc", LocalDateTime.now(),1)
         );
+
         when(questionsDaoJdbc.getAllQuestion()).thenReturn(questions);
 
         List<QuestionDTO> expected = questions.stream()
@@ -49,11 +50,13 @@ class QuestionServiceTest {
     }
     @Test
     void getAllQuestionsWhenNoQuestionExistShouldReturnEmptyList() {
+        int expectedListSize = 0;
+
         when(questionsDaoJdbc.getAllQuestion()).thenReturn(new ArrayList<>());
 
         List<QuestionDTO> questionDTOS = questionService.getAllQuestions();
 
-        assertEquals(0, questionDTOS.size());
+        assertEquals(expectedListSize, questionDTOS.size());
     }
 
     @Test
@@ -63,6 +66,7 @@ class QuestionServiceTest {
                 new Question(1,1,"title","desc", LocalDateTime.now(),1),
                 new Question(2,1,"title","desc", LocalDateTime.now(),1)
         );
+
         when(questionsDaoJdbc.getAllQuestionByUserID(userId)).thenReturn(questions);
 
         List<QuestionDTO> expected = questions.stream()
@@ -76,32 +80,34 @@ class QuestionServiceTest {
     @Test
     void getAllQuestionsOfUserWhenTheUserDoNotHaveAnyQuestionShouldReturnEmptyList() {
         long userId = 1;
+        int expectedListSize = 0;
+
         when(questionsDaoJdbc.getAllQuestionByUserID(userId)).thenReturn(new ArrayList<>());
 
         List<QuestionDTO> questionDTOS = questionService.getAllQuestionOfUser(userId);
 
-        assertEquals(0, questionDTOS.size());
+        assertEquals(expectedListSize, questionDTOS.size());
     }
 
     @Test
-    void getLastQuestionShouldReturnExpectedValue() {
+    void getLastQuestionShouldReturnExpectedNumber() {
         when(questionsDaoJdbc.findLastQuestionId()).thenReturn(1L);
 
         long lastQuestionId = questionService.getLastQuestion();
         long expectedId = 1;
-        assertEquals(expectedId,lastQuestionId);
 
+        assertEquals(expectedId,lastQuestionId);
         verify(questionsDaoJdbc, times(1)).findLastQuestionId();
     }
     @Test
-    void getLastQuestionWhenThereIsNoQuestionShouldReturnExpectedValue() {
+    void getLastQuestionWhenThereIsNoQuestionShouldReturnExpectedNumber() {
         long noQuestionResponse = 0;
         when(questionsDaoJdbc.findLastQuestionId()).thenReturn(noQuestionResponse);
 
         long lastQuestionId = questionService.getLastQuestion();
         long expectedId = 0;
-        assertEquals(expectedId,lastQuestionId);
 
+        assertEquals(expectedId,lastQuestionId);
         verify(questionsDaoJdbc, times(1)).findLastQuestionId();
     }
     @Test

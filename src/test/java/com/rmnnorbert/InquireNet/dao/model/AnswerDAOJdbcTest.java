@@ -1,7 +1,9 @@
-package com.rmnnorbert.InquireNet.dao.model.answer;
+package com.rmnnorbert.InquireNet.dao.model;
 
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.AnswerRowMapper;
+import com.rmnnorbert.InquireNet.dao.model.answer.Answer;
+import com.rmnnorbert.InquireNet.dao.model.answer.AnswerDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
 import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,13 +35,14 @@ class AnswerDAOJdbcTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        answerDAOJdbc = new AnswerDAOJdbc(jdbcTemplate);
+        this.answerDAOJdbc = new AnswerDAOJdbc(jdbcTemplate);
     }
 
     @Test
     void getAllAnswersShouldReturnExpectedAnswerList() {
         List<Answer> expected = List.of(new Answer(1,1,1,"desc",LocalDateTime.now(),1,"voted"));
-        when(jdbcTemplate.query(anyString(), any(AnswerRowMapper.class))).thenReturn(expected );
+
+        when(jdbcTemplate.query(anyString(), any(AnswerRowMapper.class))).thenReturn(expected);
 
         List<Answer> actual = answerDAOJdbc.getAllAnswers();
 
@@ -50,6 +53,7 @@ class AnswerDAOJdbcTest {
     void getAllAnswersShouldReturnEmptyList() {
         int expectedSize = 0;
         List<Answer> expectedList = List.of();
+
         when(jdbcTemplate.query(anyString(), any(AnswerRowMapper.class))).thenReturn(expectedList);
 
         List<Answer> actual = answerDAOJdbc.getAllAnswers();
@@ -84,6 +88,7 @@ class AnswerDAOJdbcTest {
     void getAllAnswersByQuestionIdShouldReturnExpectedAnswerList() {
         long searchedId = 1;
         Answer expected = new Answer(1,1,1,"desc",LocalDateTime.now(),1,"voted");
+
         when(jdbcTemplate.query(anyString(), any(AnswerRowMapper.class), eq(searchedId))).thenReturn(List.of(expected));
 
         List<Answer> actual = answerDAOJdbc.getAllAnswersByQuestionId(searchedId);
@@ -95,6 +100,7 @@ class AnswerDAOJdbcTest {
     void getAllAnswersByQuestionIdShouldReturnEmptyList() {
         long searchedId = 1;
         int expectedSize = 0;
+
         when(jdbcTemplate.query(anyString(), any(AnswerRowMapper.class), eq(searchedId))).thenReturn(List.of());
 
         List<Answer> actual = answerDAOJdbc.getAllAnswersByQuestionId(searchedId);
@@ -150,6 +156,7 @@ class AnswerDAOJdbcTest {
     void changeVoteShouldReturnExpectedValue(int value, boolean expected) {
         String vote = "vote";
         long id = 1;
+
         when(jdbcTemplate.update(anyString(), eq(vote), eq(id))).thenReturn(value);
 
         boolean actual = answerDAOJdbc.changeVote(vote,id);

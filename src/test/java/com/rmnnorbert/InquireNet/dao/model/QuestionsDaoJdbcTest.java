@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.dao.model;
 
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.QuestionRowMapper;
 import com.rmnnorbert.InquireNet.dao.model.question.Question;
@@ -25,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-
+@UnitTest
 @RunWith(MockitoJUnitRunner.class)
 class QuestionsDaoJdbcTest {
     private QuestionsDaoJdbc questionsDaoJdbc;

@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.service;
 
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.dto.answer.VoteDTO;
 import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
-
+@UnitTest
 class VoteServiceTest {
     @Mock
     private QuestionService questionService;

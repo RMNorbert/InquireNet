@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.dao.model;
 
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.dao.ReplyRowMapper;
 import com.rmnnorbert.InquireNet.dao.model.reply.Reply;
 import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
@@ -23,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-
+@UnitTest
 @RunWith(MockitoJUnitRunner.class)
 class ReplyDAOJdbcTest {
     private ReplyDAOJdbc replyDAOJdbc;

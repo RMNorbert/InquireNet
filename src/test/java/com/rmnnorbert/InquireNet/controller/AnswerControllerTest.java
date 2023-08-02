@@ -1,6 +1,6 @@
 package com.rmnnorbert.InquireNet.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
@@ -9,63 +9,51 @@ import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import com.rmnnorbert.InquireNet.service.AnswerService;
 import com.rmnnorbert.InquireNet.service.VoteService;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.hamcrest.Matchers.emptyString;
-import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@UnitTest
+@ExtendWith(MockitoExtension.class)
 class AnswerControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-    @MockBean
+    private AnswerController answerController;
+    @Mock
     private AnswerService answerService;
-    @MockBean
+    @Mock
     private VoteService voteService;
-    final static String MOCK_USERNAME = "testUser";
 
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
+        this.answerController = new AnswerController(answerService,voteService);
     }
 
     @ParameterizedTest
     @MethodSource("provideExpectedList")
-    @WithMockUser(username = MOCK_USERNAME)
-    void getAllAnswersShouldReturnOkStatusAndAnswerDTOList(List<AnswerDTO> expected) throws Exception {
+    void getAllAnswersShouldReturnAnswerDTOList(List<AnswerDTO> expected) {
         when(answerService.getAllAnswers()).thenReturn(expected);
 
-        mockMvc.perform(get("/answers/all"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", Matchers.hasSize(expected.size())));
-
+        List<AnswerDTO> actual = answerController.getAllAnswers();
+        assertEquals(expected, actual);
         verify(answerService,times(1)).getAllAnswers();
     }
 
     @Test
-    @WithMockUser(username = MOCK_USERNAME)
-    void getAnswerByIdShouldReturnOkStatusAndExpectedValue() throws Exception {
+    void getAnswerByIdShouldReturnAndExpectedValue() {
         long searchedId = 1;
         AnswerDTO expectedAnswerDTO = new AnswerDTO(1,
                                                     1,
@@ -77,142 +65,97 @@ class AnswerControllerTest {
 
         when(answerService.getAnswerById(searchedId)).thenReturn(expectedAnswerDTO);
 
-        mockMvc.perform(get("/answers/" + searchedId))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.answer_id", Matchers.is((int)searchedId)))
-                .andExpect(jsonPath("$.description", is("desc")));
+        AnswerDTO actual = answerController.getAnswerById(searchedId);
 
+        assertEquals(expectedAnswerDTO, actual);
         verify(answerService,times(1)).getAnswerById(searchedId);
     }
 
 
     @Test
-    @WithMockUser(username = MOCK_USERNAME)
-    void getAnswerByIdWhenServiceThrowsNotFoundExceptionShouldReturnNotFoundStatus() throws Exception {
+    void getAnswerByIdWhenServiceThrowsNotFoundException() {
         long searchedId = 1;
 
         when(answerService.getAnswerById(searchedId)).thenThrow(NotFoundException.class);
 
-        mockMvc.perform(get("/answers/" + searchedId))
-                .andExpect(status().isNotFound());
-
+        assertThrows(NotFoundException.class, () -> answerController.getAnswerById(searchedId));
         verify(answerService,times(1)).getAnswerById(searchedId);
     }
 
     @Test
-    @WithMockUser(username = MOCK_USERNAME)
-    void getNumberOfAnswersByUserIdShouldReturnOkStatusAndIntegerNumber() throws Exception {
+    void getNumberOfAnswersByUserIdAndIntegerNumber() {
         long id = 1;
         int numberOfAnswers = 2;
 
         when(answerService.getNumberOfAnswersByUserId(id)).thenReturn(numberOfAnswers);
 
-        mockMvc.perform(get("/answers/user/" + id))
-                .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.containsString(String.valueOf(numberOfAnswers))));
-
+        int actual = answerController.getNumberOfAnswersByUserId(id);
+        assertEquals(numberOfAnswers, actual);
         verify(answerService,times(1)).getNumberOfAnswersByUserId(id);
     }
 
     @ParameterizedTest
     @MethodSource("provideIdAndExpectedList")
-    @WithMockUser(username = MOCK_USERNAME)
-    void getAllAnswersByQuestionIdShouldReturnOkStatusAndExpectedValue(long searchedId, List<AnswerDTO> expected) throws Exception {
+    void getAllAnswersByQuestionIdShouldReturnExpectedValue(long searchedId, List<AnswerDTO> expected) {
         when(answerService.getAllAnswersByQuestionId(searchedId)).thenReturn(expected);
 
-        mockMvc.perform(get("/answers/q/" + searchedId))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", Matchers.hasSize(expected.size())));
-
+        List<AnswerDTO> actual = answerController.getAllAnswersByQuestionId(searchedId);
+        assertEquals(expected, actual);
         verify(answerService,times(1)).getAllAnswersByQuestionId(searchedId);
     }
 
     @ParameterizedTest
     @MethodSource("provideExpectedValue")
-    @WithMockUser(username = MOCK_USERNAME)
-    void addNewAnswerShouldReturnOkStatusAndExpectedValue(boolean expected) throws Exception {
+    void addNewAnswerShouldReturnExpectedValue(boolean expected) {
         AnswerRequestDTO dto = new AnswerRequestDTO(1L,"desc",1L);
 
         when(answerService.addNewAnswer(dto)).thenReturn(expected);
 
-        String jsonRequest = new ObjectMapper().writeValueAsString(dto);
-
-        mockMvc.perform(post("/answers/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonRequest))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$",is(expected)));
-
+        boolean actual = answerController.addNewAnswer(dto);
+        assertEquals(expected, actual);
         verify(answerService,times(1)).addNewAnswer(dto);
     }
 
     @ParameterizedTest
     @MethodSource("provideExpectedValue")
-    @WithMockUser(username = MOCK_USERNAME)
-    public void deleteAnswerByIdShouldReturnOkStatusAndExpectedValue(boolean expected) throws Exception {
+    public void deleteAnswerByIdShouldReturnExpectedValue(boolean expected) {
         DeleteRequestDTO dto = new DeleteRequestDTO(1,1);
 
         when(answerService.deleteAnswerById(dto)).thenReturn(expected);
 
-        String jsonRequest = new ObjectMapper().writeValueAsString(dto);
-
-        mockMvc.perform(delete("/answers/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonRequest))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$",is(expected)));
-
+        boolean actual = answerController.deleteAnswerById(dto);
+        assertEquals(expected, actual);
         verify(answerService,times(1)).deleteAnswerById(dto);
     }
 
     @ParameterizedTest
     @MethodSource("provideExpectedValue")
-    @WithMockUser(username = MOCK_USERNAME)
-    void voteOnAnswerByIdShouldReturnOkStatusAndExpectedValue(boolean expected) throws Exception {
+    void voteOnAnswerByIdShouldReturnExpectedValue(boolean expected) {
         VoteDTO dto = new VoteDTO("vote",1,1,1);
 
         when(voteService.vote(dto)).thenReturn(expected);
 
-        String jsonRequest = new ObjectMapper().writeValueAsString(dto);
-
-        mockMvc.perform(put("/answers/vote")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonRequest))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$",is(expected)));
-
+        boolean actual = answerController.voteOnAnswerById(dto);
+        assertEquals(expected, actual);
         verify(voteService,times(1)).vote(dto);
     }
     @ParameterizedTest
     @MethodSource("provideUpdateDTOAndExpectedValue")
-    @WithMockUser(username = MOCK_USERNAME)
-    void updateAnswerShouldReturnOkStatusAndExpectedValue(UpdateDTO value, boolean expected) throws Exception {
+    void updateAnswerShouldReturnExpectedValue(UpdateDTO value, boolean expected) {
         when(answerService.update(value)).thenReturn(expected);
 
-        String jsonRequest = new ObjectMapper().writeValueAsString(value);
-
-        mockMvc.perform(put("/answers/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonRequest))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$",is(expected)));
-
+        boolean actual = answerController.updateAnswer(value);
+        assertEquals(expected, actual);
         verify(answerService,times(1)).update(value);
     }
     @Test
-    @WithMockUser(username = MOCK_USERNAME)
-    void updateAnswerShouldReturnNotFoundStatusAndEmptyBody() throws Exception {
+    void updateAnswerShouldReturnNotFoundStatus() {
         UpdateDTO dto = new UpdateDTO(1,1,"title","desc");
 
         when(answerService.update(dto)).thenThrow(NotFoundException.class);
 
-        String jsonRequest = new ObjectMapper().writeValueAsString(dto);
-
-        mockMvc.perform(put("/answers/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonRequest))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string(emptyString()));
+        assertThrows(NotFoundException.class, () -> answerController.updateAnswer(dto));
+        verify(answerService,times(1)).update(dto);
     }
     private static Stream<Arguments> provideIdAndExpectedList() {
         return Stream.of(

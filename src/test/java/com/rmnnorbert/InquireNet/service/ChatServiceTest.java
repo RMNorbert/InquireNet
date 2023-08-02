@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.service;
 
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.model.chat.Chat;
 import com.rmnnorbert.InquireNet.dao.model.chat.ChatDAOJdbc;
@@ -16,7 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+@UnitTest
 class ChatServiceTest {
     @Mock
     private ChatDAOJdbc chatDAOJdbc;

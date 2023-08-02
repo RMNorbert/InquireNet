@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.service;
 
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.model.reply.Reply;
 import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
@@ -19,7 +20,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+@UnitTest
 class ReplyServiceTest {
     @Mock
     private ReplyDAOJdbc replyDAOJdbc;

@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.security.auth;
 
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.InvalidLoginException;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.model.user.User;
@@ -22,7 +23,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+@UnitTest
 class AuthenticationServiceTest {
     @Mock
     private UserDaoJdbc userDaoJdbc;

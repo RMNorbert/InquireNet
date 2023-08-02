@@ -1,8 +1,8 @@
 package com.rmnnorbert.InquireNet.dao.model.answer;
 
+import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.AnswerRowMapper;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
-import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -60,7 +60,19 @@ public class AnswerDAOJdbc implements AnswerDAO{
 
     @Override
     public boolean addAnswer(AnswerRequestDTO answerRequestDTO) {
-        String sql = "INSERT INTO answer(user_id ,description,created, question_id, vote) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO answer(user_id ,description,created, question_id, vote) VALUES (?, ?, ?, ?, ?) ";//RETURNING answer_id";
+/*
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setLong(1, answerRequestDTO.userId());
+            ps.setString(2, answerRequestDTO.description());
+            ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setLong(1, answerRequestDTO.id());
+            ps.setString(4,DEFAULT_VOTE);
+            return ps;
+        }, keyHolder);
+        return true;//affectedRow == 1;*/
         return jdbcTemplate.update(sql,
                                    answerRequestDTO.userId(),
                                    answerRequestDTO.description(),

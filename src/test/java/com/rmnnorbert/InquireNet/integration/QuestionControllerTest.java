@@ -73,6 +73,7 @@ class QuestionControllerTest {
                 .isThrownBy(() -> questionController.getQuestionById(searchedId));
     }
     @Test
+    @Sql({ "/clear.sql", "/table.sql" })
     void addNewQuestion() {
         NewQuestionDTO dto = new NewQuestionDTO("title","desc",1);
 

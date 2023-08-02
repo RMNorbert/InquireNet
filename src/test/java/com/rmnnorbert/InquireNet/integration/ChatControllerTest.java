@@ -33,6 +33,7 @@ class ChatControllerTest {
     }
 
     @Test
+    @Sql({ "/clear.sql", "/table.sql" })
     void storeNewChatShouldReturnExpectedTrue() {
         ChatRegisterDTO dto = new ChatRegisterDTO(1,"title","role","content");
         boolean expected = true;

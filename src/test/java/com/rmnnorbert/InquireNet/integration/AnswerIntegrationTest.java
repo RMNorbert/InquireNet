@@ -82,6 +82,7 @@ class AnswerIntegrationTest {
     }
 
     @Test
+    @Sql({ "/clear.sql", "/table.sql" })
     void addNewAnswerShouldReturnExpectedBoolean() {
         AnswerRequestDTO dto = new AnswerRequestDTO(10L,"desc",15L);
         boolean expected = true;
@@ -113,7 +114,7 @@ class AnswerIntegrationTest {
         assertThat(answerController.voteOnAnswerById(dto)).isEqualTo(expected);
     }
     @Test
-    void updateAnswerShouldReturnNotFoundException() throws Exception {
+    void updateAnswerShouldReturnNotFoundException() {
         UpdateDTO dto = new UpdateDTO(10, 10, "title", "desc");
 
         Assertions.assertThatExceptionOfType(NotFoundException.class)

@@ -91,7 +91,7 @@ class QuestionControllerTest {
         when(service.getQuestionById(searchedId)).thenThrow(NotFoundException.class);
 
         assertThrows(NotFoundException.class, () -> questionController.getQuestionById(searchedId));
-        verify(service,times(0)).getQuestionById(searchedId);
+        verify(service,times(1)).getQuestionById(searchedId);
     }
     @ParameterizedTest
     @MethodSource("provideExpectedValue")

@@ -41,7 +41,7 @@ class ReplyControllerTest {
 
     @Test
     void getReplyByIdShouldReturnNotFoundException() {
-        long searchedId = 1;
+        long searchedId = 10;
 
         Assertions.assertThatExceptionOfType(NotFoundException.class)
                 .isThrownBy(() -> replyController.getReplyById(searchedId));
@@ -62,6 +62,7 @@ class ReplyControllerTest {
     }
 
     @Test
+    @Sql({ "/clear.sql", "/table.sql" })
     void addNewReplyShouldReturnTrue() {
         boolean expected = true;
         NewReplyDTO dto = new NewReplyDTO("desc",1,1);

@@ -49,10 +49,10 @@ class UserControllerTest {
     }
     @Test
     void deleteUserByIdShouldReturnTrue() {
+        DeleteRequestDTO dto = new DeleteRequestDTO(1,1);
         boolean expected = true;
 
-        assertThat(userController.getUserById(SEARCHED_ID))
-                .extracting(UserDTO::username)
+        assertThat(userController.deleteUserById(dto))
                 .isEqualTo(expected);
     }
     @Test

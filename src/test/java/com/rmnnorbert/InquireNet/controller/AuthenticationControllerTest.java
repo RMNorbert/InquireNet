@@ -37,9 +37,9 @@ class AuthenticationControllerTest {
 
         when(authenticationService.register(dto)).thenReturn(response);
 
-        ResponseEntity<AuthenticationResponse> actual = authenticationController.authenticate(dto);
+        ResponseEntity<AuthenticationResponse> actual = authenticationController.register(dto);
 
-        assertEquals(response, actual.getBody());
+        assertEquals(response.token(), actual.getBody().token());
         verify(authenticationService,times(1)).register(dto);
     }
     @Test

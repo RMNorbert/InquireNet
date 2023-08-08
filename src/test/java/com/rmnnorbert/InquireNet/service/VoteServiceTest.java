@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.service;
 
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.dto.answer.VoteDTO;
 import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,13 +13,12 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
-
+@UnitTest
 class VoteServiceTest {
     @Mock
     private QuestionService questionService;
     @Mock
     private AnswerService answerService;
-
     private VoteService voteService;
 
     @BeforeEach
@@ -32,10 +32,12 @@ class VoteServiceTest {
         boolean expected = true;
         VoteDTO voteDTO = new VoteDTO("upvote",1,1,1);
         QuestionDTO question = new QuestionDTO(1,1,"Title","Desc", LocalDateTime.now(),0);
+
         when(questionService.getQuestionById(voteDTO.questionId())).thenReturn(question);
         when(answerService.updateVote(voteDTO)).thenReturn(expected);
 
         boolean actual = voteService.vote(voteDTO);
+
         assertTrue(actual);
         verify(questionService,times(1)).getQuestionById(voteDTO.questionId());
         verify(answerService,times(1)).updateVote(voteDTO);

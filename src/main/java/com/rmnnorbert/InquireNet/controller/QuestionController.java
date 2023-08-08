@@ -27,7 +27,7 @@ public class QuestionController {
         return questionService.getAllQuestionOfUser(id);
     }
     @GetMapping("/last")
-    public long getLastQuestions() {
+    public long getLastQuestion() {
         return questionService.getLastQuestion();
     }
     @GetMapping("/{id}")

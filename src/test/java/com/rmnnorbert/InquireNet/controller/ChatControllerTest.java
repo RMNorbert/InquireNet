@@ -1,114 +1,83 @@
 package com.rmnnorbert.InquireNet.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dto.chat.ChatDTO;
 import com.rmnnorbert.InquireNet.dto.chat.ChatDeleteRequest;
 import com.rmnnorbert.InquireNet.dto.chat.ChatRegisterDTO;
 import com.rmnnorbert.InquireNet.service.ChatService;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.rmnnorbert.InquireNet.controller.AnswerControllerTest.MOCK_USERNAME;
-import static org.hamcrest.Matchers.emptyString;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-@SpringBootTest
-@AutoConfigureMockMvc
+@UnitTest
+@ExtendWith(MockitoExtension.class)
 class ChatControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-    @MockBean
+    private ChatController chatController;
+    @Mock
     private ChatService chatService;
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
+        this.chatController = new ChatController(chatService);
     }
 
     @ParameterizedTest
     @MethodSource("provideExpectedList")
-    @WithMockUser(username = MOCK_USERNAME)
-    void getAllChatByUserShouldReturnOkStatusAndExpectedChatDTOList(List<ChatDTO> expected) throws Exception {
+    void getAllChatByUserShouldReturnExpectedChatDTOList(List<ChatDTO> expected) {
         long userId = 1;
 
         when(chatService.getAllChatByUserId(userId)).thenReturn(expected);
 
-        mockMvc.perform(get("/chat/" + userId))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", Matchers.hasSize(expected.size())));
+        List<ChatDTO> actual = chatController.getAllChatByUser(userId);
 
+        assertEquals(expected, actual);
         verify(chatService,times(1)).getAllChatByUserId(userId);
     }
 
     @Test
-    @WithMockUser(username = MOCK_USERNAME)
-    void storeNewChatShouldReturnOkStatusAndExpectedValue() throws Exception {
+    void storeNewChatShouldReturnExpectedValue() {
         ChatRegisterDTO dto = new ChatRegisterDTO(1,"title","role","content");
         boolean expected = true;
 
         when(chatService.storeChat(dto)).thenReturn(expected);
 
-        String jsonRequest = new ObjectMapper().writeValueAsString(dto);
+        boolean actual = chatController.storeNewChat(dto);
 
-        mockMvc.perform(post("/chat/")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonRequest))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", Matchers.is(expected)));
-
+        assertTrue(actual);
         verify(chatService,times(1)).storeChat(dto);
     }
 
     @ParameterizedTest
     @MethodSource(value = "provideExpectedValue")
-    @WithMockUser(username = MOCK_USERNAME)
-    void deleteChatByChatTitleShouldReturnOkStatusAndExpectedValue(boolean expected) throws Exception {
+    void deleteChatByChatTitleShouldReturnExpectedValue(boolean expected) {
         ChatDeleteRequest deleteRequest = new ChatDeleteRequest(1,"1");
 
         when(chatService.deleteChatByTitle(deleteRequest)).thenReturn(expected);
 
-        String jsonRequest = new ObjectMapper().writeValueAsString(deleteRequest);
+        boolean actual = chatController.deleteChatByChatTitle(deleteRequest);
 
-        mockMvc.perform(delete("/chat/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonRequest))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", Matchers.is(expected)));
-
+        assertEquals(expected, actual);
         verify(chatService,times(1)).deleteChatByTitle(deleteRequest);
     }
     @Test
-    @WithMockUser(username = MOCK_USERNAME)
-    void deleteChatByChatTitleShouldReturnNotFoundStatusAndEmptyBody() throws Exception {
+    void deleteChatByChatTitleShouldReturnNotFoundException() {
         ChatDeleteRequest deleteRequest = new ChatDeleteRequest(1,"1");
 
         when(chatService.deleteChatByTitle(deleteRequest)).thenThrow(NotFoundException.class);
 
-        String jsonRequest = new ObjectMapper().writeValueAsString(deleteRequest);
-
-        mockMvc.perform(delete("/chat/")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(jsonRequest))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string(emptyString()));
-
+        assertThrows(NotFoundException.class, () -> chatController.deleteChatByChatTitle(deleteRequest));
         verify(chatService,times(1)).deleteChatByTitle(deleteRequest);
 
     }

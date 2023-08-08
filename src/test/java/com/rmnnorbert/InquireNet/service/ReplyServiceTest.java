@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.service;
 
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.model.reply.Reply;
 import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
@@ -19,7 +20,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+@UnitTest
 class ReplyServiceTest {
     @Mock
     private ReplyDAOJdbc replyDAOJdbc;
@@ -36,6 +37,7 @@ class ReplyServiceTest {
                 new Reply(1,1,1,"desc", LocalDateTime.now()),
                 new Reply(2,1,1,"description", LocalDateTime.now())
         );
+
         when(replyDAOJdbc.getAllReply()).thenReturn(replies);
 
         List<ReplyDTO> expected = replies.stream()
@@ -44,6 +46,7 @@ class ReplyServiceTest {
         List<ReplyDTO> actual = replyService.getAllReply();
 
         assertEquals(expected, actual);
+        verify(replyDAOJdbc,times(1)).getAllReply();
     }
     @Test
     void getAllReplyWhenThereIsNoReplyShouldReturnEmptyList() {
@@ -53,21 +56,26 @@ class ReplyServiceTest {
         List<ReplyDTO> actual = replyService.getAllReply();
 
         assertEquals(expected,actual);
+        verify(replyDAOJdbc,times(1)).getAllReply();
     }
 
     @Test
     void getReplyByIdShouldReturnExpectedReplyDTO() {
         long replyId = 1L;
         Reply reply = new Reply(1,1,1,"desc",LocalDateTime.now());
+
         when(replyDAOJdbc.findReplyById(replyId)).thenReturn(reply);
 
         ReplyDTO expected = ReplyDTO.of(reply);
         ReplyDTO actual = replyService.getReplyById(replyId);
+
         assertEquals(expected,actual);
+        verify(replyDAOJdbc,times(1)).findReplyById(replyId);
     }
     @Test
     void getReplyByIdWithWrongIdShouldThrowNotFoundException() {
         long replyId = 1L;
+
         when(replyDAOJdbc.findReplyById(replyId)).thenThrow(new NotFoundException("Reply"));
 
         assertThrows(NotFoundException.class, () -> replyService.getReplyById(replyId));
@@ -81,6 +89,7 @@ class ReplyServiceTest {
                 new Reply(1,1,1,"desc", LocalDateTime.now()),
                 new Reply(2,1,1,"description", LocalDateTime.now())
         );
+
         when(replyDAOJdbc.getAllReplyByAnswerId(answerId)).thenReturn(replies);
 
         List<ReplyDTO> expected = replies.stream()
@@ -89,21 +98,25 @@ class ReplyServiceTest {
         List<ReplyDTO> actual = replyService.getAllReplyByAnswerId(answerId);
 
         assertEquals(expected, actual);
+        verify(replyDAOJdbc,times(1)).getAllReplyByAnswerId(answerId);
     }
     @Test
     void getAllReplyByAnswerIdWhenThereAreNoRepliesShouldReturnEmptyList() {
         long answerId = 1;
+
         when(replyDAOJdbc.getAllReplyByAnswerId(answerId)).thenReturn(new ArrayList<>());
 
         List<ReplyDTO> expected = new ArrayList<>();
         List<ReplyDTO> actual = replyService.getAllReply();
 
         assertEquals(expected,actual);
+        verify(replyDAOJdbc,times(1)).getAllReply();
     }
     @Test
     void deleteReplyByIdShouldReturnTrue() {
         DeleteRequestDTO dto = new DeleteRequestDTO(1,1);
         Reply reply = new Reply(1,1,1,"desc",LocalDateTime.now());
+
         when(replyDAOJdbc.findReplyById(dto.targetId())).thenReturn(reply);
         when(replyDAOJdbc.deleteReplyById(dto.targetId())).thenReturn(true);
 
@@ -117,6 +130,7 @@ class ReplyServiceTest {
     @Test
     void deleteReplyByIdWithWrongReplyIdShouldThrowNotFoundException() {
         DeleteRequestDTO dto = new DeleteRequestDTO(1,2);
+
         when(replyDAOJdbc.findReplyById(dto.targetId())).thenThrow(new NotFoundException("Reply"));
 
         assertThrows(NotFoundException.class, () -> replyService.getReplyById(dto.targetId()));
@@ -128,6 +142,7 @@ class ReplyServiceTest {
     void deleteReplyByIdWithWrongUserIdShouldReturnFalse() {
         DeleteRequestDTO dto = new DeleteRequestDTO(2,1);
         Reply reply = new Reply(1,1,1,"desc",LocalDateTime.now());
+
         when(replyDAOJdbc.findReplyById(dto.targetId())).thenReturn(reply);
 
         boolean actual = replyService.deleteReplyById(dto);
@@ -141,6 +156,7 @@ class ReplyServiceTest {
         ReplyUpdateDTO reply = new ReplyUpdateDTO(1,1,"desc");
         Reply searchedReply = new Reply(1,1,1,"des", LocalDateTime.now());
         UpdateDTO updateDTO = new UpdateDTO(1,1,"title","desc");
+
         when(replyDAOJdbc.findReplyById(updateDTO.id())).thenReturn(searchedReply);
         when(replyDAOJdbc.update(searchedReply.withDescription(reply.description()))).thenReturn(true);
 
@@ -153,6 +169,7 @@ class ReplyServiceTest {
     void updateReplyWhenUserIdIsWrongShouldReturnFalse() {
         ReplyUpdateDTO updateDTO = new ReplyUpdateDTO(1,1,"title");
         Reply foundReply = new Reply(1,2,1,"desc",LocalDateTime.now());
+
         when(replyDAOJdbc.findReplyById(updateDTO.id())).thenReturn(foundReply);
 
         boolean actual = replyService.updateReply(updateDTO);
@@ -165,6 +182,7 @@ class ReplyServiceTest {
     @Test
     void updateReplyWhenReplyIdIsWrongShouldThrowNotFoundException() {
         ReplyUpdateDTO updateDTO = new ReplyUpdateDTO(1,1,"title");
+
         when(replyDAOJdbc.findReplyById(updateDTO.id())).thenThrow(new NotFoundException("Reply"));
 
         assertThrows(NotFoundException.class, () -> replyService.getReplyById(updateDTO.id()));
@@ -175,6 +193,7 @@ class ReplyServiceTest {
     void addNewReplyShouldReturnTrue() {
         NewReplyDTO dto = new NewReplyDTO("desc",1,1);
         boolean modifiedRows = true;
+
         when(replyDAOJdbc.addReply(dto)).thenReturn(modifiedRows);
 
         boolean actual = replyService.addNewReply(dto);
@@ -186,6 +205,7 @@ class ReplyServiceTest {
     @Test
     void deleteAllReplyOfAnswerShouldReturnTrue() {
         long answerId = 1;
+
         when(replyDAOJdbc.deleteReplyByAnswerId(answerId)).thenReturn(true);
 
         boolean actual = replyService.deleteAllReplyOfAnswer(answerId);
@@ -194,6 +214,7 @@ class ReplyServiceTest {
     @Test
     void deleteAllReplyOfAnswerWithWrongAnswerIdShouldReturnFalse() {
         long answerId = 1;
+
         when(replyDAOJdbc.deleteReplyByAnswerId(answerId)).thenReturn(false);
 
         boolean actual = replyService.deleteAllReplyOfAnswer(answerId);

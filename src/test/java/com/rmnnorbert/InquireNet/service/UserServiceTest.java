@@ -1,5 +1,6 @@
 package com.rmnnorbert.InquireNet.service;
 
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.model.user.User;
 import com.rmnnorbert.InquireNet.dao.model.user.UserDaoJdbc;
@@ -18,7 +19,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+@UnitTest
 class UserServiceTest {
     @Mock
     private UserDaoJdbc userDAO;
@@ -37,6 +38,7 @@ class UserServiceTest {
                 new User(1, Role.USER, "aka", "aka", LocalDateTime.now()),
                 new User(2, Role.USER, "baka", "baka", LocalDateTime.now())
         );
+
         when(userDAO.getAllUser()).thenReturn(users);
 
         List<UserDTO> userDTOs = userService.getAllUser();
@@ -45,6 +47,7 @@ class UserServiceTest {
 
         IntStream.range(0, users.size())
                 .forEach(i -> assertUserEquals(users.get(i), userDTOs.get(i)));
+        verify(userDAO,times(1)).getAllUser();
     }
     @Test
     void getAllUserShouldReturnsEmptyListWhenUsersDontExist() {
@@ -53,11 +56,13 @@ class UserServiceTest {
         List<UserDTO> userDTOs = userService.getAllUser();
 
         assertEquals(0, userDTOs.size());
+        verify(userDAO,times(1)).getAllUser();
     }
     @Test
     void findUserByIdShouldReturnExpectedUser() {
         int id = 1;
         User expected = new User(1,Role.USER,"aka","aka", LocalDateTime.now());
+
         when(userDAO.findUserById(id)).thenReturn(expected);
 
         UserDTO foundUser = userService.findUserById(id);
@@ -68,6 +73,7 @@ class UserServiceTest {
     @Test
     void findUserByIdWithWrongIdShouldReturnNotFoundException() {
         long wrongId = 2;
+
         when(userDAO.findUserById(wrongId)).thenThrow(new NotFoundException("User"));
 
         assertThrows(NotFoundException.class, () -> userService.findUserById(wrongId));
@@ -79,6 +85,7 @@ class UserServiceTest {
     void deleteUserByIdWhenUserExistShouldReturnTrue() {
         DeleteRequestDTO dto = new DeleteRequestDTO(1L,1L);
         User user = new User(1L,Role.USER,"aka","aka", LocalDateTime.now());
+
         when(userDAO.findUserById(dto.targetId())).thenReturn(user);
         when(userDAO.deleteUserById(dto.targetId())).thenReturn(true);
 
@@ -92,6 +99,7 @@ class UserServiceTest {
     void deleteUserByIdWithWrongRequestIdWhenUserExistShouldReturnFalse() {
         DeleteRequestDTO dto = new DeleteRequestDTO(2L,1L);
         User user = new User(1L,Role.USER,"aka","aka", LocalDateTime.now());
+
         when(userDAO.findUserById(dto.targetId())).thenReturn(user);
 
         boolean response = userService.deleteUserById(dto);
@@ -103,6 +111,7 @@ class UserServiceTest {
     @Test
     void deleteUserByIdWhenUserDontExistShouldReturnNotFoundException() {
         DeleteRequestDTO id = new DeleteRequestDTO(1, 1);
+
         when(userDAO.findUserById(1)).thenThrow(NotFoundException.class);
 
         assertThrows(NotFoundException.class, () -> userService.deleteUserById(id));

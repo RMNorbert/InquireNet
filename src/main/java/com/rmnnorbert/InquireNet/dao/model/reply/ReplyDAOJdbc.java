@@ -19,7 +19,7 @@ public class ReplyDAOJdbc implements ReplyDAO {
 
     @Override
     public List<Reply> getAllReply() {
-        String sql = "SELECT reply_id, answer_id, description, created FROM reply";
+        String sql = "SELECT reply_id, user_id, answer_id, description, created FROM reply";
         return jdbcTemplate.query(sql, new ReplyRowMapper());
     }
 

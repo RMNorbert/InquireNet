@@ -1,122 +1,88 @@
 package com.rmnnorbert.InquireNet.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.model.user.data.Role;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.user.UserDTO;
 import com.rmnnorbert.InquireNet.service.UserService;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.rmnnorbert.InquireNet.controller.AnswerControllerTest.MOCK_USERNAME;
-import static org.hamcrest.Matchers.emptyString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-@SpringBootTest
-@AutoConfigureMockMvc
+@UnitTest
+@ExtendWith(MockitoExtension.class)
 class UserControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-    @MockBean
+    private UserController userController;
+    @Mock
     private UserService userService;
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
+        this.userController = new UserController(userService);
     }
 
     @ParameterizedTest
     @MethodSource("provideExpectedListValue")
-    @WithMockUser(username = MOCK_USERNAME)
-    void getAllUsersShouldReturnOkStatusAndExpectedValue(List<UserDTO> expected) throws Exception {
+    void getAllUsersShouldReturnExpectedValue(List<UserDTO> expected) {
         when(userService.getAllUser()).thenReturn(expected);
 
-        mockMvc.perform(get("/user/all"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", Matchers.hasSize(expected.size())));
+        List<UserDTO> actual = userController.getAllUsers();
 
+        assertEquals(expected, actual);
         verify(userService,times(1)).getAllUser();
     }
 
     @Test
-    @WithMockUser(username = MOCK_USERNAME)
-    void getUserByIdShouldReturnOkStatusAndExpectedValue() throws Exception {
+    void getUserByIdShouldReturnExpectedValue() {
         long searchedId = 1;
-        UserDTO dto = new UserDTO(1,Role.USER,"username",LocalDateTime.now());
+        UserDTO expected = new UserDTO(1,Role.USER,"username",LocalDateTime.now());
 
-        when(userService.findUserById(1)).thenReturn(dto);
+        when(userService.findUserById(1)).thenReturn(expected);
 
+        UserDTO actual = userController.getUserById(searchedId);
 
-        mockMvc.perform(get("/user/" + searchedId))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", Matchers.is(1)))
-                .andExpect(jsonPath("$.username", Matchers.is(dto.username())));
-
+        assertEquals(expected, actual);
         verify(userService,times(1)).findUserById(searchedId);
     }
     @Test
-    @WithMockUser(username = MOCK_USERNAME)
-    void getUserByIdShouldReturnNotFoundStatusAndEmptyBody() throws Exception {
+    void getUserByIdShouldReturnNotFoundException() {
            long searchedId = 1;
 
            when(userService.findUserById(searchedId)).thenThrow(NotFoundException.class);
 
-           mockMvc.perform(get("/user/" + searchedId))
-                   .andExpect(status().isNotFound())
-                   .andExpect(content().string(emptyString()));
-
+           assertThrows(NotFoundException.class, () -> userController.getUserById(searchedId));
            verify(userService,times(1)).findUserById(searchedId);
     }
     @ParameterizedTest
     @MethodSource("provideExpectedValue")
-    @WithMockUser(username = MOCK_USERNAME)
-    void deleteUserByIdShouldReturnOkStatusAndExpectedValue(DeleteRequestDTO value , boolean expected) throws Exception {
+    void deleteUserByIdShouldReturnExpectedValue(DeleteRequestDTO value , boolean expected) {
         when(userService.deleteUserById(value)).thenReturn(expected);
 
-        String jsonRequest = new ObjectMapper().writeValueAsString(value);
-
-        mockMvc.perform(delete("/user/")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonRequest))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$",Matchers.is(expected)));
-
+        boolean actual = userController.deleteUserById(value);
+        assertEquals(expected, actual);
         verify(userService,times(1)).deleteUserById(value);
     }
     @Test
-    @WithMockUser(username = MOCK_USERNAME)
-    void deleteUserByIdShouldReturnNotFoundStatusAndEmptyBody() throws Exception {
+    void deleteUserByIdShouldReturnNotFoundException() {
         DeleteRequestDTO dto = new DeleteRequestDTO(1,1);
 
         when(userService.deleteUserById(dto)).thenThrow(NotFoundException.class);
 
-        String jsonRequest = new ObjectMapper().writeValueAsString(dto);
-
-        mockMvc.perform(delete("/user/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonRequest))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string(emptyString()));
-
+        assertThrows(NotFoundException.class, () -> userController.deleteUserById(dto));
         verify(userService,times(1)).deleteUserById(dto);
     }
     private static Stream<Arguments> provideExpectedListValue() {

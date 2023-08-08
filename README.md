@@ -14,13 +14,13 @@
 [![Java Script](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.javascript.com/)
 [![Vite](https://img.shields.io/badge/Vite-purple.svg?logo=vite&logoColor=F7DF1E&labelColor=323330&style=for-the-badge)](https://vitejs.dev/)
 [![OpenAPI 3](https://img.shields.io/badge/OpenApi-66FF01.svg?logo=openapiinitiative&logoColor=66FF01&labelColor=323330&style=for-the-badge)](https://www.openapis.org/)
-[![Maven](https://img.shields.io/badge/Maven-66FF01.svg?logo=apachemaven&logoColor=ec2400&labelColor=323330&style=for-the-badge)](https://maven.apache.org/)
+[![Maven](https://img.shields.io/badge/Maven-322130.svg?logo=apachemaven&logoColor=ec2400&labelColor=323330&style=for-the-badge)](https://maven.apache.org/)
 
 
 [![License: Unlicense](https://img.shields.io/badge/-Unlicense-blue.svg?logo=unlicense&logoColor=white&style=for-the-badge)](License "License")
-[![CI Status](https://img.shields.io/github/actions/workflow/status/RMNorbert/InquireNet/maven.yml?branch=main&label=Tests&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "Java CI TEST")
-[![Last Commit](https://img.shields.io/github/last-commit/RMNorbert/InquireNet?logo=github&label=Last%20Commit&style=for-the-badge&display_timestamp=committer)](https://github.com/RMNorbert/InquireNet/commits "Commit History")
-
+[![CI Status](https://img.shields.io/github/actions/workflow/status/RMNorbert/InquireNet/maven.yml?branch=main&label=Tests&labelColor=323330&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "Java CI TEST")
+[![Last Commit](https://img.shields.io/github/last-commit/RMNorbert/InquireNet?logo=github&label=Last%20Commit&labelColor=323330&style=for-the-badge&display_timestamp=committer)](https://github.com/RMNorbert/InquireNet/commits "Commit History")
+[![Coverage](https://img.shields.io/badge/-83％-blue.svg?logo=85&label=coverage&logoColor=white&labelColor=323330&style=for-the-badge)]()
 
 </div>
 <!-- MANPAGE: END EXCLUDED SECTION -->

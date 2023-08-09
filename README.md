@@ -28,9 +28,9 @@
 # InquireNet
 
 [Table of content:](#description)
-- [Used technologies](#used-technologies)
+- [Used Technologies](#used-technologies)
 - [Features](#features)
-- [Getting started](#getting-started)
+- [Getting Started](#getting-started)
 
 ## Description:
 
@@ -39,25 +39,30 @@ InquireNet is an interactive question and answer platform that leverages the pow
 # Dockerized version can be pulled from DockerHub:
 https://hub.docker.com/repository/docker/7nrm/inquirenet/general
 
-## Used technologies:
+## Used Technologies:
 
  Backend
-  - Java (version 17.0.7),
-  - Spring Boot (version 3.1), Spring Security( version 6.1.0), JWT , Actuator, Webflux
-  - JDBC (version 6.0.9)
-  
+  - Java: Version 17.0.7
+  - Spring Boot: Version 3.1
+        Spring Security: Version 6.1.0
+        JWT (JSON Web Tokens)
+        Actuator
+        Webflux
+  - JDBC: Version 6.0.9
+    
  Frontend
   - JavaScript,
   - Vite,
-  - OpenAi (version 3.2.1)
+  - OpenAi: Version 3.2.1
   
  Database
   - PostgreSQL
-  
+  - H2 Database: Used during integration tests
+    
   Others
   - Docker,
   - CI/CD GitHub workflows
-  - OpenApi (version 3.0)
+  - OpenApi: Version 3.0
 
 ## Features
 
@@ -123,9 +128,9 @@ Follow these instructions to get a copy of the InquireNet project up and running
 1. **Clone the repository:**
 
 2. **Configure the project:**
-    Once you have cloned the repository, you need to configure the project by providing the necessary environment variables and database connection details. This includes setting up the database connection URL, username, and password, as well as any other environment-specific configuration values. Make sure to update the configuration files (application.properties, .env) with the appropriate values.
+    Once you have cloned the repository, you need to configure the project by providing the necessary environment variables and database connection details. This includes setting up the database connection URL, username, and password, as well as any other environment-specific configuration values in the docker-compose.yml and the application.properties which located in src/main/resources. Make sure to update these files with the appropriate values.
 
-3. **Build and run the project:**
+4. **Build and run the project:**
     InquireNet can be built and run using your preferred development environment or command-line tools. Here are a few options:
 
      Using Maven: Open a terminal or command prompt, navigate to the project's root directory, and run the following command:
@@ -134,7 +139,7 @@ Follow these instructions to get a copy of the InquireNet project up and running
     ```
     This command will build the project, resolve the dependencies, and start the server.
 
-4. ***Access the application:***
+5. ***Access the application:***
     Once the server is up and running, you can access the InquireNet application through the provided URL. Open a web browser and enter the appropriate URL (e.g., http://localhost:8080) to access the application. You can create your account to start asking and answering questions on the platform.
 
     Note: The URL and port number may vary depending on your configuration.

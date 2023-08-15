@@ -65,7 +65,7 @@ https://hub.docker.com/repository/docker/7nrm/inquirenet/general
   - OpenApi: Version 3.0
 
 ## Features
-- **Build support for both Maven (main branch), Gradle build (Gradle branch)**
+- **Build support for both Maven (main branch) and Gradle build (Gradle branch)**
 
 - **User registration and authentication**
  

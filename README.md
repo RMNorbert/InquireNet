@@ -42,7 +42,7 @@ https://hub.docker.com/repository/docker/7nrm/inquirenet/general
 ## Used Technologies:
 
  Backend
-  - Java: Version 17.0.7
+  - Java: Version 17.0.7 (Maven and Gradle build)
   - Spring Boot: Version 3.1
         Spring Security: Version 6.1.0
         JWT (JSON Web Tokens)
@@ -65,42 +65,22 @@ https://hub.docker.com/repository/docker/7nrm/inquirenet/general
   - OpenApi: Version 3.0
 
 ## Features
+- **Build support for both Maven (main branch), Gradle build (Gradle branch)**
 
-**User Registration and Authentication:**
+- **User registration and authentication**
  
-Users can create accounts and log in to the platform using secure authentication mechanisms implemented with Spring Security and JSON Web Tokens (JWT). This ensures that user data is protected and only accessible to authorized individuals.
+- **Posting , managing , searching, voting for questions and answers**
 
-**Question and Answer Functionality:**
+- **AI automated answers** 
 
-Users can post questions on any topic and receive answers from other community members. The platform provides a user-friendly interface for submitting, viewing and updating questions, answers, replies to answers, to participate in discussions.
+- **Chat with AI & managing previous chats** 
 
-**AI Automated Answers:** 
+- **Actuator**
 
-Users get AI provided answers to their questions instantly, powered by OpenAI, enhancing the overall user experience. These AI-powered answers are generated using state-of-the-art natural language processing techniques, ensuring accurate and insightful responses. 
+- **Custom Features Endpoint**
 
-**Chat with AI:**
+- **OpenApi Documentation**
 
-Users have the ability to directly engage in chat conversations with the AI. This interactive chat feature allows users to have dynamic and real-time exchanges with the AI, enabling them to explore their questions in more depth and receive personalized responses. The user can store the chat and delete stored chats.
-
-**User Interaction:**
-
-InquireNet allows users to upvote or downvote answers, comment on questions and answers, and engage in meaningful discussions.
-
-**Search Functionality:**
-
-Users can search for specific questions or topics of interest to quickly find relevant information.
-
-**Actuator:**
-
-Exposes endpoints for custom metrics, health, and management purposes.
-
-**Custom Features Endpoint:**
-
-Allows dynamic configuration and management of application features.
-
-**OpenApi Documentation:**
-
-Generates and serves API documentation using the OpenApi 3 framework.
 
 ## Getting Started
 
@@ -115,10 +95,7 @@ Make sure you have the following dependencies installed before proceeding with t
 #### 1.   Java Development Kit (JDK):
    Ensure that you have the Java Development Kit installed on your machine. You can download the JDK from the Oracle website and install it according to the provided instructions.
 
-#### 2.    Spring Boot: 
-   Install Spring Boot, which is the framework used for building the application. You can find the necessary resources and installation instructions on the official Spring Boot website. Choose the appropriate version for your project and follow the installation guide.
-
-#### 3.    JDBC Database (e.g., PostgreSQL):
+#### 2.    JDBC Database (e.g., PostgreSQL):
    In order to use a JDBC database with the application, such as PostgreSQL, make sure you have the necessary database server installed on your system. You can download and install PostgreSQL from the official PostgreSQL website and configure it as required.
 
 ### Installation

@@ -26,22 +26,26 @@
 <!-- MANPAGE: END EXCLUDED SECTION -->
 
 # InquireNet
+---
 
 [Table of content:](#description)
 - [Used Technologies](#used-technologies)
 - [Features](#features)
 - [Getting Started](#getting-started)
 
+---
 ## Description:
 
 InquireNet is an interactive question and answer platform that leverages the power of AI for automated answers. It is built using Java, Spring, JDBC, and other technologies to provide a robust and user-friendly web application. In addition to the public question and answer functionality, InquireNet offers users the flexibility to maintain privacy. If users prefer not to publicize their questions, they can utilize the chat feature to ask their queries directly to the AI. This ensures that users have multiple avenues to seek answers and engage with the platform based on their preferences.
 
+---
 # Dockerized version can be pulled from DockerHub:
 https://hub.docker.com/repository/docker/7nrm/inquirenet/general
 
+---
 ## Used Technologies:
 
- Backend
+ **Backend**
   - Java: Version 17.0.7 (Maven and Gradle build)
   - Spring Boot: Version 3.1
         Spring Security: Version 6.1.0
@@ -50,20 +54,21 @@ https://hub.docker.com/repository/docker/7nrm/inquirenet/general
         Webflux
   - JDBC: Version 6.0.9
     
- Frontend
+ **Frontend**
   - JavaScript,
   - Vite,
   - OpenAi: Version 3.2.1
   
- Database
+ **Database**
   - PostgreSQL
   - H2 Database: Used during integration tests
     
-  Others
+  **Others**
   - Docker,
   - CI/CD GitHub workflows
   - OpenApi: Version 3.0
 
+---
 ## Features
 - **Build support for both Maven (main branch) and Gradle build (Gradle branch)**
 
@@ -81,7 +86,7 @@ https://hub.docker.com/repository/docker/7nrm/inquirenet/general
 
 - **OpenApi Documentation**
 
-
+---
 ## Getting Started
 
 Follow these instructions to get a copy of the InquireNet project up and running on your local machine for development and testing purposes.
@@ -98,6 +103,7 @@ Make sure you have the following dependencies installed before proceeding with t
 #### 2.    JDBC Database (e.g., PostgreSQL):
    In order to use a JDBC database with the application, such as PostgreSQL, make sure you have the necessary database server installed on your system. You can download and install PostgreSQL from the official PostgreSQL website and configure it as required.
 
+---
 ### Installation
 
 Follow these instructions to get a copy of the InquireNet project up and running on your local machine for development and testing purposes.
@@ -121,11 +127,13 @@ Follow these instructions to get a copy of the InquireNet project up and running
 
     Note: The URL and port number may vary depending on your configuration.
 
+---
 ## License
 
 This project is licensed under the Unlicense License - see the [License](License) file for details.
 
-Acknowledgments
+---
+## Acknowledgments
 
     OpenAI for providing advanced AI capabilities.
     Spring Framework for the powerful Java-based development environment.

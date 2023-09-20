@@ -86,6 +86,12 @@ https://hub.docker.com/repository/docker/7nrm/inquirenet/general
 
 - **OpenApi Documentation**
 
+- **User Analytics(in progress)**
+
+- **Tags and Categories(in progress)**
+
+- **User Reputation System(in progress)**
+
 ---
 ## Getting Started
 
@@ -117,13 +123,19 @@ Follow these instructions to get a copy of the InquireNet project up and running
     InquireNet can be built and run using your preferred development environment or command-line tools. Here are a few options:
 
      Using Maven: Open a terminal or command prompt, navigate to the project's root directory, and run the following command:
-    ```bash
+    ```
     mvn spring-boot:run
     ```
-    This command will build the project, resolve the dependencies, and start the server.
+    This command will build the project, resolve the dependencies, and start the backend server.
 
-5. ***Access the application:***
-    Once the server is up and running, you can access the InquireNet application through the provided URL. Open a web browser and enter the appropriate URL (e.g., http://localhost:8080) to access the application. You can create your account to start asking and answering questions on the platform.
+    Navigate to the project's frontend directory, and run the following command:
+    ```
+    npm run dev
+    ```
+   This command will start the frontend server.
+
+6. ***Access the application:***
+    Once the server is up and running, you can access the InquireNet application through the provided URL. Open a web browser and enter the appropriate URL (e.g., by default http://localhost:3000 or in case of docker : http://localhost:8080) to access the application. You can create your account to start asking and answering questions on the platform.
 
     Note: The URL and port number may vary depending on your configuration.
 

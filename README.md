@@ -140,11 +140,17 @@ Follow these instructions to get a copy of the InquireNet project up and running
     Note: The URL and port number may vary depending on your configuration.
 
 ---
+
+## End To End Testing Through Postman
+https://postman.com/galactic-satellite-387943/workspace/inquire-test
+
+---
 ## License
 
 This project is licensed under the Unlicense License - see the [License](License) file for details.
 
 ---
+
 ## Acknowledgments
 
     OpenAI for providing advanced AI capabilities.

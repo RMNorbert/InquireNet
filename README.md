@@ -4,18 +4,19 @@
 [<img src="https://github.com/RMNorbert/InquireNet/blob/main/My%20project.png" alt="InquireNet" width="100">](README.md)
 
 [![Java](https://img.shields.io/badge/Java-blue.svg?logo=openjdk&logoColor=white&labelColor=323330&style=for-the-badge)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+[![Maven](https://img.shields.io/badge/Maven-322130.svg?logo=apachemaven&logoColor=ec2400&labelColor=323330&style=for-the-badge)](https://maven.apache.org/)
 [![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-brightgreen.svg?logo=spring&labelColor=323330&style=for-the-badge)](https://spring.io/projects/spring-boot)
 [![Spring Security](https://img.shields.io/badge/-Spring%20Security-darkgreen.svg?logo=springsecurity&labelColor=323330&style=for-the-badge)](https://spring.io/projects/spring-security)
-[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-blue.svg?logo=postgresql&logoColor=0197f6&labelColor=323330&style=for-the-badge)](https://www.postgresql.org)
-[![Docker](https://img.shields.io/badge/-docker-blue.svg?logo=docker&logoColor=0197f6&labelColor=323330&style=for-the-badge)](https://www.docker.com/)
 
-[![OpenAI](https://img.shields.io/badge/-OpenAi-1c1c2c.svg?logo=openai&labelColor=323330&style=for-the-badge)](https://openai.com)
-[![JWT](https://img.shields.io/badge/JWT-323330?style=for-the-badge&logo=jsonwebtokens&logoColor=red)](https://jwt.io/)
+[![JWT](https://img.shields.io/badge/JWT-1c1c2c?style=for-the-badge&logo=jsonwebtokens&logoColor=red)](https://jwt.io/)
+[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-blue.svg?logo=postgresql&logoColor=0197f6&labelColor=323330&style=for-the-badge)](https://www.postgresql.org)
+[![Flyway](https://img.shields.io/badge/-flyway-blue.svg?logo=flyway&logoColor=darkred&labelColor=323330&style=for-the-badge)](https://flywaydb.org/)
+[![Docker](https://img.shields.io/badge/-docker-1c1c2c.svg?logo=docker&logoColor=0197f6&labelColor=323330&style=for-the-badge)](https://www.docker.com/)
+
 [![Java Script](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.javascript.com/)
 [![Vite](https://img.shields.io/badge/Vite-purple.svg?logo=vite&logoColor=F7DF1E&labelColor=323330&style=for-the-badge)](https://vitejs.dev/)
-[![OpenAPI 3](https://img.shields.io/badge/OpenApi-66FF01.svg?logo=openapiinitiative&logoColor=66FF01&labelColor=323330&style=for-the-badge)](https://www.openapis.org/)
-[![Maven](https://img.shields.io/badge/Maven-322130.svg?logo=apachemaven&logoColor=ec2400&labelColor=323330&style=for-the-badge)](https://maven.apache.org/)
-
+[![OpenAI](https://img.shields.io/badge/-OpenAi-1c1c2c.svg?logo=openai&labelColor=323330&style=for-the-badge)](https://openai.com)
+[![OpenAPI 3](https://img.shields.io/badge/OpenApi-1c1c2c.svg?logo=openapiinitiative&logoColor=66FF01&labelColor=323330&style=for-the-badge)](https://www.openapis.org/)
 
 [![License: Unlicense](https://img.shields.io/badge/-Unlicense-blue.svg?logo=unlicense&logoColor=white&style=for-the-badge)](License "License")
 [![CI Status](https://img.shields.io/github/actions/workflow/status/RMNorbert/InquireNet/maven.yml?branch=main&label=Tests&labelColor=323330&style=for-the-badge)](https://github.com/RMNorbert/InquireNet/actions "Java CI TEST")

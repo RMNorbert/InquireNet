@@ -63,6 +63,7 @@ https://hub.docker.com/repository/docker/7nrm/inquirenet/general
  **Database**
   - PostgreSQL
   - H2 Database: Used during integration tests
+  - Flyway: For managing database schema changes and data migrations
     
   **Others**
   - Docker,
@@ -86,6 +87,8 @@ https://hub.docker.com/repository/docker/7nrm/inquirenet/general
 - **Custom Features Endpoint**
 
 - **OpenApi Documentation**
+
+- **Flyway**
 
 - **User Analytics(in progress)**
 

@@ -20,9 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @IntegrationTest
 @SpringBootTest
-@Sql({ "/clear.sql", "/testInit.sql" })
-//@Sql(scripts = "classpath:testInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-//@Sql(scripts = "classpath:clear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql({"/database/clear.sql", "/database/testInit.sql"})
 class AnswerIntegrationTest {
     @Autowired
     private AnswerController answerController;
@@ -82,7 +80,7 @@ class AnswerIntegrationTest {
     }
 
     @Test
-    @Sql({ "/clear.sql", "/table.sql" })
+    @Sql({"/database/clear.sql", "/database/table.sql"})
     void addNewAnswerShouldReturnExpectedBoolean() {
         AnswerRequestDTO dto = new AnswerRequestDTO(10L,"desc",15L);
         boolean expected = true;
@@ -100,7 +98,7 @@ class AnswerIntegrationTest {
 
     @Test
     void voteOnAnswerByIdShouldReturnExpectedBoolean() {
-        VoteDTO dto = new VoteDTO("vote",1,1,1);
+        VoteDTO dto = new VoteDTO("features/vote",1,1,1);
         boolean expected = true;
 
         assertThat(answerController.voteOnAnswerById(dto)).isEqualTo(expected);
@@ -108,7 +106,7 @@ class AnswerIntegrationTest {
 
     @Test
     void updateAnswerShouldReturnExpectedBoolean() {
-        VoteDTO dto = new VoteDTO("vote",1,1,1);
+        VoteDTO dto = new VoteDTO("features/vote",1,1,1);
         boolean expected = true;
 
         assertThat(answerController.voteOnAnswerById(dto)).isEqualTo(expected);

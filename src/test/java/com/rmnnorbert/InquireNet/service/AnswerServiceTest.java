@@ -227,7 +227,7 @@ class AnswerServiceTest {
     @ParameterizedTest
     @MethodSource(value = "provideExpectedBoolean")
     void updateVoteShouldReturnTrue(boolean expected) {
-        VoteDTO dto = new VoteDTO("vote",1,1,1);
+        VoteDTO dto = new VoteDTO("features/vote",1,1,1);
 
         when(answerDAOJdbc.changeVote(dto.vote(),dto.id())).thenReturn(expected);
 

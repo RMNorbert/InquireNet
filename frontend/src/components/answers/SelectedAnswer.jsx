@@ -55,6 +55,7 @@ export const SelectedAnswer = ({}) => {
                     <label htmlFor="reply">Reply</label>
                     <input type="text" className="answer" />
                     <button
+                        id={"register"}
                         type="submit"
                         className="bg-buttonBlue m-5 p-2 border-spacing-2 border-black border-4 hover:bg-blue-600"
                     >
@@ -69,7 +70,7 @@ export const SelectedAnswer = ({}) => {
                         <p className="text-3xl gap-3">{currentAnswer.description}</p>
                     </div>
                 </div>
-                <div className="flex justify-center items-center flex-col">
+                <div className="flex justify-center items-center flex-col" id={"reply"}>
                     {replies.map((currentReply, i) => (
                         <Reply
                             key={i}

@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @IntegrationTest
-@Sql({ "/clear.sql", "/testInit.sql" })
+@Sql({"/database/clear.sql", "/database/testInit.sql"})
 class QuestionControllerTest {
     @Autowired
     private QuestionController questionController;
@@ -73,7 +73,7 @@ class QuestionControllerTest {
                 .isThrownBy(() -> questionController.getQuestionById(searchedId));
     }
     @Test
-    @Sql({ "/clear.sql", "/table.sql" })
+    @Sql({"/database/clear.sql", "/database/table.sql"})
     void addNewQuestion() {
         NewQuestionDTO dto = new NewQuestionDTO("title","desc",1);
 

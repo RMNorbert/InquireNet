@@ -89,7 +89,7 @@ class UserControllerTest {
         return Stream.of(
                 Arguments.of( List.of(
                         new UserDTO(1, Role.USER,"username", LocalDateTime.now()),
-                        new UserDTO(2, Role.USER,"user", LocalDateTime.now())
+                        new UserDTO(2, Role.USER, "features/user", LocalDateTime.now())
                 )),
                 Arguments.of( List.of())
         );

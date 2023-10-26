@@ -1,4 +1,4 @@
-package com.rmnnorbert.InquireNet.security.config;
+package com.rmnnorbert.InquireNet.config;
 
 import com.rmnnorbert.InquireNet.dao.model.user.UserDaoJdbc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +41,5 @@ public class ApplicationConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 }

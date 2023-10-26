@@ -16,7 +16,7 @@ import org.springframework.test.context.jdbc.Sql;
 import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @IntegrationTest
-@Sql({ "/clear.sql", "/testInit.sql" })
+@Sql({"/database/clear.sql", "/database/testInit.sql"})
 class ReplyControllerTest {
     @Autowired
     private ReplyController replyController;
@@ -62,7 +62,7 @@ class ReplyControllerTest {
     }
 
     @Test
-    @Sql({ "/clear.sql", "/table.sql" })
+    @Sql({"/database/clear.sql", "/database/table.sql"})
     void addNewReplyShouldReturnTrue() {
         boolean expected = true;
         NewReplyDTO dto = new NewReplyDTO("desc",1,1);

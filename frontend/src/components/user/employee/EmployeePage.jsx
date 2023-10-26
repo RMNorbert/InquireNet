@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import {multiFetch} from "../../utils/MultiFetch.jsx";
-import { ManageItem } from "../ManageItem.jsx";
-import {role} from "../../utils/TokenDecoder.jsx";
+import {multiFetch} from "../../../utils/MultiFetch.jsx";
+import { ManageItem } from "../../elements/ManageItem.jsx";
+import {role} from "../../../utils/TokenDecoder.jsx";
 import {useNavigate} from "react-router-dom";
 
 export const EmployeePage = () => {

@@ -1,7 +1,7 @@
 package com.rmnnorbert.InquireNet.dao.model.user;
 
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.dao.UserRowMapper;
+import com.rmnnorbert.InquireNet.rowMapper.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;

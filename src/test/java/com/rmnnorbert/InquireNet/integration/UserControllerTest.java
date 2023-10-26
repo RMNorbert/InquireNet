@@ -14,7 +14,7 @@ import org.springframework.test.context.jdbc.Sql;
 import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @IntegrationTest
-@Sql({ "/clear.sql", "/testInit.sql" })
+@Sql({"/database/clear.sql", "/database/testInit.sql"})
 class UserControllerTest {
     @Autowired
     private UserController userController;

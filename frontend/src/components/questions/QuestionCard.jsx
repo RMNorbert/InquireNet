@@ -32,6 +32,8 @@ export const QuestionCard = ({ id, userId, title, description, created, numberOf
                 <div
                     className="text-black w-1/2 m-4 bg-slate-200 rounded flex justify-between p-4 rounded-xl"
                     onClick={handleAnswer}
+                    id={"question-card"}
+                    name={title}
                 >
                     <div>
                         <p>Title: {title}</p>
@@ -46,10 +48,14 @@ export const QuestionCard = ({ id, userId, title, description, created, numberOf
                 </div>
                 {loggedInUserId() === userId &&
              <div>
-                <button onClick={() => handleDelete(id)}>
+                <button
+                    name={"delete " + title}
+                    onClick={() => handleDelete(id)}>
                     <RiDeleteBin2Fill className="text-2xl text-red-900"/>
                 </button>
-                 <button onClick={() => navigate(`/question/update/${id}`)}>
+                 <button
+                     name={"update " + title}
+                     onClick={() => navigate(`/question/update/${id}`)}>
                      <RxUpdate className="text-2xl text-red-900"/>
                  </button>
              </div>

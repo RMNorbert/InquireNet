@@ -15,7 +15,7 @@ import org.springframework.test.context.jdbc.Sql;
 import static org.assertj.core.api.Assertions.assertThat;
 @IntegrationTest
 @SpringBootTest
-@Sql({ "/clear.sql", "/testInit.sql" })
+@Sql({"/database/clear.sql", "/database/testInit.sql"})
 class ChatControllerTest {
     @Autowired
     private ChatController chatController;
@@ -33,7 +33,7 @@ class ChatControllerTest {
     }
 
     @Test
-    @Sql({ "/clear.sql", "/table.sql" })
+    @Sql({"/database/clear.sql", "/database/table.sql"})
     void storeNewChatShouldReturnExpectedTrue() {
         ChatRegisterDTO dto = new ChatRegisterDTO(1,"title","role","content");
         boolean expected = true;

@@ -87,12 +87,12 @@ class ChatControllerTest {
                         new ChatDTO(1,
                                 1,
                                 "title",
-                                "user",
+                                "features/user",
                                 "contents"),
                         new ChatDTO(2,
                                 1,
                                 "title",
-                                "user",
+                                "features/user",
                                 "content")
                 )),
                 Arguments.of(List.of())

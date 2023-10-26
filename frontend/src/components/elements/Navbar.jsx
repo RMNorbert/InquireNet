@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
-import { username, time, role } from "../utils/TokenDecoder.jsx";
+import { username, time, role } from "../../utils/TokenDecoder.jsx";
 import {useNavigate} from "react-router-dom";
 export const Navbar = () => {
     const navigate = useNavigate();
@@ -47,6 +47,7 @@ export const Navbar = () => {
                      Forum
                 </button>
                         <button
+                            name={"ai"}
                             className=" h-16 w-64 rounded-xl h-12  border-sky-600 hover:bg-sky-900 border-solid border-2 "
                             onClick={() => navigate("/chat")}
                         >
@@ -54,12 +55,12 @@ export const Navbar = () => {
                         </button>
             </div>
                 <div className="flex justify-evenly gap-y-12">
-                <div>
+                <div name={"icon"}>
                     <FaUserCircle className="text-blue-600" onClick={() => handleOpen()} />
                 </div>
                 {open ? (
                     isLoggedIn ? (
-                        <button className="bg-cyan-800 rounded-xl border-sky-600 hover:bg-sky-900 border-solid border-2">
+                        <button name={"profile"} className="bg-cyan-800 rounded-xl border-sky-600 hover:bg-sky-900 border-solid border-2">
                             <a onClick={() => navigate("/user")}>
                                 <div className="cursor-pointer">{user}</div>
                             </a>

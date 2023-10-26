@@ -33,7 +33,7 @@ class ChatServiceTest {
     void getAllChatByUserIdShouldReturnExpectedChatList() {
         long id = 1;
         List<Chat> chats = List.of(
-                new Chat(1,1,"Chat","user","Chat")
+                new Chat(1,1,"Chat", "features/user","Chat")
         );
 
         when(chatDAOJdbc.getAllChatByUserId(id)).thenReturn(chats);
@@ -57,7 +57,7 @@ class ChatServiceTest {
     @Test
     void deleteChatByTitleShouldReturnTrue() {
         ChatDeleteRequest deleteRequest = new ChatDeleteRequest(1,"Title");
-        Chat chat = new Chat(1,1,"Title","user","content");
+        Chat chat = new Chat(1,1,"Title", "features/user","content");
         when(chatDAOJdbc.findChatByTitle(deleteRequest.targetID())).thenReturn(chat);
         when(chatDAOJdbc.deleteChatByTitle(deleteRequest.targetID())).thenReturn(true);
 
@@ -78,7 +78,7 @@ class ChatServiceTest {
     @Test
     void deleteChatByTitleWenUserIdDoNotMatchShouldReturnFalse() {
         ChatDeleteRequest deleteRequest = new ChatDeleteRequest(2,"Title");
-        Chat chat = new Chat(1,1,"Title","user","content");
+        Chat chat = new Chat(1,1,"Title", "features/user","content");
         when(chatDAOJdbc.findChatByTitle(deleteRequest.targetID())).thenReturn(chat);
 
         boolean actual = chatService.deleteChatByTitle(deleteRequest);
@@ -89,7 +89,7 @@ class ChatServiceTest {
 
     @Test
     void storeChatShouldReturnTrue() {
-        ChatRegisterDTO chatRegisterDTO = new ChatRegisterDTO(1,"Title","user","content");
+        ChatRegisterDTO chatRegisterDTO = new ChatRegisterDTO(1,"Title", "features/user","content");
         when(chatDAOJdbc.storeChat(chatRegisterDTO)).thenReturn(true);
 
         boolean actual = chatService.storeChat(chatRegisterDTO);

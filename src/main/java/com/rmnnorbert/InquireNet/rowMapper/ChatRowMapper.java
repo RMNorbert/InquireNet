@@ -1,4 +1,4 @@
-package com.rmnnorbert.InquireNet.dao;
+package com.rmnnorbert.InquireNet.rowMapper;
 
 import com.rmnnorbert.InquireNet.dao.model.chat.Chat;
 import org.springframework.jdbc.core.RowMapper;

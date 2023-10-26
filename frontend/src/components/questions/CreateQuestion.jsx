@@ -24,10 +24,10 @@ export const CreateQuestion = () => {
         <div className="text-black">
             <form onSubmit={(e) => handleSubmit(e)}>
                 <label htmlFor="question">Question:</label>
-                <input type="text" name="question" id="" />
+                <input type="text" name="question" id="title" />
                 <label htmlFor="desc">Describe your question</label>
-                <input type="text" name="desc" id="" />
-                <button type="submit">Submit</button>
+                <input type="text" name="desc" id="desc" />
+                <button id={"register"} type="submit">Submit</button>
             </form>
         </div>
     );

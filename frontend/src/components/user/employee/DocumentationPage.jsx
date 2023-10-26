@@ -3,7 +3,7 @@ import SwaggerUI from 'swagger-ui-dist/swagger-ui-bundle.js';
 import 'swagger-ui-dist/swagger-ui-standalone-preset.js';
 
 import React, { useEffect } from 'react';
-import {username} from "../utils/TokenDecoder.jsx";
+import {username} from "../../../utils/TokenDecoder.jsx";
 import {useNavigate} from "react-router-dom";
 
 export const DocumentationPage = () => {

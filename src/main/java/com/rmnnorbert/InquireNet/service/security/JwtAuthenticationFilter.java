@@ -1,4 +1,4 @@
-package com.rmnnorbert.InquireNet.security.config;
+package com.rmnnorbert.InquireNet.service.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

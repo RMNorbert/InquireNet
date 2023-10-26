@@ -61,7 +61,7 @@ class AnswerControllerTest {
                                                     "desc",
                                                     LocalDateTime.now(),
                                                     1,
-                                                    "vote");
+                "features/vote");
 
         when(answerService.getAnswerById(searchedId)).thenReturn(expectedAnswerDTO);
 
@@ -131,7 +131,7 @@ class AnswerControllerTest {
     @ParameterizedTest
     @MethodSource("provideExpectedValue")
     void voteOnAnswerByIdShouldReturnExpectedValue(boolean expected) {
-        VoteDTO dto = new VoteDTO("vote",1,1,1);
+        VoteDTO dto = new VoteDTO("features/vote",1,1,1);
 
         when(voteService.vote(dto)).thenReturn(expected);
 
@@ -160,8 +160,8 @@ class AnswerControllerTest {
     private static Stream<Arguments> provideIdAndExpectedList() {
         return Stream.of(
                 Arguments.of( 1,List.of(
-                        new AnswerDTO(1,1,1,"desc",LocalDateTime.now(),1,"vote"),
-                        new AnswerDTO(2,2,1,"description",LocalDateTime.now(),1,"vote")
+                        new AnswerDTO(1,1,1,"desc",LocalDateTime.now(),1, "features/vote"),
+                        new AnswerDTO(2,2,1,"description",LocalDateTime.now(),1, "features/vote")
                 )),
                 Arguments.of( 2,List.of())
                 );

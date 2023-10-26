@@ -1,5 +1,6 @@
-package com.rmnnorbert.InquireNet.security.config;
+package com.rmnnorbert.InquireNet.config;
 
+import com.rmnnorbert.InquireNet.service.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -103,7 +103,10 @@ if(username()) {
                     <button className="store" onClick={saveChat}> Store chat history</button>
                     <ul className="history">
                         {uniqueTitle?.map((uniqueTitle, index) =>
-                            <li key={index} onClick={() => handleClick(uniqueTitle)}>
+                            <li
+                                name={"previous-chat"}
+                                key={index}
+                                onClick={() => handleClick(uniqueTitle)}>
                                 {uniqueTitle}
                             </li>)}
                     </ul>

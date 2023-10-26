@@ -2,7 +2,7 @@ package com.rmnnorbert.InquireNet.controller;
 
 import com.rmnnorbert.InquireNet.dto.user.AuthenticationDTO;
 import com.rmnnorbert.InquireNet.dto.user.AuthenticationResponse;
-import com.rmnnorbert.InquireNet.security.auth.AuthenticationService;
+import com.rmnnorbert.InquireNet.service.security.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

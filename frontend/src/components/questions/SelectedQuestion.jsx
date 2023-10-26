@@ -68,6 +68,7 @@ export const SelectedQuestion = ({}) => {
                     <label htmlFor="answer">Answer</label>
                     <input type="text" className="answer" />
                     <button
+                        id={"reply"}
                         type="submit"
                         className="bg-buttonBlue m-5 p-2 border-spacing-2 border-black border-4 hover:bg-blue-600"
                     >
@@ -82,7 +83,10 @@ export const SelectedQuestion = ({}) => {
                         <p className="text-3xl gap-3">{currentQuestion.description}</p>
                     </div>
                 </div>
-                <div className=" object-cover flex justify-center items-center flex-col">
+                <div
+                    name={"answer-list"}
+                    className=" object-cover flex justify-center items-center flex-col"
+                >
                     {answers.map((currentAnswer, i) => (
                         <Answer
                             key={i}

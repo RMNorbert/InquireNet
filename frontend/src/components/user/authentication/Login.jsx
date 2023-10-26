@@ -68,10 +68,18 @@ export const Login = () => {
                     <button
                         type="submit"
                         className="bg-buttonBlue m-5 p-2 border-spacing-2 border-black border-4 hover:bg-blue-600"
+                        id={"login"}
                     >
                         Log in
                     </button>
                 </form>
+                <button
+                    id={"register"}
+                    className="bg-buttonBlue m-5 p-2 border-spacing-2 border-black border-4 hover:bg-blue-600"
+                    onClick={() => navigate("/register")}
+                >
+                    Register
+                </button>
             </div>
         </div>
     );

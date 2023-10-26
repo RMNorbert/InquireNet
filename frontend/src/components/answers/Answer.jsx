@@ -76,7 +76,9 @@ export const Answer = ({answerId, creatorId , questionCreatorId, questionId, des
                 <div className="bg-slate-200  mt-[-4px] w-2/3 p-1 flex-col rounded-b">
                 <div>
                     {userId === questionCreatorId &&
-                        <button onClick={() => voteTo(true, answerId)}>
+                        <button
+                            name={`upvote + ${description}`}
+                            onClick={() => voteTo(true, answerId)}>
                             <ImArrowUp className="text-3xl text-green-900"/>
                         </button>
                     }
@@ -91,11 +93,15 @@ export const Answer = ({answerId, creatorId , questionCreatorId, questionId, des
                 </div>
                     {userId === creatorId &&
                         <>
-                        <button onClick={() => handleDelete(answerId)}>
+                        <button
+                            name={`delete-${description}`}
+                            onClick={() => handleDelete(answerId)}>
                             <RiDeleteBin2Fill className="text-2xl text-red-900"/>
                         </button>
                             <div className="flex">
-                                <button onClick={() => navigate(`/answer/update/${answerId}`)}>
+                                <button
+                                    name={`update + ${description}`}
+                                    onClick={() => navigate(`/answer/update/${answerId}`)}>
                                     <RxUpdate className="text-2xl text-red-900"/>
                                 </button>
                             </div>

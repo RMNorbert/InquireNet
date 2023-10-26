@@ -1,7 +1,7 @@
 package com.rmnnorbert.InquireNet.dao.model.reply;
 
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.dao.ReplyRowMapper;
+import com.rmnnorbert.InquireNet.rowMapper.ReplyRowMapper;
 import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

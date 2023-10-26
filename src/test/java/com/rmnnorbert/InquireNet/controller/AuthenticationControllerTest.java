@@ -4,7 +4,7 @@ import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.InvalidLoginException;
 import com.rmnnorbert.InquireNet.dto.user.AuthenticationDTO;
 import com.rmnnorbert.InquireNet.dto.user.AuthenticationResponse;
-import com.rmnnorbert.InquireNet.security.auth.AuthenticationService;
+import com.rmnnorbert.InquireNet.service.security.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

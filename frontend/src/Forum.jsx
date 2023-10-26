@@ -6,7 +6,7 @@ import { QuestionList } from "./components/questions/QuestionList";
 import {username} from "./utils/TokenDecoder.jsx";
 
 
-function App() {
+function Forum() {
     const [questions, setQuestions] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -53,6 +53,7 @@ function App() {
                     <button
                         className=" h-16  bg-blue-400 hover:bg-blue-700 text-white rounded-xl text-lg"
                         onClick={handleCreate}
+                        id={"register"}
                     >
                         Create new question
                     </button>
@@ -73,4 +74,4 @@ function App() {
     }
 }
 
-export default App;
+export default Forum;

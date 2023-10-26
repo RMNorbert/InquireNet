@@ -1,7 +1,7 @@
 package com.rmnnorbert.InquireNet.dao.model;
 
 import annotations.UnitTest;
-import com.rmnnorbert.InquireNet.dao.ReplyRowMapper;
+import com.rmnnorbert.InquireNet.rowMapper.ReplyRowMapper;
 import com.rmnnorbert.InquireNet.dao.model.reply.Reply;
 import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;

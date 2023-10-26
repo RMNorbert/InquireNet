@@ -24,10 +24,10 @@ export const Reply = ({id, creatorId, description, created }) => {
             <div className="text-4xl">{description}</div>
             {loggedInUserId() === creatorId &&
                 <>
-            <button onClick={() => handleDelete(id)}>
+            <button id={"delete"} onClick={() => handleDelete(id)}>
                 <RiDeleteBin2Fill className="text-2xl text-red-900"/>
             </button>
-            <button onClick={() => navigate(`/reply/update/${id}`)}>
+            <button id={"update"} onClick={() => navigate(`/reply/update/${id}`)}>
                 <RxUpdate className="text-2xl text-red-900"/>
             </button>
                 </>

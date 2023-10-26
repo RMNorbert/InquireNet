@@ -1,4 +1,4 @@
-package com.rmnnorbert.InquireNet.security.config;
+package com.rmnnorbert.InquireNet.service.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -17,7 +17,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
     private static final String SECRET_KEY = System.getenv("SECRET_KEY");
-    private static final int EXPIRATION = 1000 * 60 * 24 *7;
+    private static final int EXPIRATION_IN_TWO_HOURS_AND_FORTY_FIVE_MINUTES = 1000 * 60 * 24 *7;
 
     private Claims extractAllClaims(String token) {
         return Jwts
@@ -58,7 +58,7 @@ public class JwtService {
                 .addClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_IN_TWO_HOURS_AND_FORTY_FIVE_MINUTES))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

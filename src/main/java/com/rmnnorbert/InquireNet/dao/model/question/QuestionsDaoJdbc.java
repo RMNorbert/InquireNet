@@ -1,7 +1,7 @@
 package com.rmnnorbert.InquireNet.dao.model.question;
 
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.dao.QuestionRowMapper;
+import com.rmnnorbert.InquireNet.rowMapper.QuestionRowMapper;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;

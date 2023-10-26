@@ -2,7 +2,7 @@ package com.rmnnorbert.InquireNet.dao.model;
 
 import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.dao.AnswerRowMapper;
+import com.rmnnorbert.InquireNet.rowMapper.AnswerRowMapper;
 import com.rmnnorbert.InquireNet.dao.model.answer.Answer;
 import com.rmnnorbert.InquireNet.dao.model.answer.AnswerDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
@@ -156,7 +156,7 @@ class AnswerDAOJdbcTest {
     @ParameterizedTest
     @MethodSource("provideAffectedRowsAndExpectedValue")
     void changeVoteShouldReturnExpectedValue(int value, boolean expected) {
-        String vote = "vote";
+        String vote = "features/vote";
         long id = 1;
 
         when(jdbcTemplate.update(anyString(), eq(vote), eq(id))).thenReturn(value);

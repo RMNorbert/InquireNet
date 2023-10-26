@@ -2,7 +2,7 @@ package com.rmnnorbert.InquireNet.dao.model;
 
 import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.dao.QuestionRowMapper;
+import com.rmnnorbert.InquireNet.rowMapper.QuestionRowMapper;
 import com.rmnnorbert.InquireNet.dao.model.question.Question;
 import com.rmnnorbert.InquireNet.dao.model.question.QuestionsDaoJdbc;
 import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;

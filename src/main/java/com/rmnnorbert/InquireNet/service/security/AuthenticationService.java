@@ -1,11 +1,10 @@
-package com.rmnnorbert.InquireNet.security.auth;
+package com.rmnnorbert.InquireNet.service.security;
 
 import com.rmnnorbert.InquireNet.customExceptionHandler.InvalidLoginException;
 import com.rmnnorbert.InquireNet.dao.model.user.User;
 import com.rmnnorbert.InquireNet.dao.model.user.UserDaoJdbc;
 import com.rmnnorbert.InquireNet.dto.user.AuthenticationResponse;
 import com.rmnnorbert.InquireNet.dto.user.AuthenticationDTO;
-import com.rmnnorbert.InquireNet.security.config.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

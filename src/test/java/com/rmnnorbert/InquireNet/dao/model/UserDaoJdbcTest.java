@@ -2,7 +2,7 @@ package com.rmnnorbert.InquireNet.dao.model;
 
 import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.dao.UserRowMapper;
+import com.rmnnorbert.InquireNet.rowMapper.UserRowMapper;
 import com.rmnnorbert.InquireNet.dao.model.user.User;
 import com.rmnnorbert.InquireNet.dao.model.user.UserDaoJdbc;
 import com.rmnnorbert.InquireNet.dao.model.user.data.Role;
@@ -84,7 +84,7 @@ class UserDaoJdbcTest {
 
     @Test
     void findUserByUsernameShouldReturnExpectedUser() {
-        String searchedUser = "user";
+        String searchedUser = "features/user";
         List<User> searchedUserByUsername = List.of(new User(1,Role.USER,"username", "password", LocalDateTime.now()));
 
         when(jdbcTemplate.query(anyString(),any(UserRowMapper.class),eq(searchedUser))).thenReturn(searchedUserByUsername);
@@ -97,7 +97,7 @@ class UserDaoJdbcTest {
     }
     @Test
     void findUserByUsernameShouldReturnNotFoundException() {
-        String searchedUser = "user";
+        String searchedUser = "features/user";
 
         when(jdbcTemplate.query(anyString(),any(UserRowMapper.class),eq(searchedUser))).thenThrow(NotFoundException.class);
 
@@ -106,7 +106,7 @@ class UserDaoJdbcTest {
     }
     @Test
     void addUserShouldReturnOkStatusAndExpectedMessage() throws SQLException {
-        String registrationUsername = "user";
+        String registrationUsername = "features/user";
         String registrationPassword = "password";
         int returnValue = 1;
 
@@ -145,7 +145,7 @@ class UserDaoJdbcTest {
     }
     @Test
     void addUserShouldReturnDataIntegrityViolationException() {
-        String registrationUsername = "user";
+        String registrationUsername = "features/user";
         String registrationPassword = "password";
 
         ArgumentCaptor<PreparedStatementCreator> preparedStatementCreatorCaptor = ArgumentCaptor.forClass(PreparedStatementCreator.class);

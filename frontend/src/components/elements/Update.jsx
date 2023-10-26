@@ -1,6 +1,6 @@
-import {multiFetch} from "../utils/MultiFetch.jsx";
+import {multiFetch} from "../../utils/MultiFetch.jsx";
 import {useParams} from "react-router-dom";
-import {loggedInUserId} from "../utils/TokenDecoder.jsx";
+import {loggedInUserId} from "../../utils/TokenDecoder.jsx";
 import { RxUpdate } from "react-icons/rx";
 import {useEffect, useState} from "react";
 export const UpdatePage = () => {
@@ -16,13 +16,18 @@ export const UpdatePage = () => {
         setData(await response);
         setIsLoading(false);
     }
+
+    function isTextChanged(text) {
+        return text.length > 0;
+    }
     const update = async (e) => {
         e.preventDefault();
-        const updatedTitle = e.target.title.value;
-        const updatedDesc = e.target.desc.value;
+        const updatedTitle = isTextChanged(e.target.title.value) ? e.target.title.value : data.title;
+        const updatedDesc = isTextChanged(e.target.desc.value) ? e.target.desc.value : data.description;
         const data = currentUrlPath === "reply" ?
             {id: id, userId: loggedInUserId(), description:  updatedDesc} :
             {id: id, userId: loggedInUserId(), title: updatedTitle, description:  updatedDesc};
+
         await multiFetch(updateUrl, "PUT", data);
     }
 
@@ -51,8 +56,7 @@ export const UpdatePage = () => {
                     <label htmlFor="title">Update title</label>
                     <input
                         type="text"
-                        name="title"
-                        id=""
+                        id={"title"}
                         placeholder="Provide the new title here. If no input given the title won't change."
                     />
                     </>
@@ -60,11 +64,10 @@ export const UpdatePage = () => {
                 <label htmlFor="desc">Update text</label>
                 <input
                     type="text"
-                    name="desc"
-                    id=""
+                    id={"desc"}
                     placeholder="Provide the new text here. If no input given the text won't change."
                 />
-                <button type="submit" >Submit</button>
+                <button id={"update"} type="submit" >Submit</button>
             </form>
         </div>
         )

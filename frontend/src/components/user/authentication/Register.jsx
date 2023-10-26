@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authFetch } from "../../utils/MultiFetch.jsx";
+import { authFetch } from "../../../utils/MultiFetch.jsx";
 export const Register = () => {
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
@@ -42,6 +42,7 @@ export const Register = () => {
                     <button
                         type="submit"
                         className="bg-buttonBlue m-5 p-2 border-spacing-2 border-black border-4 hover:bg-blue-600"
+                        id={"register"}
                     >
                         Register
                     </button>

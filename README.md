@@ -1,4 +1,3 @@
-<!-- MANPAGE: BEGIN EXCLUDED SECTION -->
 <div align="center">
 
 [<img src="https://github.com/RMNorbert/InquireNet/blob/main/My%20project.png" alt="InquireNet" width="100">](README.md)
@@ -8,7 +7,8 @@
 [![Spring Boot](https://img.shields.io/badge/-Spring%20Boot-brightgreen.svg?logo=spring&labelColor=323330&style=for-the-badge)](https://spring.io/projects/spring-boot)
 [![Spring Security](https://img.shields.io/badge/-Spring%20Security-darkgreen.svg?logo=springsecurity&labelColor=323330&style=for-the-badge)](https://spring.io/projects/spring-security)
 
-[![JWT](https://img.shields.io/badge/JWT-1c1c2c?style=for-the-badge&logo=jsonwebtokens&logoColor=red)](https://jwt.io/)
+[![Cucumber](https://img.shields.io/badge/-cucumber-1c1c2c.svg?logo=cucumber&logoColor=0197f6&labelColor=323330&style=for-the-badge)](https://cucumber.io/)
+[![Selenium](https://img.shields.io/badge/-selenium-1c1c2c.svg?logo=selenium&logoColor=0197f6&labelColor=323330&style=for-the-badge)](https://www.selenium.dev/)
 [![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-blue.svg?logo=postgresql&logoColor=0197f6&labelColor=323330&style=for-the-badge)](https://www.postgresql.org)
 [![Flyway](https://img.shields.io/badge/-flyway-blue.svg?logo=flyway&logoColor=darkred&labelColor=323330&style=for-the-badge)](https://flywaydb.org/)
 [![Docker](https://img.shields.io/badge/-docker-1c1c2c.svg?logo=docker&logoColor=0197f6&labelColor=323330&style=for-the-badge)](https://www.docker.com/)
@@ -24,7 +24,6 @@
 [![Coverage](https://img.shields.io/badge/-83％-blue.svg?logo=85&label=coverage&logoColor=white&labelColor=323330&style=for-the-badge)]()
 
 </div>
-<!-- MANPAGE: END EXCLUDED SECTION -->
 
 # InquireNet
 ---
@@ -38,6 +37,32 @@
 ## Description:
 
 InquireNet is an interactive question and answer platform that leverages the power of AI for automated answers. It is built using Java, Spring, JDBC, and other technologies to provide a robust and user-friendly web application. In addition to the public question and answer functionality, InquireNet offers users the flexibility to maintain privacy. If users prefer not to publicize their questions, they can utilize the chat feature to ask their queries directly to the AI. This ensures that users have multiple avenues to seek answers and engage with the platform based on their preferences.
+
+---
+## Features
+- **Build support for both Maven (main branch) and Gradle build (Gradle branch)**
+
+- **User registration and authentication**
+ 
+- **Posting , managing , searching, voting for questions and answers**
+
+- **AI automated answers** 
+
+- **Chat with AI & managing previous chats** 
+
+- **Actuator**
+
+- **Custom Features Endpoint**
+
+- **OpenApi Documentation**
+
+- **Flyway**
+
+- **User Analytics**
+
+- **User Reputation System**
+
+- **Cucumber with Selenium tests with Firefox(deb) 103 ESR( on cucumber branch)**
 
 ---
 # Dockerized version can be pulled from DockerHub:
@@ -66,35 +91,10 @@ https://hub.docker.com/repository/docker/7nrm/inquirenet/general
   - Flyway: For managing database schema changes and data migrations
     
   **Others**
+  - Gherkin, Cucumber, Selenium
   - Docker,
   - CI/CD GitHub workflows
   - OpenApi: Version 3.0
-
----
-## Features
-- **Build support for both Maven (main branch) and Gradle build (Gradle branch)**
-
-- **User registration and authentication**
- 
-- **Posting , managing , searching, voting for questions and answers**
-
-- **AI automated answers** 
-
-- **Chat with AI & managing previous chats** 
-
-- **Actuator**
-
-- **Custom Features Endpoint**
-
-- **OpenApi Documentation**
-
-- **Flyway**
-
-- **User Analytics(in progress)**
-
-- **Tags and Categories(in progress)**
-
-- **User Reputation System(in progress)**
 
 ---
 ## Getting Started

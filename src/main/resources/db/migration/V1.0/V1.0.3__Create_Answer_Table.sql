@@ -1,4 +1,4 @@
-CREATE TABLE answer (
+CREATE TABLE IF NOT EXISTS answer (
                         answer_id serial PRIMARY KEY,
                         user_id BIGINT NOT NULL,
                         question_id BIGINT NOT NULL,

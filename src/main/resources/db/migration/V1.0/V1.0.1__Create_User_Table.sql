@@ -1,4 +1,4 @@
-CREATE TABLE "user" (
+CREATE TABLE IF NOT EXISTS "user" (
                         id serial PRIMARY KEY,
                         role VARCHAR(50),
                         username VARCHAR(50) NOT NULL UNIQUE,

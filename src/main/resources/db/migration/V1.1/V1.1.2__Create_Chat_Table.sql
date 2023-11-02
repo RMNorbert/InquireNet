@@ -1,4 +1,4 @@
-CREATE TABLE chat (
+CREATE TABLE IF NOT EXISTS chat (
                       chat_id serial PRIMARY KEY,
                       user_id BIGINT NOT NULL,
                       title VARCHAR NOT NULL,

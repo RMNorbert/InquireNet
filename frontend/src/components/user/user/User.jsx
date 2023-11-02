@@ -5,19 +5,30 @@ import { loggedInUserId, username } from "../../../utils/TokenDecoder.jsx";
 import { QuestionList } from "../../questions/QuestionList.jsx";
 import { Confirm } from "../../confirm/Confirm.jsx";
 import { ManageItem } from "../../elements/ManageItem.jsx";
+import { getRank } from "./reputation/ReputationCalculator.js";
 
 export const User = ()=>{
     const navigate = useNavigate();
     const [answerData, setAnswerData] = useState(null);
     const [questionData , setQuestionData] = useState([]);
+    const [statistics , setStatistics] = useState([]);
     const [isDeletion, setIsDeletion] = useState(false);
     const [chatsData, setChatsData] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [rank, setRank] = useState('');
+    const upVoteIndex = 0;
+    const downVoteIndex = 1;
     const fetchData = async () => {
         const answerResponse = await multiFetch(`/answers/user/${loggedInUserId()}`,"GET");
         setAnswerData(await answerResponse);
+
         const questionResponse = await multiFetch(`/questions/all/${loggedInUserId()}`,"GET");
         setQuestionData(await questionResponse);
+
+        const statisticResponse = await multiFetch(`/answers/statistic/${loggedInUserId()}`,"GET");
+        setStatistics(await statisticResponse);
+        setRank(getRank(await statisticResponse));
+
         const chatResponse = await multiFetch(`/chat/${loggedInUserId()}`,"GET");
 
         const uniqueArray = await chatResponse.reduce((accumulator, value) => {
@@ -97,6 +108,16 @@ export const User = ()=>{
                 </div>
                 <div className="text-2xl drop-shadow-lg shadow-black">
                     { answerData }
+                </div>
+                <div  className="text-yellow-300 text-2xl font-extrabold drop-shadow-lg shadow-black">
+                    Statistic :
+                </div>
+                <div className="text-2xl drop-shadow-lg shadow-black">
+                    You are currently a: { rank }
+                </div>
+                <div className="text-2xl drop-shadow-lg shadow-black">
+                    Positive : { statistics[upVoteIndex] }  /
+                    Negative: {statistics[downVoteIndex]}
                 </div>
                 <br/>
                 <div  className="text-yellow-300 text-2xl font-extrabold drop-shadow-lg shadow-black">

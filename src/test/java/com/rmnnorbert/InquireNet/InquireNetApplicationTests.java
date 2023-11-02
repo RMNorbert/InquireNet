@@ -1,6 +1,6 @@
 package com.rmnnorbert.InquireNet;
 
-import com.rmnnorbert.InquireNet.controller.AnswerController;
+import com.rmnnorbert.InquireNet.controller.forum.AnswerController;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

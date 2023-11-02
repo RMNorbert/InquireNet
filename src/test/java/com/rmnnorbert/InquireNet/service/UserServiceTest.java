@@ -7,6 +7,7 @@ import com.rmnnorbert.InquireNet.dao.model.user.UserDaoJdbc;
 import com.rmnnorbert.InquireNet.dao.model.user.data.Role;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.user.UserDTO;
+import com.rmnnorbert.InquireNet.service.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

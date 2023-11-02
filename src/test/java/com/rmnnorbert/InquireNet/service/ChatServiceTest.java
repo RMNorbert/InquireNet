@@ -7,6 +7,7 @@ import com.rmnnorbert.InquireNet.dao.model.chat.ChatDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.chat.ChatDTO;
 import com.rmnnorbert.InquireNet.dto.chat.ChatDeleteRequest;
 import com.rmnnorbert.InquireNet.dto.chat.ChatRegisterDTO;
+import com.rmnnorbert.InquireNet.service.chat.ChatService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

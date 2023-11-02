@@ -1,7 +1,7 @@
 package com.rmnnorbert.InquireNet.integration;
 
 import annotations.IntegrationTest;
-import com.rmnnorbert.InquireNet.controller.ChatController;
+import com.rmnnorbert.InquireNet.controller.chat.ChatController;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dto.chat.ChatDTO;
 import com.rmnnorbert.InquireNet.dto.chat.ChatDeleteRequest;

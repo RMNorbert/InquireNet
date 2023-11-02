@@ -1,4 +1,4 @@
-CREATE TABLE reply (
+CREATE TABLE IF NOT EXISTS reply (
                        reply_id serial PRIMARY KEY,
                        user_id BIGINT NOT NULL,
                        answer_id BIGINT NOT NULL,

@@ -1,7 +1,7 @@
 package com.rmnnorbert.InquireNet.integration;
 
 import annotations.IntegrationTest;
-import com.rmnnorbert.InquireNet.controller.UserController;
+import com.rmnnorbert.InquireNet.controller.user.UserController;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.user.UserDTO;

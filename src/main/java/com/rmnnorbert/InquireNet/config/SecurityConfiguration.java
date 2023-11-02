@@ -1,6 +1,6 @@
 package com.rmnnorbert.InquireNet.config;
 
-import com.rmnnorbert.InquireNet.service.security.JwtAuthenticationFilter;
+import com.rmnnorbert.InquireNet.service.user.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +28,7 @@ public class SecurityConfiguration {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                     .requestMatchers(
-                        "/**",
+                        "/",
                         "/api/**",
                         "/register",
                         "/authenticate",
@@ -53,8 +53,12 @@ public class SecurityConfiguration {
                         "/questions/**",
                         "/reply/**",
                         "/chat/**",
-                        "/user/{id}"
+                        "/user/{id}",
+                        "/user/"
                     ).hasAnyRole(USER.name(), EMPLOYEE.name())
+                    .requestMatchers(
+                       "/user/all"
+                    ).hasAnyRole(EMPLOYEE.name())
                     .anyRequest()
                     .authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

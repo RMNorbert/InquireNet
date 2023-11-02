@@ -1,4 +1,4 @@
-CREATE TABLE question (
+CREATE TABLE IF NOT EXISTS question (
                           question_id serial PRIMARY KEY,
                           user_id BIGINT,
                           title VARCHAR(200) NOT NULL UNIQUE,

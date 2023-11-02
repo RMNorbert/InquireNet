@@ -1,11 +1,12 @@
 package com.rmnnorbert.InquireNet.controller;
 
 import annotations.UnitTest;
+import com.rmnnorbert.InquireNet.controller.chat.ChatController;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dto.chat.ChatDTO;
 import com.rmnnorbert.InquireNet.dto.chat.ChatDeleteRequest;
 import com.rmnnorbert.InquireNet.dto.chat.ChatRegisterDTO;
-import com.rmnnorbert.InquireNet.service.ChatService;
+import com.rmnnorbert.InquireNet.service.chat.ChatService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -8,8 +8,9 @@ import com.rmnnorbert.InquireNet.dao.model.user.UserDaoJdbc;
 import com.rmnnorbert.InquireNet.dao.model.user.data.Role;
 import com.rmnnorbert.InquireNet.dto.user.AuthenticationDTO;
 import com.rmnnorbert.InquireNet.dto.user.AuthenticationResponse;
-import com.rmnnorbert.InquireNet.service.security.JwtService;
-import com.rmnnorbert.InquireNet.service.security.AuthenticationService;
+import com.rmnnorbert.InquireNet.service.user.security.loginHistory.LoginHistoryService;
+import com.rmnnorbert.InquireNet.service.user.security.JwtService;
+import com.rmnnorbert.InquireNet.service.user.security.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -34,11 +35,13 @@ class AuthenticationServiceTest {
     private JwtService jwtService;
     @Mock
     private AuthenticationManager authenticationManager;
+    @Mock
+    private LoginHistoryService analyticsService;
     private AuthenticationService authenticationService;
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
-        authenticationService = new AuthenticationService(userDaoJdbc, passwordEncoder, jwtService, authenticationManager);
+        authenticationService = new AuthenticationService(userDaoJdbc, passwordEncoder, jwtService, authenticationManager, analyticsService);
     }
     @Test
     void registerShouldReturnExpectedAuthenticationResponse() {

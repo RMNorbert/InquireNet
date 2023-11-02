@@ -2,12 +2,14 @@ package com.rmnnorbert.InquireNet.service;
 
 import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.dao.model.question.Question;
-import com.rmnnorbert.InquireNet.dao.model.question.QuestionsDaoJdbc;
+import com.rmnnorbert.InquireNet.dao.model.forum.question.Question;
+import com.rmnnorbert.InquireNet.dao.model.forum.question.QuestionsDaoJdbc;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
-import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
-import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
+import com.rmnnorbert.InquireNet.dto.forum.question.NewQuestionDTO;
+import com.rmnnorbert.InquireNet.dto.forum.question.QuestionDTO;
 import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
+import com.rmnnorbert.InquireNet.service.forum.answer.AnswerService;
+import com.rmnnorbert.InquireNet.service.forum.question.QuestionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

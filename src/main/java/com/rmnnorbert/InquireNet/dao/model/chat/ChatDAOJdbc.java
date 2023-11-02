@@ -1,7 +1,7 @@
 package com.rmnnorbert.InquireNet.dao.model.chat;
 
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.rowMapper.ChatRowMapper;
+import com.rmnnorbert.InquireNet.rowMapper.chat.ChatRowMapper;
 import com.rmnnorbert.InquireNet.dto.chat.ChatRegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

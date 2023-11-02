@@ -1,9 +1,10 @@
-version: '3'
+version: '3.8'
 services:
-  postgres:
-    container_name: postgres
-    image: postgres:latest
-    network_mode: inquirenetnetwork
+  postgresql:
+    image: postgres:15
+    container_name: postgresql
+    networks:
+      - inNetwork
     restart: unless-stopped
     ports:
       - '5432:5432'
@@ -11,29 +12,49 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DATABASE=InquireNet
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "postgresql", "-U", "postgres"]
+      interval: 2s
+      timeout: 20s
+      retries: 10
     volumes:
-      - ./init-scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./init-scripts/init.sql:/docker-entrypoint-initdb.d/create-values.sql
       - postgres-data:/var/lib/postgresql/data
 
-  Inquirenet:
+  flyway:
+    image: flyway/flyway:latest
+    container_name: flyway
+    depends_on:
+      - postgresql
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    networks:
+      - inNetwork
+    command: ["-url=jdbc:postgresql://postgresql:5432/InquireNet", "-user=postgres", "-password=postgres", "migrate"]
+
+  inquirenet:
     image: rmnorbert/inquirenet
     container_name: inquirenet
-    network_mode: inquirenetnetwork
+    networks:
+      - inNetwork
     build:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
     depends_on:
-      - postgres
+      postgresql:
+        condition: service_healthy
     links:
-      - postgres
+      - postgresql
     ports:
       - '8080:8080'
     environment:
       - SECRET_KEY=81936T576E5A7234753777211C25432A462D4A614E645267556B58753873357638792F413F4428472B4B6250655748566D597133743677397B36932645294840
     volumes:
-      - ./resources/static/dist:/app/src/main/resources/static/dist/
+      - ./resources/static/dist :/app/src/main/resources/static/dist
+
+networks:
+  inNetwork:
+    driver: bridge
 volumes:
   postgres-data:
     driver: local

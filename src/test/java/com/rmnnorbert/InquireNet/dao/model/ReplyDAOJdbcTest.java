@@ -1,10 +1,10 @@
 package com.rmnnorbert.InquireNet.dao.model;
 
 import annotations.UnitTest;
-import com.rmnnorbert.InquireNet.rowMapper.ReplyRowMapper;
-import com.rmnnorbert.InquireNet.dao.model.reply.Reply;
-import com.rmnnorbert.InquireNet.dao.model.reply.ReplyDAOJdbc;
-import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;
+import com.rmnnorbert.InquireNet.rowMapper.forum.ReplyRowMapper;
+import com.rmnnorbert.InquireNet.dao.model.forum.reply.Reply;
+import com.rmnnorbert.InquireNet.dao.model.forum.reply.ReplyDAOJdbc;
+import com.rmnnorbert.InquireNet.dto.forum.reply.NewReplyDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

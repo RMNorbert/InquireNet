@@ -1,12 +1,12 @@
 package com.rmnnorbert.InquireNet.integration;
 
 import annotations.IntegrationTest;
-import com.rmnnorbert.InquireNet.controller.ReplyController;
+import com.rmnnorbert.InquireNet.controller.forum.ReplyController;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
-import com.rmnnorbert.InquireNet.dto.reply.NewReplyDTO;
-import com.rmnnorbert.InquireNet.dto.reply.ReplyDTO;
-import com.rmnnorbert.InquireNet.dto.reply.ReplyUpdateDTO;
+import com.rmnnorbert.InquireNet.dto.forum.reply.NewReplyDTO;
+import com.rmnnorbert.InquireNet.dto.forum.reply.ReplyDTO;
+import com.rmnnorbert.InquireNet.dto.forum.reply.ReplyUpdateDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

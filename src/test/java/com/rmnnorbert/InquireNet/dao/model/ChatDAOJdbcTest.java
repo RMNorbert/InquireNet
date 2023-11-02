@@ -2,7 +2,7 @@ package com.rmnnorbert.InquireNet.dao.model;
 
 import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.rowMapper.ChatRowMapper;
+import com.rmnnorbert.InquireNet.rowMapper.chat.ChatRowMapper;
 import com.rmnnorbert.InquireNet.dao.model.chat.Chat;
 import com.rmnnorbert.InquireNet.dao.model.chat.ChatDAOJdbc;
 import com.rmnnorbert.InquireNet.dto.chat.ChatRegisterDTO;

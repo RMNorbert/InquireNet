@@ -1,14 +1,15 @@
 package com.rmnnorbert.InquireNet.controller;
 
 import annotations.UnitTest;
+import com.rmnnorbert.InquireNet.controller.forum.AnswerController;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.dto.answer.AnswerDTO;
-import com.rmnnorbert.InquireNet.dto.answer.AnswerRequestDTO;
-import com.rmnnorbert.InquireNet.dto.answer.VoteDTO;
+import com.rmnnorbert.InquireNet.dto.forum.answer.AnswerDTO;
+import com.rmnnorbert.InquireNet.dto.forum.answer.AnswerRequestDTO;
+import com.rmnnorbert.InquireNet.dto.forum.answer.VoteDTO;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
-import com.rmnnorbert.InquireNet.service.AnswerService;
-import com.rmnnorbert.InquireNet.service.VoteService;
+import com.rmnnorbert.InquireNet.service.forum.answer.AnswerService;
+import com.rmnnorbert.InquireNet.service.forum.vote.VoteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

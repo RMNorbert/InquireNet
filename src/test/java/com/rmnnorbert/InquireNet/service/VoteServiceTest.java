@@ -1,8 +1,11 @@
 package com.rmnnorbert.InquireNet.service;
 
 import annotations.UnitTest;
-import com.rmnnorbert.InquireNet.dto.answer.VoteDTO;
-import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
+import com.rmnnorbert.InquireNet.dto.forum.answer.VoteDTO;
+import com.rmnnorbert.InquireNet.dto.forum.question.QuestionDTO;
+import com.rmnnorbert.InquireNet.service.forum.answer.AnswerService;
+import com.rmnnorbert.InquireNet.service.forum.question.QuestionService;
+import com.rmnnorbert.InquireNet.service.forum.vote.VoteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

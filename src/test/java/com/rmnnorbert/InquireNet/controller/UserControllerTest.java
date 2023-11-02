@@ -1,11 +1,12 @@
 package com.rmnnorbert.InquireNet.controller;
 
 import annotations.UnitTest;
+import com.rmnnorbert.InquireNet.controller.user.UserController;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dao.model.user.data.Role;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
 import com.rmnnorbert.InquireNet.dto.user.UserDTO;
-import com.rmnnorbert.InquireNet.service.UserService;
+import com.rmnnorbert.InquireNet.service.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

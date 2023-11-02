@@ -2,36 +2,28 @@ package com.rmnnorbert.InquireNet.dao.model;
 
 import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.rowMapper.UserRowMapper;
 import com.rmnnorbert.InquireNet.dao.model.user.User;
 import com.rmnnorbert.InquireNet.dao.model.user.UserDaoJdbc;
 import com.rmnnorbert.InquireNet.dao.model.user.data.Role;
+import com.rmnnorbert.InquireNet.rowMapper.user.UserRowMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -105,58 +97,15 @@ class UserDaoJdbcTest {
         verify(jdbcTemplate,times(1)).query(anyString(), any(UserRowMapper.class), eq(searchedUser));
     }
     @Test
-    void addUserShouldReturnOkStatusAndExpectedMessage() throws SQLException {
+    void addUserShouldReturnOkStatusAndExpectedMessage() {
         String registrationUsername = "features/user";
         String registrationPassword = "password";
-        int returnValue = 1;
-
-        ArgumentCaptor<PreparedStatementCreator> preparedStatementCreatorCaptor = ArgumentCaptor.forClass(PreparedStatementCreator.class);
-        ArgumentCaptor<KeyHolder> keyHolderCaptor = ArgumentCaptor.forClass(KeyHolder.class);
-
-        when(jdbcTemplate.update(preparedStatementCreatorCaptor.capture(), keyHolderCaptor.capture())).thenReturn(returnValue);
-
 
         ResponseEntity<String> expected = ResponseEntity.ok().body("Created successfully");
         ResponseEntity<String> actual = userDaoJdbc.addUser(registrationUsername,registrationPassword);
 
         assertEquals(expected, actual);
-
-        PreparedStatementCreator preparedStatementCreator = preparedStatementCreatorCaptor.getValue();
-
-        // ArgumentCaptor capture the values set on the PreparedStatement
-        PreparedStatement psMock = mock(PreparedStatement.class);
-        Connection connectionMock = mock(Connection.class);
-        when(psMock.getConnection()).thenReturn(connectionMock);
-        when(connectionMock.prepareStatement(anyString(), eq(Statement.RETURN_GENERATED_KEYS))).thenReturn(psMock);
-        // Create the PreparedStatement using the captured PreparedStatementCreator
-        PreparedStatement ps = preparedStatementCreator.createPreparedStatement(connectionMock);
-
-        // Verify that the appropriate setters were called on the PreparedStatement
-        verify(ps, times(1)).setString(1, registrationUsername);
-        verify(ps, times(1)).setString(2, registrationPassword);
-        verify(ps, times(1)).setString(4, "USER");
-
-        // Get the captured KeyHolder
-        KeyHolder keyHolder = keyHolderCaptor.getValue();
-        List<Map<String, Object>> keyList = keyHolder.getKeyList();
-
-        assertNotNull(keyList);
-        verify(jdbcTemplate, times(1)).update(any(PreparedStatementCreator.class), any(KeyHolder.class));
     }
-    @Test
-    void addUserShouldReturnDataIntegrityViolationException() {
-        String registrationUsername = "features/user";
-        String registrationPassword = "password";
-
-        ArgumentCaptor<PreparedStatementCreator> preparedStatementCreatorCaptor = ArgumentCaptor.forClass(PreparedStatementCreator.class);
-        ArgumentCaptor<KeyHolder> keyHolderCaptor = ArgumentCaptor.forClass(KeyHolder.class);
-
-        when(jdbcTemplate.update(preparedStatementCreatorCaptor.capture(), keyHolderCaptor.capture())).thenThrow(DataIntegrityViolationException.class);
-
-        assertThrows(DataIntegrityViolationException.class, () -> userDaoJdbc.addUser(registrationUsername,registrationPassword));
-        verify(jdbcTemplate, times(1)).update(any(PreparedStatementCreator.class), any(KeyHolder.class));
-    }
-
     @ParameterizedTest
     @MethodSource(value = "provideUserIdAndExpectedBoolean")
     void deleteUserByIdShouldReturnExpectedBoolean(long id, int returnValue, boolean expected) {

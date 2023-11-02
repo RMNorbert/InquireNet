@@ -2,10 +2,10 @@ package com.rmnnorbert.InquireNet.dao.model;
 
 import annotations.UnitTest;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.rowMapper.QuestionRowMapper;
-import com.rmnnorbert.InquireNet.dao.model.question.Question;
-import com.rmnnorbert.InquireNet.dao.model.question.QuestionsDaoJdbc;
-import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
+import com.rmnnorbert.InquireNet.rowMapper.forum.QuestionRowMapper;
+import com.rmnnorbert.InquireNet.dao.model.forum.question.Question;
+import com.rmnnorbert.InquireNet.dao.model.forum.question.QuestionsDaoJdbc;
+import com.rmnnorbert.InquireNet.dto.forum.question.NewQuestionDTO;
 import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

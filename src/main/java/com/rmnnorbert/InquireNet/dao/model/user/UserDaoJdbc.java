@@ -1,16 +1,12 @@
 package com.rmnnorbert.InquireNet.dao.model.user;
 
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
-import com.rmnnorbert.InquireNet.rowMapper.UserRowMapper;
+import com.rmnnorbert.InquireNet.rowMapper.user.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,20 +46,14 @@ public class UserDaoJdbc implements UserDAO{
     }
     @Override
     public ResponseEntity<String> addUser(String registrationUsername, String registrationPassword) {
-
         String sql = "INSERT INTO \"user\" (username, password, registration_date, role)" +
-                " VALUES (?, ?, ?, ?) RETURNING id";
+                " VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql,
+            registrationUsername,
+            registrationPassword,
+            Timestamp.valueOf(LocalDateTime.now()),
+            "USER");
 
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, registrationUsername);
-            ps.setString(2, registrationPassword);
-            ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setString(4,"USER");
-            return ps;
-        }, keyHolder);
 
         return ResponseEntity.ok().body("Created successfully");
     }

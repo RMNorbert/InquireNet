@@ -1,11 +1,11 @@
 package com.rmnnorbert.InquireNet.integration;
 
 import annotations.IntegrationTest;
-import com.rmnnorbert.InquireNet.controller.QuestionController;
+import com.rmnnorbert.InquireNet.controller.forum.QuestionController;
 import com.rmnnorbert.InquireNet.customExceptionHandler.NotFoundException;
 import com.rmnnorbert.InquireNet.dto.delete.DeleteRequestDTO;
-import com.rmnnorbert.InquireNet.dto.question.NewQuestionDTO;
-import com.rmnnorbert.InquireNet.dto.question.QuestionDTO;
+import com.rmnnorbert.InquireNet.dto.forum.question.NewQuestionDTO;
+import com.rmnnorbert.InquireNet.dto.forum.question.QuestionDTO;
 import com.rmnnorbert.InquireNet.dto.update.UpdateDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

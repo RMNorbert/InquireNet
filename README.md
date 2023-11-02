@@ -110,11 +110,34 @@ To set up the project, follow these steps:
     
 Make sure you have the following dependencies installed before proceeding with the installation:
 
+###  To deploy InquireNet using Docker containers, follow these steps:
+
+#### [Install Docker](https://www.docker.com/get-started/):
+  
+  **For Linux**: Follow the instructions on the official Docker website.
+  
+  **For Windows or macOS**: Install Docker Desktop for an easy-to-use Docker environment.
+
+#### After installing Docker:
+ Ensure it's running by opening a terminal or command prompt and running the command 
+ ```
+ docker --version
+ ```
+
+Note: Docker is optional and recommended for deployment scenarios. If you're using Docker, it can help manage dependencies and ensure consistent environments.
+
+---
+
+###  To run InquireNet without using Docker:
+
 #### 1.   Java Development Kit (JDK):
    Ensure that you have the Java Development Kit installed on your machine. You can download the JDK from the Oracle website and install it according to the provided instructions.
 
 #### 2.    JDBC Database (e.g., PostgreSQL):
    In order to use a JDBC database with the application, such as PostgreSQL, make sure you have the necessary database server installed on your system. You can download and install PostgreSQL from the official PostgreSQL website and configure it as required.
+
+#### 3.    Flyway:
+   In order to use Flyway with the application and initialize the database, make sure you have the Flyway installed on your system. You can download and install Flyway from the official Flyway website and configure it as required.
 
 ---
 ### Installation

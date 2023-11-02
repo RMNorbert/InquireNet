@@ -29,14 +29,17 @@
 ---
 
 [Table of content:](#description)
-- [Used Technologies](#used-technologies)
 - [Features](#features)
+- [Used Technologies](#used-technologies)
 - [Getting Started](#getting-started)
-
+- [Default User Credentials](#default-user-credentials)
+  
 ---
 ## Description:
 
-InquireNet is an interactive question and answer platform that leverages the power of AI for automated answers. It is built using Java, Spring, JDBC, and other technologies to provide a robust and user-friendly web application. In addition to the public question and answer functionality, InquireNet offers users the flexibility to maintain privacy. If users prefer not to publicize their questions, they can utilize the chat feature to ask their queries directly to the AI. This ensures that users have multiple avenues to seek answers and engage with the platform based on their preferences.
+InquireNet is an interactive question and answer platform that leverages the power of AI for automated answers. 
+
+It is built using Java, Spring, JDBC, and other technologies to provide a robust and user-friendly web application. In addition to the public question and answer functionality, InquireNet offers users the flexibility to maintain privacy. If users prefer not to publicize their questions, they can utilize the chat feature to ask their queries directly to the AI. This ensures that users have multiple avenues to seek answers and engage with the platform based on their preferences.
 
 ---
 ## Features
@@ -118,33 +121,92 @@ Make sure you have the following dependencies installed before proceeding with t
 
 Follow these instructions to get a copy of the InquireNet project up and running on your local machine for development and testing purposes.
 
+---
 1. **Clone the repository:**
 
+```
+git@github.com:RMNorbert/InquireNet.git
+```
+
+---
 2. **Configure the project:**
-    Once you have cloned the repository, you need to configure the project by providing the necessary environment variables and database connection details. This includes setting up the database connection URL, username, and password, as well as any other environment-specific configuration values in the docker-compose.yml and the application.properties which located in src/main/resources. Make sure to update these files with the appropriate values.
 
+   Once you have cloned the repository, you need to configure the project by providing the necessary environment variables and database connection details.
+
+   This includes setting up the **database connection URL, username, and password**, as well as any other environment-specific configuration values in the **docker-compose.yml** and the **database.properties** which located in **src/main/resources**. Make sure to update these files with the appropriate values.
+
+---
+3. **For Flyway migration:**
+
+   Currently the tables initialization and the basic data insertion is done by Flyway.
+
+   3.1, You can use the following command to initialize or migrate any changes in the future:
+   
+    ```
+   flyway -url=jdbc:postgresql://localhost:5432/InquireNet -user=postgres -password=postgres -locations=filesystem:./src/main/resources/db/ migrate
+    ```
+
+   3.2, You can use the following commands as well to do the initialization or migration with sh file:
+
+   ```
+   chmod +x run-flyway-migrations.sh
+   ```
+
+   ```
+   ./run-flyway-migrations.sh
+   ```
+
+---
 4. **Build and run the project:**
-    InquireNet can be built and run using your preferred development environment or command-line tools. Here are a few options:
 
-     Using Maven: Open a terminal or command prompt, navigate to the project's root directory, and run the following command:
+   InquireNet can be built and run using your preferred development environment or command-line tools. Here are a few options:
+
+   4.1,  Using Maven: Open a terminal or command prompt, navigate to the project's root directory, and run the following command:
+
     ```
     mvn spring-boot:run
     ```
+
     This command will build the project, resolve the dependencies, and start the backend server.
 
     Navigate to the project's frontend directory, and run the following command:
+
     ```
     npm run dev
     ```
+
    This command will start the frontend server.
 
-6. ***Access the application:***
-    Once the server is up and running, you can access the InquireNet application through the provided URL. Open a web browser and enter the appropriate URL (e.g., by default http://localhost:3000 or in case of docker : http://localhost:8080) to access the application. You can create your account to start asking and answering questions on the platform.
+---
+   4.2,  Run the dockerized version with:
+
+   Navigate to the project directory containing the docker-compose.yml file.
+
+   Run the following command to build and start the project:
+
+   docker-compose up --build
+
+   The docker-compose.yml file defines the services and configurations needed for running your application in a Docker container. It simplifies deployment and ensures consistent setups across environments
+
+---
+5. ***Access the application:***
+
+    Once the server is up and running, you can access the InquireNet application through the provided URL. Open a web browser and enter the appropriate URL (e.g., by default **http://localhost:3000** or in case of **docker : http://localhost:8080**) to access the application. You can create your account to start asking and answering questions on the platform.
 
     Note: The URL and port number may vary depending on your configuration.
 
 ---
 
+## Default User Credentials
+   
+   For quicker testing purposes, you can login to the application by using the following credentials:
+
+   | Username      | Password      |
+   | ------------- | ------------- |
+   | admin_user    | password      |
+   | user          | password      |
+
+---
 ## End To End Testing Through Postman
 https://postman.com/galactic-satellite-387943/workspace/inquire-test
 

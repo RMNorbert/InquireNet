@@ -158,6 +158,8 @@ git@github.com:RMNorbert/InquireNet.git
 
    This includes setting up the **database connection URL, username, and password**, as well as any other environment-specific configuration values in the **docker-compose.yml** and the **database.properties** which located in **src/main/resources**. Make sure to update these files with the appropriate values.
 
+  By default inside the **database.properties** the **datasource url** is set for running the application with docker.
+
 ---
 3. **For Flyway migration:**
 
@@ -203,12 +205,14 @@ git@github.com:RMNorbert/InquireNet.git
 ---
    4.2,  Run the dockerized version with:
 
-   Navigate to the project directory containing the docker-compose.yml file.
+   Navigate to the project directory containing the **docker-compose.yml** file.
 
    Run the following command to build and start the project:
 
+   ```
    docker-compose up --build
-
+   ```
+   
    The docker-compose.yml file defines the services and configurations needed for running your application in a Docker container. It simplifies deployment and ensures consistent setups across environments
 
 ---

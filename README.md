@@ -111,8 +111,15 @@ To set up the project, follow these steps:
 Make sure you have the following dependencies installed before proceeding with the installation:
 
 #### JDBC Database (e.g., PostgreSQL):
-   In order to use a JDBC database with the application, such as [PostgreSQL](https://www.postgresql.org/download/), make sure you have the necessary database server installed on your system. You can download and install PostgreSQL from the official PostgreSQL website and configure it as required and create the InquireNet database without tables manually.
+   In order to use a JDBC database with the application, such as [PostgreSQL](https://www.postgresql.org/download/), make sure you have the necessary database server installed on your system. You can download and install PostgreSQL from the official PostgreSQL website and configure it as required.
 
+  If you would like to use **docker then the database initialization will be done automatically**, in other cases you can use the scripts in  ```/scripts``` directory. 
+
+  The **create_db.sh** can be used to create the initial InquireNet database and grant privilege to it.
+
+  The **run-flyway-migrations.sh** can be used to initialize tables and constraints and insert initial values.
+
+----
 ###  To deploy InquireNet using Docker containers, follow these steps:
 
 #### [Install Docker](https://www.docker.com/get-started/):
@@ -161,17 +168,19 @@ git@github.com:RMNorbert/InquireNet.git
   By default inside the **database.properties** the **datasource url** is set for running the application with docker.
 
 ---
-3. **For Flyway migration:**
+3.1 **Run the project without using docker**
+ 
+  3.1.1, **For Flyway migration:**
 
    Currently the tables initialization and the basic data insertion is done by Flyway.
 
-   3.1, You can use the following command to initialize or migrate any changes in the future:
+   You can use the following command to initialize or migrate any changes in the future:
    
-    ```
-   flyway -url=jdbc:postgresql://localhost:5432/InquireNet -user=postgres -password=postgres -locations=filesystem:./src/main/resources/db/ migrate
-    ```
+    
+    flyway -url=jdbc:postgresql://localhost:5432/InquireNet -user=postgres -password=postgres -locations=filesystem:./src/main/resources/db/ migrate
+    
 
-   3.2, You can use the following commands as well to do the initialization or migration with sh file:
+   Or You can use the following commands as well to do the initialization or migration with sh file:
 
    ```
    chmod +x run-flyway-migrations.sh
@@ -182,28 +191,27 @@ git@github.com:RMNorbert/InquireNet.git
    ```
 
 ---
-4. **Build and run the project:**
+3.1.2, **Build and run the project:**
 
    InquireNet can be built and run using your preferred development environment or command-line tools. Here are a few options:
 
-   4.1,  Using Maven: Open a terminal or command prompt, navigate to the project's root directory, and run the following command:
+   Using Maven: Open a terminal or command prompt, navigate to the project's root directory, and run the following command:
 
-    ```
+   
     mvn spring-boot:run
-    ```
+    
 
-    This command will build the project, resolve the dependencies, and start the backend server.
+   This command will build the project, resolve the dependencies, and start the backend server.
 
-    Navigate to the project's frontend directory, and run the following command:
+   Navigate to the project's frontend directory, and run the following command:
 
-    ```
-    npm run dev
-    ```
+    
+    ```npm run dev```
 
    This command will start the frontend server.
 
 ---
-   4.2,  Run the dockerized version with:
+3.2,  **Run the dockerized version with:**
 
    Navigate to the project directory containing the **docker-compose.yml** file.
 
@@ -216,7 +224,7 @@ git@github.com:RMNorbert/InquireNet.git
    The docker-compose.yml file defines the services and configurations needed for running your application in a Docker container. It simplifies deployment and ensures consistent setups across environments
 
 ---
-5. ***Access the application:***
+4. ***Access the application:***
 
     Once the server is up and running, you can access the InquireNet application through the provided URL. Open a web browser and enter the appropriate URL (e.g., by default **http://localhost:3000** or in case of **docker : http://localhost:8080**) to access the application. You can create your account to start asking and answering questions on the platform.
 

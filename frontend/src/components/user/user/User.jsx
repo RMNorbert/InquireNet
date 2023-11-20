@@ -113,7 +113,7 @@ export const User = ()=>{
                     Statistic :
                 </div>
                 <div className="text-2xl drop-shadow-lg shadow-black">
-                    You are currently a: { rank }
+                    Your current rank is:  { rank }
                 </div>
                 <div className="text-2xl drop-shadow-lg shadow-black">
                     Positive : { statistics[upVoteIndex] }  /

@@ -37,8 +37,8 @@ public class AnswerService {
                 .toList();
     }
     public List<Long> getAllVotesByUserId(long id){
-        String upvote = "upvote";
-        String downvote = "downvote";
+        String upvote = "upVoted";
+        String downvote = "downVoted";
 
         long upvotes = answerDAO.getAllAnswersByUserId(id)
                 .stream()

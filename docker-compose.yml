@@ -1,8 +1,10 @@
 version: '3.8'
 services:
   postgresql:
-    image: postgres:15
     container_name: postgresql
+    build:
+      context: ./
+      dockerfile: Postgres
     networks:
       - inNetwork
     restart: unless-stopped
@@ -17,8 +19,6 @@ services:
       interval: 2s
       timeout: 20s
       retries: 10
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
 
   flyway:
     image: flyway/flyway:latest
@@ -49,12 +49,10 @@ services:
       - '8080:8080'
     environment:
       - SECRET_KEY=81936T576E5A7234753777211C25432A462D4A614E645267556B58753873357638792F413F4428472B4B6250655748566D597133743677397B36932645294840
+      - DB_URL=jdbc:postgresql://postgresql:5432/InquireNet
     volumes:
       - ./resources/static/dist :/app/src/main/resources/static/dist
 
 networks:
   inNetwork:
     driver: bridge
-volumes:
-  postgres-data:
-    driver: local
